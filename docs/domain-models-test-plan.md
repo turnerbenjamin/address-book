@@ -22,7 +22,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Add a contact
 - [X] AB1:	should increment the size of contacts by 1 when new contract is added
-- [ ] AB2:	should include new contact in contacts when a new contract is added
+- [X] AB2:	should include new contact in contacts when a new contract is added
 - [ ] AB3:	Should return contact added when new contact is added
 - [ ] AB4:	should throw exception when a contact with a value of null is added
 

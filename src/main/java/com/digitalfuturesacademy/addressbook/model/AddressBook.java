@@ -11,7 +11,13 @@ public class AddressBook {
         return contacts.add(contactToAdd);
     }
 
+    public List<IImmutableContact> getContacts(){
+        return new ArrayList<>(contacts);
+    }
+
     public int size(){
         return contacts.size();
     }
+
+
 }
