@@ -23,6 +23,16 @@ public class ImmutableContactTest {
             );
         }
 
+        @Test
+        @DisplayName("IC2, IC8, IC12: Test that create trims parameters")
+        public void testThatCreateTrimsParameters() {
+            IImmutableContact testContact = new ImmutableContact().create(" " + testName + " ");
+            //Assert
+            assertAll(
+                   () -> assertEquals(testName, testContact.getName())
+            );
+        }
+
 
 
     }

@@ -12,7 +12,7 @@ public final class ImmutableContact implements IImmutableContact{
     };
 
     public IImmutableContact create(String name){
-        return new ImmutableContact(name);
+        return new ImmutableContact(name.trim());
     }
 
     public String getName() {

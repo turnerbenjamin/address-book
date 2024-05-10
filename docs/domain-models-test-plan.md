@@ -87,7 +87,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Create - Name
 - [X] IC1:	should return correct name
-- [ ] IC2:	should trim contact name
+- [X] IC2:	should trim contact name
 - [ ] IC3:	should throw exception where null passed for name
 - [ ] IC4:	should throw exception where an empty string is passed for name
 
