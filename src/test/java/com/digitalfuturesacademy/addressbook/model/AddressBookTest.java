@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class AddressBookTest {
     private AddressBook testAddressBook;
@@ -35,28 +34,21 @@ public class AddressBookTest {
         }
 
         @Test
-        @DisplayName("Should increment the size of contacts by 1 when new contract is added")
-        public void AB1() {
+        @DisplayName("AB1-AB3: Test adding a valid contact")
+        public void testAddingValidElement() {
             // Arrange
-            int actual;
-            int expected = testAddressBook.size() + 1;
+            int startingAddressBookSize = testAddressBook.size();
             //Act
-            testAddressBook.addContact(testContact);
-            actual = testAddressBook.size();
+            boolean result = testAddressBook.addContact(testContact);
             //Assert
-            assertEquals(expected, actual);
+            assertAll(
+                   () -> assertEquals(startingAddressBookSize + 1 , testAddressBook.size()),
+                   () -> assertTrue(testAddressBook.getContacts().contains(testContact)),
+                   () -> assertTrue(result)
+            );
         }
-        @Test
-        @DisplayName("Should include new contact in contacts when a new contract is added")
-        public void AB2() {
-            // Arrange
-            boolean actual;
-            //Act
-            testAddressBook.addContact(testContact);
-            actual = testAddressBook.getContacts().contains(testContact);
-            //Assert
-            assertTrue(actual);
-        }
+
+
     }
 
 }
