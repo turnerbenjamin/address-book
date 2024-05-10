@@ -83,7 +83,7 @@ In addition to these core features, the client has the following requests for fu
 DFCorp has requested that the following criteria are met:
 
 - The application meets at least the core features listed above
-- - The application is able to be run through the console and the user is able to navigate the menu
+- The application is able to be run through the console and the user is able to navigate the menu
 - The domain models and/or class diagrams are clearly documented and show the relationships between the classes
 - The application is tested using a test-driven approach
 - The code is written clean and uses appropriate conventions found in Java
