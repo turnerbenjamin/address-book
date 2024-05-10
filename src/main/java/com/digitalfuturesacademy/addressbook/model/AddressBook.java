@@ -8,6 +8,7 @@ public class AddressBook {
     private List<IImmutableContact> contacts = new ArrayList<>();
 
     public boolean addContact(IImmutableContact contactToAdd){
+        if(contactToAdd == null) throw new IllegalArgumentException("Contact to add cannot be null");
         return contacts.add(contactToAdd);
     }
 

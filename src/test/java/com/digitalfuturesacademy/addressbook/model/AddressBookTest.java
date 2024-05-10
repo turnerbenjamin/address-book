@@ -47,6 +47,11 @@ public class AddressBookTest {
                    () -> assertTrue(result)
             );
         }
+        @Test
+        @DisplayName("AB4: Should throw exception when a contact with a value of null is added")
+        public void testAddingNull() {
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(null));
+        }
 
 
     }
