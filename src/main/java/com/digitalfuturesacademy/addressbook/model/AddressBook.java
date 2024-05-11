@@ -49,7 +49,10 @@ public class AddressBook {
 
 
     public IImmutableContact deleteContact(IImmutableContact contactToDelete){
-        return contacts.remove(contactToDelete) ? contactToDelete : null;
+        boolean wasRemoved = contacts.remove(contactToDelete);
+        if(!wasRemoved) return null;
+        phoneNumbers.remove(contactToDelete.getPhoneNumber());
+        return contactToDelete;
     }
 
 

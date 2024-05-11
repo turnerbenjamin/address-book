@@ -186,7 +186,7 @@ public class AddressBookTest {
 
         @Test
         @DisplayName("AB16: Test throws error when adding contact with a duplicate phone number.")
-        public void testDuplicateProtectionWhenAddingAContactWithDuplicatePhoneNumber() {
+        public void AB16() {
             //Arrange
             when(testContactB.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
             //Act
@@ -194,15 +194,28 @@ public class AddressBookTest {
             //Assert
             assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContactB));
         }
+
         @Test
         @DisplayName("AB17: Test throws error when adding contact with a duplicate email address.")
-        public void testDuplicateProtectionWhenAddingAContactWithDuplicateEmailAddress() {
+        public void AB17() {
             //Arrange
             when(testContactB.getEmailAddress()).thenReturn(testContactAEmail);
             //Act
             testAddressBook.addContact(testContactA);
             //Assert
             assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContactB));
+        }
+
+        @Test
+        @DisplayName("AB18: Should add a contact where another contact, removed from contacts, has the same phone number")
+        public void AB18() {
+            //Arrange
+            when(testContactB.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
+            //Act
+            testAddressBook.addContact(testContactA);
+            testAddressBook.deleteContact(testContactA);
+            //Assert
+            assertTrue(testAddressBook.addContact(testContactB));
         }
 
 
