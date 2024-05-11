@@ -131,7 +131,8 @@ public class ImmutableContactTest {
             assertAll(
                     () -> assertEquals(NEW_EMAIL_ADDRESS, newTestContact.getEmailAddress()),
                     () -> assertEquals(OLD_NAME, newTestContact.getName()),
-                    () -> assertEquals(OLD_PHONE_NUMBER, newTestContact.getPhoneNumber())
+                    () -> assertEquals(OLD_PHONE_NUMBER, newTestContact.getPhoneNumber()),
+                    () -> assertEquals(OLD_EMAIL_ADDRESS, originalContact.getEmailAddress())
             );
         }
         }
