@@ -216,7 +216,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ## ConsoleInterface Tests
 
-- [ ] CI1:	Should print passed message to console
+- [X] CI1:	Should print passed message to console
 - [ ] CI2:	Should return correct userInput
 - [ ] CI3:	Should print passed error message to console with red text
 - [ ] CI4:	Should print passed warning message to console with orange text

@@ -55,4 +55,9 @@ I stopped debugging for every test because I am feeling comfortable with the pro
 fairly heavy use of debugging in this user story, particularly the tests for the AddressBook class. 
 
 For example, I was getting an error with AB26 because I was checking equals on null. The debugger was useful here
-as I could step into invoked methods to see where null was comming from.
+as I could step into invoked methods to see where null was coming from.
+
+## After User Story 8
+
+No debugging, the tests were very basic and did not require any change in implementation. Note: I did
+run each test with false expected values to ensure that the tests would fail.
