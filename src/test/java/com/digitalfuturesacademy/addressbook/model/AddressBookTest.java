@@ -22,6 +22,8 @@ public class AddressBookTest {
         for(int i = 0; i<testNames.length; i++){
             IImmutableContact testContact = mock(IImmutableContact.class);
             when(testContact.getName()).thenReturn(testNames[i]);
+            when(testContact.getPhoneNumber()).thenReturn(String.format("%011d",i));
+            when(testContact.getEmailAddress()).thenReturn(String.format("%d@b.c",i));
             testContacts[i] = testContact;
         }
     }
@@ -160,5 +162,28 @@ public class AddressBookTest {
             //Assert
             assertNull(actual);
         }
+    }
+
+    @DisplayName("Test Duplicate Checks")
+    @Nested
+    class DuplicateTestChecks{
+
+
+        @Test
+        @DisplayName("AB16: Test throws error when adding contact with a duplicate phone number.")
+        public void testDuplicateProtectionWhenAddingAContactWithDuplicatePhoneNumber() {
+            //Arrange
+            String testPhoneNumber = "0101";
+            IImmutableContact testContactA = mock(IImmutableContact.class);
+            IImmutableContact testContactB = mock(IImmutableContact.class);
+            when(testContactA.getPhoneNumber()).thenReturn(testPhoneNumber);
+            when(testContactB.getPhoneNumber()).thenReturn(testPhoneNumber);
+            //Act
+            testAddressBook.addContact(testContactA);
+            //Assert
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContactB));
+        }
+
+
     }
 }

@@ -36,3 +36,9 @@ just passed the wrong variable to contains - The debugger made the issue here ve
 I have also been trying to use the keyboard shortcuts to speed up the process; though I am still having to keep 
 double-checking these.
 
+## After User Story 5
+
+No real progress here - But continued using shortcuts when debugging. Again, the story was trivial. 
+
+
+

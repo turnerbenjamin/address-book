@@ -42,7 +42,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB15:	should return null where a contact not in contacts is passed
 
 #### Duplicate Protection
-- [ ] AB16:	Should not add a contact where another contact has the same phone number
+- [X] AB16:	Should not add a contact where another contact has the same phone number
 - [ ] AB17:	Should not add a contact where another contact has the same email address
 - [ ] AB18:	Should add a contact where another contact, removed from contacts, has the same phone number
 - [ ] AB19:	Should add a contact where another contact, removed from contacts, has the same email address
