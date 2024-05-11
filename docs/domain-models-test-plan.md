@@ -73,31 +73,31 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ## ImmutableContract
 
-| property             | message                          | output             |
-|----------------------|----------------------------------|--------------------|
-| emailAddress @String | create(@String, @String,@String) | @IImmutableContact |
-| name @String         | getName()                        | @String            |
-| phoneNumber @ String | getPhoneNumber()                 | @String            |
-|                      | getEmailAddress()                | @String            |
-|                      | withName(@String)                | @String            |
-|                      | withPhoneNumber(@String)         | @IImmutableContact |
-|                      | withEmailAddress(@String)        | @IImmutableContact |
+| property             | message                                    | output             |
+|----------------------|--------------------------------------------|--------------------|
+| emailAddress @String | ImmutableContact(@String, @String,@String) | @IImmutableContact |
+| name @String         | getName()                                  | @String            |
+| phoneNumber @ String | getPhoneNumber()                           | @String            |
+|                      | getEmailAddress()                          | @String            |
+|                      | withName(@String)                          | @String            |
+|                      | withPhoneNumber(@String)                   | @IImmutableContact |
+|                      | withEmailAddress(@String)                  | @IImmutableContact |
 
 ### ImmutableContract Tests
 
-#### Create - Name
+#### Constructor - Name
 - [X] IC1:	should return correct name
 - [X] IC2:	should trim contact name
 - [ ] IC3:	should throw exception where null passed for name
 - [ ] IC4:	should throw exception where an empty string is passed for name
 
-#### Create - Phone number
+#### Constructor - Phone number
 - [ ] IC5:	should return correct phone number
 - [ ] IC6:	should throw error is phone number is null
 - [ ] IC7:	should throw error is phone number is empty
 - [ ] IC8:	should trim phone number
 
-#### Create - Email Address
+#### Constructor - Email Address
 - [ ] IC9:	should return correct email address
 - [ ] IC10:	should throw error is email address is null
 - [ ] IC11:	should throw error is email address is empty

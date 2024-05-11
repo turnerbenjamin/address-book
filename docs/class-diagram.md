@@ -28,7 +28,6 @@ classDiagram
     
     class IImmutableContact {
         <<Interface>>
-        +create(@String name, @String phoneNumber, @String emailAddress) IImmutableContact
         +getEmailAddress() String
         +getName() String
         +getPhoneNumber() String
@@ -41,8 +40,7 @@ classDiagram
         -<<final>> String emailAddress
         -<<final>> String name
         -<<final>> String phoneNumber
-        -ImmutableContract()
-        +create(@String name, @String phoneNumber, @String emailAddress) IImmutableContact
+        +ImmutableContract(@String name, @String phoneNumber, @String emailAddress)
         +getEmailAddress() String
         +getName() String
         +getPhoneNumber() String

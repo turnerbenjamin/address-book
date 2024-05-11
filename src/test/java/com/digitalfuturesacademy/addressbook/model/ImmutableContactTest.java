@@ -9,14 +9,14 @@ public class ImmutableContactTest {
 
     private String testName = "Jane Doe";
 
-    @DisplayName("Create Method Tests")
+    @DisplayName("Constructor Tests")
     @Nested
     class CreateMethodTests{
 
         @Test
-        @DisplayName("IC1, IC5, IC9: Test that create correctly assigns parameters")
-        public void testThatCreateCorrectlyAssignsParameters() {
-            IImmutableContact testContact = new ImmutableContact().create(testName);
+        @DisplayName("IC1, IC5, IC9: Test that constructor correctly assigns parameters")
+        public void testThatConstructorCorrectlyAssignsParameters() {
+            IImmutableContact testContact = new ImmutableContact(testName);
             //Assert
             assertAll(
                    () -> assertEquals(testName, testContact.getName())
@@ -24,9 +24,9 @@ public class ImmutableContactTest {
         }
 
         @Test
-        @DisplayName("IC2, IC8, IC12: Test that create trims parameters")
-        public void testThatCreateTrimsParameters() {
-            IImmutableContact testContact = new ImmutableContact().create(" " + testName + " ");
+        @DisplayName("IC2, IC8, IC12: Test that constructor trims parameters")
+        public void testThatConstructorTrimsParameters() {
+            IImmutableContact testContact = new ImmutableContact(" " + testName + " ");
             //Assert
             assertAll(
                    () -> assertEquals(testName, testContact.getName())

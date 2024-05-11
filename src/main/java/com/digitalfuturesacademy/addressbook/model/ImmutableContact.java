@@ -2,20 +2,15 @@ package com.digitalfuturesacademy.addressbook.model;
 
 public final class ImmutableContact implements IImmutableContact{
 
-    private String name = null;
+    private final String name;
 
-    //Factory method design pattern - This is to allow the UI to create instances
-    // of this class while maintaining loose coupling
-    public ImmutableContact(){};
-    private ImmutableContact(String name){
-        this.name = name;
+    public ImmutableContact(String name){
+        this.name = name.trim();
     };
-
-    public IImmutableContact create(String name){
-        return new ImmutableContact(name.trim());
-    }
 
     public String getName() {
         return name;
     }
+
+
 }
