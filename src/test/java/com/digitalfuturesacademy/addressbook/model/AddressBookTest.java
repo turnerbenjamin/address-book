@@ -2,6 +2,7 @@ package com.digitalfuturesacademy.addressbook.model;
 
 import org.junit.jupiter.api.*;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -65,7 +66,6 @@ public class AddressBookTest {
             testAddressBook.addContact(testContacts[2]);
         }
 
-
         @Test
         @DisplayName("AB5-6: Test search where search term matches one candidate")
         public void testSearchWhereSearchTermMatchesOneCandidate() {
@@ -78,9 +78,8 @@ public class AddressBookTest {
                     () -> assertEquals(1,testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).size()),
                     () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).contains(testContact))
             );
-
-
         }
+
         @Test
         @DisplayName("AB7: Test search where search term does not match any candidates")
         public void testSearchWhereSearchTermDoesNotMatchAnyCandidates() {
@@ -88,11 +87,17 @@ public class AddressBookTest {
             String testSearchTerm = "SEARCH TERM";
             //Assert
             assertEquals(0,testAddressBook.searchContacts(testSearchTerm).size());
-
-
         }
 
-
+        @Test
+        @DisplayName("AB8-9: Test search where search term matches two candidates")
+        public void testSearchWhereSearchTermMatchesTwoCandidates() {
+            //Arrange
+            String searchTermMatchingTwoCandidatesByName = "Doe";
+            //Assert
+            assertAll(
+                    () -> assertEquals(2,testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).size())
+            );
+        }
     }
-
 }
