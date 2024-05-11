@@ -52,7 +52,7 @@ public class AddressBook {
         boolean wasRemoved = contacts.remove(contactToDelete);
         if(!wasRemoved) return null;
         phoneNumbers.remove(contactToDelete.getPhoneNumber());
-        emailAddresses.remove(contactToDelete.getPhoneNumber());
+        emailAddresses.remove(contactToDelete.getEmailAddress());
         return contactToDelete;
     }
 

@@ -289,6 +289,22 @@ public class AddressBookTest {
             assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(originalContact,newContact));
         }
 
+        @Test
+        @DisplayName("AB24: Should add a contact where another contact, added with the same phone number, is updated with a new number")
+        public void AB24() {
+            //Arrange
+            IImmutableContact originalContactWithDuplicatePhoneNumber = mock(IImmutableContact.class);
+            when(originalContactWithDuplicatePhoneNumber.getPhoneNumber()).thenReturn(NEW_CONTACT_PHONE_NUMBER);
+            IImmutableContact newContactWithDuplicatePhoneNumberReplaced = mock(IImmutableContact.class);
+            when(newContactWithDuplicatePhoneNumberReplaced.getPhoneNumber()).thenReturn("02010");
+            //Act
+            testAddressBook.addContact(originalContactWithDuplicatePhoneNumber);
+            testAddressBook.replaceContact(originalContactWithDuplicatePhoneNumber, newContactWithDuplicatePhoneNumberReplaced);
+            testAddressBook.addContact(originalContact);
+            //Assert
+            assertEquals(newContact, testAddressBook.replaceContact(originalContact,newContact));
+        }
+
 
 
     }
