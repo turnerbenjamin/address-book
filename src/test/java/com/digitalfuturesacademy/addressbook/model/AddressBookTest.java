@@ -81,6 +81,17 @@ public class AddressBookTest {
 
 
         }
+        @Test
+        @DisplayName("AB7: Test search where search term does not match any candidates")
+        public void testSearchWhereSearchTermDoesNotMatchAnyCandidates() {
+            //Arrange
+            String testSearchTerm = "SEARCH TERM";
+            //Assert
+            assertEquals(0,testAddressBook.searchContacts(testSearchTerm).size());
+
+
+        }
+
 
     }
 
