@@ -115,7 +115,8 @@ public class AddressBookTest {
             String searchTermMatchingOneCandidateByName = testContact.getName().substring(0,4);
             //Assert
             assertAll(
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName.toUpperCase()).contains(testContact))
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName.toUpperCase()).contains(testContact)),
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName.concat("  ")).contains(testContact))
             );
         }
 

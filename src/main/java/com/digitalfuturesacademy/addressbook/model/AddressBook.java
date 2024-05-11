@@ -35,7 +35,7 @@ public class AddressBook {
     }
 
     private String formatStringForSearch(String str){
-        return str.toLowerCase();
+        return str.trim().toLowerCase();
     }
 
 

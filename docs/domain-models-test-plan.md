@@ -32,8 +32,8 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB7:	should return an empty list where no matches found
 - [X] AB8:	should return list with a size of 2 where a match to two contacts is found
 - [X] AB9:	should return list containing both matched contacts where a match to two contacts is found
-- [X] AB10:	Should perform case-insensitive search
-- [ ] AB11:	should trim the search term before searching
+- [X] AB10:	should perform case-insensitive search
+- [X] AB11:	should trim the search term before searching
 
 #### Delete contact
 - [ ] AB12:	should decrement contacts size by 1 where a contact in contacts is passed
