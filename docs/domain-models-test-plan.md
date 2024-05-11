@@ -59,7 +59,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### View All Contacts
 - [X] AB28:	Should return collection with one element where one contact
-- [ ] AB29:	Should return collection with all contacts where more than one contact
+- [X] AB29:	Should return collection with all contacts where more than one contact
 - [ ] AB30:	Should return empty collection where no contacts
 - [ ] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 

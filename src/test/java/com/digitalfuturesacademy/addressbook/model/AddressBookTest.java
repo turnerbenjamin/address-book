@@ -369,6 +369,16 @@ public class AddressBookTest {
             assertEquals(1, testAddressBook.getContacts().size());
         }
 
+        @Test
+        @DisplayName("AB29: Should return collection with all contacts where more than one contact")
+        public void AB29() {
+            //Act
+            testAddressBook.addContact(testContacts[0]);
+            testAddressBook.addContact(testContacts[1]);
+            //Assert
+            assertEquals(2, testAddressBook.getContacts().size());
+        }
+
 
     }
 }
