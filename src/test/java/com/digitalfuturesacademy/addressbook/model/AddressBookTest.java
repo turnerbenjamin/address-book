@@ -70,22 +70,22 @@ public class AddressBookTest {
         }
 
         @Test
-        @DisplayName("AB5-6: Test search where search term matches one candidate")
-        public void testSearchWhereSearchTermMatchesOneCandidate() {
+        @DisplayName("AB5-6: Test search where search term matches one contact")
+        public void testSearchWhereSearchTermMatchesOneContact() {
             //Arrange
             IImmutableContact testContact = testContacts[0];
 
-            String searchTermMatchingOneCandidateByName = testContact.getName().substring(0,4);
+            String searchTermMatchingOneContactByName = testContact.getName().substring(0,4);
             //Assert
             assertAll(
-                    () -> assertEquals(1,testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).size()),
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).contains(testContact))
+                    () -> assertEquals(1,testAddressBook.searchContacts(searchTermMatchingOneContactByName).size()),
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneContactByName).contains(testContact))
             );
         }
 
         @Test
-        @DisplayName("AB7: Test search where search term does not match any candidates")
-        public void testSearchWhereSearchTermDoesNotMatchAnyCandidates() {
+        @DisplayName("AB7: Test search where search term does not match any contacts")
+        public void testSearchWhereSearchTermDoesNotMatchAnyContacts() {
             //Arrange
             String testSearchTerm = "SEARCH TERM";
             //Assert
@@ -93,17 +93,17 @@ public class AddressBookTest {
         }
 
         @Test
-        @DisplayName("AB8-9: Test search where search term matches two candidates")
-        public void testSearchWhereSearchTermMatchesTwoCandidates() {
+        @DisplayName("AB8-9: Test search where search term matches two contacts")
+        public void testSearchWhereSearchTermMatchesTwoContacts() {
             //Arrange
-            List<IImmutableContact> matchingCandidates = new ArrayList<>();
-            matchingCandidates.add(testContacts[0]);
-            matchingCandidates.add(testContacts[1]);
-            String searchTermMatchingTwoCandidatesByName = "Doe";
+            List<IImmutableContact> matchingContacts = new ArrayList<>();
+            matchingContacts.add(testContacts[0]);
+            matchingContacts.add(testContacts[1]);
+            String searchTermMatchingTwoContactsByName = "Doe";
             //Assert
             assertAll(
-                    () -> assertEquals(2,testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).size()),
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).containsAll(matchingCandidates))
+                    () -> assertEquals(2,testAddressBook.searchContacts(searchTermMatchingTwoContactsByName).size()),
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingTwoContactsByName).containsAll(matchingContacts))
             );
         }
 
@@ -112,14 +112,38 @@ public class AddressBookTest {
         public void testSearchTermTrimmedAndCaseInsensitive() {
             //Arrange
             IImmutableContact testContact = testContacts[0];
-            String searchTermMatchingOneCandidateByName = testContact.getName().substring(0,4);
+            String searchTermMatchingOneContactByName = testContact.getName().substring(0,4);
             //Assert
             assertAll(
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName.toUpperCase()).contains(testContact)),
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName.concat("  ")).contains(testContact))
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneContactByName.toUpperCase()).contains(testContact)),
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneContactByName.concat("  ")).contains(testContact))
             );
         }
+    }
 
+    @DisplayName("Test Delete Contact")
+    @Nested
+    class DeleteContactTests{
+
+        @BeforeEach
+        public void setUpForDeleteContactTests(){
+            testAddressBook.addContact(testContacts[0]);
+            testAddressBook.addContact(testContacts[1]);
+        }
+
+        @Test
+        @DisplayName("AB12-14: Test deleting a contact in contacts")
+        public void testDeletingAContactInContacts() {
+            //Arrange
+            int startingContactsSize = testAddressBook.size();
+            IImmutableContact testContactToDelete = testContacts[0];
+            //Act
+            testAddressBook.deleteContact(testContactToDelete);
+            //Assert
+            assertAll(
+                    () -> assertEquals(startingContactsSize - 1,testAddressBook.size())
+            );
+        }
 
     }
 }

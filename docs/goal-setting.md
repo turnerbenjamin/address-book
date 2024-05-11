@@ -29,3 +29,10 @@ on the results of matching to the expressions.
 
 ## After User Story 4
 
+This story involves searching by name. Debugging was generally unhelpful, beyond getting used to the interface. 
+However, I did find it useful when debugging one test (AB10); here I assumed an issue with the logic, but I had
+just passed the wrong variable to contains - The debugger made the issue here very apparent. 
+
+I have also been trying to use the keyboard shortcuts to speed up the process; though I am still having to keep 
+double-checking these.
+
