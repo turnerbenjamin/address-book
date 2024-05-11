@@ -3,6 +3,9 @@ package com.digitalfuturesacademy.addressbook.model;
 import org.junit.jupiter.api.*;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -93,10 +96,14 @@ public class AddressBookTest {
         @DisplayName("AB8-9: Test search where search term matches two candidates")
         public void testSearchWhereSearchTermMatchesTwoCandidates() {
             //Arrange
+            List<IImmutableContact> matchingCandidates = new ArrayList<>();
+            matchingCandidates.add(testContacts[0]);
+            matchingCandidates.add(testContacts[1]);
             String searchTermMatchingTwoCandidatesByName = "Doe";
             //Assert
             assertAll(
-                    () -> assertEquals(2,testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).size())
+                    () -> assertEquals(2,testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).size()),
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).containsAll(matchingCandidates))
             );
         }
     }
