@@ -28,10 +28,11 @@ public class ImmutableContactTest {
         @Test
         @DisplayName("IC2, IC8, IC12: Test that constructor trims parameters")
         public void testThatConstructorTrimsParameters() {
-            IImmutableContact testContact = new ImmutableContact(" " + testName + " ", testPhoneNumber);
+            IImmutableContact testContact = new ImmutableContact(testName.concat(" "), testPhoneNumber.concat(" "));
             //Assert
             assertAll(
-                    () -> assertEquals(testName, testContact.getName())
+                    () -> assertEquals(testName, testContact.getName()),
+                    () -> assertEquals(testPhoneNumber, testContact.getPhoneNumber())
             );
         }
 
