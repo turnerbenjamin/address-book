@@ -48,28 +48,27 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB19:	Should add a contact where another contact, removed from contacts, has the same email address
 
 #### Update Contact
-- [ ] AB20:	Should replace contact with new contact
+- [X] AB20:	Should replace contact with new contact
 - [ ] AB21:	Should return updated contact when contact updated
-- [ ] AB22:	Should not update a contact where another contact has the same phoneNumber
-- [ ] AB23:	Should not update a contact where another contact has the same emailAddress
-- [ ] AB24:	Should return old contact when contact not updated
-- [ ] AB25:	Should add a contact where another contact, added with the same phone number, is updated with a new number
-- [ ] AB26:	Should add a contact where another contact, added with the same email address, is updated with a new email address
-- [ ] AB27:	Should return null if contact to replace not found
+- [ ] AB22:	Should throw exception where another contact has the same phoneNumber
+- [ ] AB23:	Should throw exception where another contact has the same emailAddress
+- [ ] AB24:	Should add a contact where another contact, added with the same phone number, is updated with a new number
+- [ ] AB25:	Should add a contact where another contact, added with the same email address, is updated with a new email address
+- [ ] AB26:	Should return null if contact to replace not found
 
 #### View All Contacts
-- [ ] AB28:	Should return collection with one element where one contact
-- [ ] AB29:	Should return collection with all contacts where more than one contact
-- [ ] AB30:	Should return empty collection where no contacts
-- [ ] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
+- [ ] AB27:	Should return collection with one element where one contact
+- [ ] AB28:	Should return collection with all contacts where more than one contact
+- [ ] AB29:	Should return empty collection where no contacts
+- [ ] AB30:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 
 #### Sorting Results
-- [ ] AB32:	Results of search should be in alphabetical order
+- [ ] AB31:	Results of search should be in alphabetical order
 
 #### Delete All Contacts
-- [ ] AB33:	Contacts should be an empty list after deletion
-- [ ] AB34:	Should add contact where email address is the same as a contact removed by delete all
-- [ ] AB35:	Should add contact where phone number is the same as a contact removed by delete all
+- [ ] AB32:	Contacts should be an empty list after deletion
+- [ ] AB33:	Should add contact where email address is the same as a contact removed by delete all
+- [ ] AB34:	Should add contact where phone number is the same as a contact removed by delete all
 
 ## ImmutableContract
 

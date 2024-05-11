@@ -56,6 +56,14 @@ public class AddressBook {
         return contactToDelete;
     }
 
-
+    public IImmutableContact replaceContact(IImmutableContact old, IImmutableContact updated){
+        if(!deleteContact(old).equals(old)) return null;
+        try {addContact(updated);}
+        catch(IllegalArgumentException ex){
+            addContact(old);
+            throw ex;
+        }
+        return updated;
+    }
 
 }

@@ -232,4 +232,38 @@ public class AddressBookTest {
 
 
     }
+
+    @DisplayName("Update Contact Checks")
+    @Nested
+    class UpdateContactTest{
+        private IImmutableContact originalContact;
+        private IImmutableContact newContact;
+        private final String ORIGINAL_CONTACT_PHONE_NUMBER = "00000000";
+        private final String ORIGINAL_CONTACT_EMAIL_ADDRESS = "old@b.c";
+
+        @BeforeEach
+        public void setUpForDuplicateChecks(){
+            originalContact = mock(IImmutableContact.class);
+            newContact = mock(IImmutableContact.class);
+            when(originalContact.getPhoneNumber()).thenReturn(ORIGINAL_CONTACT_PHONE_NUMBER);
+            when(originalContact.getEmailAddress()).thenReturn(ORIGINAL_CONTACT_EMAIL_ADDRESS);
+            when(newContact.getPhoneNumber()).thenReturn("11111111111");
+            when(newContact.getEmailAddress()).thenReturn("new@email.com");
+        }
+
+        @Test
+        @DisplayName("AB20-21: Standard case, updating a contact")
+        public void AB20_AB21() {
+            //Act
+            testAddressBook.addContact(originalContact);
+            IImmutableContact result = testAddressBook.replaceContact(originalContact,newContact);
+            //Assert
+            assertAll(
+                    () -> assertEquals(newContact, testAddressBook.getContacts().get(0))
+            );
+        }
+
+
+
+    }
 }
