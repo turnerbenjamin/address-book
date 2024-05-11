@@ -40,7 +40,8 @@ public class ImmutableContactTest {
         public void testThatConstructorThrowsErrorForNullStringArguments() {
             //Assert
             assertAll(
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null, testPhoneNumber))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null, testPhoneNumber)),
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, null))
             );
         }
 

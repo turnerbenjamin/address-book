@@ -7,6 +7,7 @@ public final class ImmutableContact implements IImmutableContact{
 
     public ImmutableContact(String name, String phoneNumber){
         if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Arguments cannot be null or empty");
+         if(phoneNumber == null) throw new IllegalArgumentException("Arguments cannot be null or empty");
         this.name = name.trim();
         this.phoneNumber = phoneNumber;
     };
