@@ -4,4 +4,5 @@ public interface IImmutableContact {
 
     String getName();
     String getPhoneNumber();
+    String getEmailAddress();
 }

@@ -9,6 +9,7 @@ public class ImmutableContactTest {
 
     private String testName = "Jane Doe";
     private String testPhoneNumber = "00000000000";
+    private String testEmailAddress = "a@b.com";
 
     @DisplayName("Constructor Tests")
     @Nested
@@ -17,18 +18,19 @@ public class ImmutableContactTest {
         @Test
         @DisplayName("IC1, IC5, IC9: Test that constructor correctly assigns parameters")
         public void testThatConstructorCorrectlyAssignsParameters() {
-            IImmutableContact testContact = new ImmutableContact(testName, testPhoneNumber);
+            IImmutableContact testContact = new ImmutableContact(testName, testPhoneNumber, testEmailAddress);
             //Assert
             assertAll(
                     () -> assertEquals(testName, testContact.getName()),
-                    () -> assertEquals(testPhoneNumber, testContact.getPhoneNumber())
+                    () -> assertEquals(testPhoneNumber, testContact.getPhoneNumber()),
+                    () -> assertEquals(testEmailAddress, testContact.getEmailAddress())
             );
         }
 
         @Test
         @DisplayName("IC2, IC8, IC12: Test that constructor trims parameters")
         public void testThatConstructorTrimsParameters() {
-            IImmutableContact testContact = new ImmutableContact(testName.concat(" "), testPhoneNumber.concat(" "));
+            IImmutableContact testContact = new ImmutableContact(testName.concat(" "), testPhoneNumber.concat(" "), testEmailAddress);
             //Assert
             assertAll(
                     () -> assertEquals(testName, testContact.getName()),
@@ -41,8 +43,8 @@ public class ImmutableContactTest {
         public void testThatConstructorThrowsErrorForNullStringArguments() {
             //Assert
             assertAll(
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null, testPhoneNumber)),
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, null))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null, testPhoneNumber, testEmailAddress)),
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, null, testEmailAddress))
             );
         }
 
@@ -51,8 +53,8 @@ public class ImmutableContactTest {
         public void testThatConstructorThrowsErrorForEmptyStringArguments() {
             //Assert
             assertAll(
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber)),
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "  "))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber, testEmailAddress)),
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "  ", testEmailAddress))
             );
         }
 

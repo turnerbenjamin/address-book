@@ -4,12 +4,14 @@ public final class ImmutableContact implements IImmutableContact{
 
     private final String name;
     private final String phoneNumber;
+    private final String emailAddress;
 
-    public ImmutableContact(String name, String phoneNumber){
+    public ImmutableContact(String name, String phoneNumber, String emailAddress){
         if(name == null || name.trim().isEmpty()) throw new IllegalArgumentException("Arguments cannot be null or empty");
         if(phoneNumber == null || phoneNumber.trim().isEmpty()) throw new IllegalArgumentException("Arguments cannot be null or empty");
         this.name = name.trim();
         this.phoneNumber = phoneNumber.trim();
+        this.emailAddress = emailAddress;
     };
 
     public String getName() {
@@ -18,6 +20,10 @@ public final class ImmutableContact implements IImmutableContact{
 
     public String getPhoneNumber(){
         return phoneNumber;
+    }
+
+    public String getEmailAddress(){
+        return emailAddress;
     }
 
 

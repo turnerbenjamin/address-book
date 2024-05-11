@@ -98,7 +98,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] IC8:	should trim phone number
 
 #### Constructor - Email Address
-- [ ] IC9:	should return correct email address
+- [X] IC9:	should return correct email address
 - [ ] IC10:	should throw error is email address is null
 - [ ] IC11:	should throw error is email address is empty
 - [ ] IC12:	should trim email address
