@@ -137,12 +137,14 @@ public class AddressBookTest {
             //Arrange
             int startingContactsSize = testAddressBook.size();
             IImmutableContact testContactToDelete = testContacts[0];
+            IImmutableContact actual;
             //Act
-            testAddressBook.deleteContact(testContactToDelete);
+            actual = testAddressBook.deleteContact(testContactToDelete);
             //Assert
             assertAll(
                     () -> assertEquals(startingContactsSize - 1,testAddressBook.size()),
-                    () -> assertFalse(testAddressBook.getContacts().contains(testContactToDelete))
+                    () -> assertFalse(testAddressBook.getContacts().contains(testContactToDelete)),
+                    () -> assertEquals(testContactToDelete,actual)
             );
         }
 

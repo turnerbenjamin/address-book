@@ -38,7 +38,7 @@ between types and their members can be found in the [class diagram](./class-diag
 #### Delete contact
 - [X] AB12:	should decrement contacts size by 1 where a contact in contacts is passed
 - [X] AB13:	should remove contact from contracts where a contact in contacts is passed
-- [ ] AB14:	should return contact removed where a contact in contacts is passed
+- [X] AB14:	should return contact removed where a contact in contacts is passed
 - [ ] AB15:	should return null where a contact not in contacts is passed
 
 #### Duplicate Protection
