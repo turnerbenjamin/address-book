@@ -7,4 +7,5 @@ public interface IImmutableContact {
     String getEmailAddress();
 
     IImmutableContact withName(String newName);
+    IImmutableContact withPhoneNumber(String newPhoneNumber);
 }

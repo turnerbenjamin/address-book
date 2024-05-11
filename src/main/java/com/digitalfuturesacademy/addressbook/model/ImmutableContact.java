@@ -30,6 +30,10 @@ public final class ImmutableContact implements IImmutableContact{
         return new ImmutableContact(newName, this.phoneNumber, this.emailAddress);
     }
 
+    public IImmutableContact withPhoneNumber(String newPhoneNumber){
+        return new ImmutableContact(this.name, newPhoneNumber, this.emailAddress);
+    }
+
 
 
     private String validateString(String string){

@@ -113,7 +113,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] IC17:	Should not mutate the object on which with name is called
 
 #### With Phone Number
-- [ ] IC18:	Should return Contact with updated phone number when with phone number is called
+- [X] IC18:	Should return Contact with updated phone number when with phone number is called
 - [ ] IC19:	Should return Contact with only the phone number updated when with phone number is called
 - [ ] IC20:	Should not mutate the object on which with phone number is called
 
