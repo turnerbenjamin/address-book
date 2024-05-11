@@ -148,5 +148,17 @@ public class AddressBookTest {
             );
         }
 
+        @Test
+        @DisplayName("AB15: Test deleting a contact not in contacts")
+        public void testDeletingAContactNotInContacts() {
+            //Arrange
+            int startingContactsSize = testAddressBook.size();
+            IImmutableContact testContactNotInContactsToDelete = mock(IImmutableContact.class);
+            IImmutableContact actual;
+            //Act
+            actual = testAddressBook.deleteContact(testContactNotInContactsToDelete);
+            //Assert
+            assertNull(actual);
+        }
     }
 }
