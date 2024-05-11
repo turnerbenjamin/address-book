@@ -33,6 +33,15 @@ public class ImmutableContactTest {
             );
         }
 
+        @Test
+        @DisplayName("IC3, IC6, IC10: Test that constructor throws error for null String arguments")
+        public void testThatConstructorThrowsErrorForNullStringArguments() {
+            //Assert
+            assertAll(
+                   () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null))
+            );
+        }
+
 
 
     }
