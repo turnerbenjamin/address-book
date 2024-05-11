@@ -141,7 +141,8 @@ public class AddressBookTest {
             testAddressBook.deleteContact(testContactToDelete);
             //Assert
             assertAll(
-                    () -> assertEquals(startingContactsSize - 1,testAddressBook.size())
+                    () -> assertEquals(startingContactsSize - 1,testAddressBook.size()),
+                    () -> assertFalse(testAddressBook.getContacts().contains(testContactToDelete))
             );
         }
 
