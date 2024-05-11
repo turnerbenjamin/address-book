@@ -55,7 +55,8 @@ public class ImmutableContactTest {
             //Assert
             assertAll(
                     () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber, testEmailAddress)),
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "  ", testEmailAddress))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "  ", testEmailAddress)),
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, testPhoneNumber, " "))
             );
         }
 

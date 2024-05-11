@@ -100,7 +100,7 @@ between types and their members can be found in the [class diagram](./class-diag
 #### Constructor - Email Address
 - [X] IC9:	should return correct email address
 - [X] IC10:	should throw error is email address is null
-- [ ] IC11:	should throw error is email address is empty
+- [X] IC11:	should throw error is email address is empty
 - [ ] IC12:	should trim email address
 
 #### Constructor - Pattern Validation
