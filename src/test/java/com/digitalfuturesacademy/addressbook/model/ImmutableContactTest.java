@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 public class ImmutableContactTest {
 
     private String testName = "Jane Doe";
-    private String testPhoneNumber = "00000000000";
+    private String testPhoneNumber = "+0000000000";
     private String testEmailAddress = "a@b.com";
 
     @DisplayName("Constructor Tests")
@@ -58,6 +58,16 @@ public class ImmutableContactTest {
                     () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber, testEmailAddress)),
                     () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "  ", testEmailAddress)),
                     () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, testPhoneNumber, " "))
+            );
+        }
+
+        @Test
+        @DisplayName("IC13-IC14: Test that constructor performs pattern validation on phone number and email")
+        public void testThatConstructorPerformsPatternValidationOnPhoneNumberAndEmail() {
+
+            //Assert
+            assertAll(
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "phoneNumber", testEmailAddress))
             );
         }
 
