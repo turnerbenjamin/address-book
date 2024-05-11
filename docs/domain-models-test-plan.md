@@ -45,7 +45,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB16:	Should not add a contact where another contact has the same phone number
 - [X] AB17:	Should not add a contact where another contact has the same email address
 - [X] AB18:	Should add a contact where another contact, removed from contacts, has the same phone number
-- [ ] AB19:	Should add a contact where another contact, removed from contacts, has the same email address
+- [X] AB19:	Should add a contact where another contact, removed from contacts, has the same email address
 
 #### Update Contact
 - [ ] AB20:	Should replace contact with new contact

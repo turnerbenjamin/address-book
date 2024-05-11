@@ -40,5 +40,11 @@ double-checking these.
 
 No real progress here - But continued using shortcuts when debugging. Again, the story was trivial. 
 
+## After User Story 6
 
+Found debugging helpful here - There was an error in a test re prevention of duplicates
+I had added the duplicate but not the original. Debugging revealed this error as I noticed
+that the relevant method was invoked just once. 
 
+I also noticed that the moment there is an unexplained fail I am instinctively starting
+the debugging process. 

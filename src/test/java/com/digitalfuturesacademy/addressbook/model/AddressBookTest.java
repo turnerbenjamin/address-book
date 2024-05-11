@@ -218,6 +218,18 @@ public class AddressBookTest {
             assertTrue(testAddressBook.addContact(testContactB));
         }
 
+        @Test
+        @DisplayName("AB19: Should add a contact where another contact, removed from contacts, has the same email address")
+        public void AB19() {
+            //Arrange
+            when(testContactB.getEmailAddress()).thenReturn(testContactAEmail);
+            //Act
+            testAddressBook.addContact(testContactA);
+            testAddressBook.deleteContact(testContactA);
+            //Assert
+            assertTrue(testAddressBook.addContact(testContactB));
+        }
+
 
     }
 }
