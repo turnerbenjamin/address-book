@@ -82,6 +82,7 @@ public class ImmutableContactTest {
         private final String OLD_EMAIL_ADDRESS = "old@b.c";
         private final String NEW_NAME = "New Name";
         private final String NEW_PHONE_NUMBER = "11111111";
+        private final String NEW_EMAIL_ADDRESS = "new@b.c";
 
         @BeforeEach
         public void setUpWithFieldTests(){
@@ -120,8 +121,17 @@ public class ImmutableContactTest {
                     () -> assertEquals(OLD_PHONE_NUMBER, originalContact.getPhoneNumber())
             );
         }
+
+        @Test
+        @DisplayName("IC21, IC22, IC23: Test with email address")
+        public void testWithEmailAddress() {
+            //Act
+            IImmutableContact newTestContact = originalContact.withEmailAddress(NEW_EMAIL_ADDRESS);
+            //Assert
+            assertAll(
+                    () -> assertEquals(NEW_EMAIL_ADDRESS, newTestContact.getEmailAddress())
+            );
         }
-
-
+        }
     }
 

@@ -8,4 +8,5 @@ public interface IImmutableContact {
 
     IImmutableContact withName(String newName);
     IImmutableContact withPhoneNumber(String newPhoneNumber);
+    IImmutableContact withEmailAddress(String newEmailAddress);
 }
