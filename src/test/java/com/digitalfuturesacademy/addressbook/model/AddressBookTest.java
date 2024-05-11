@@ -334,6 +334,27 @@ public class AddressBookTest {
             assertNull(actual);
         }
 
+        @Test
+        @DisplayName("AB27: Should include contact in contacts if error thrown")
+        public void AB27() {
+            //Arrange
+            IImmutableContact contactWithDuplicateEmailAddress = mock(IImmutableContact.class);
+            when(contactWithDuplicateEmailAddress.getEmailAddress()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
+            boolean actual;
+            //Act
+            testAddressBook.addContact(contactWithDuplicateEmailAddress);
+            testAddressBook.addContact(originalContact);
+            try{
+                testAddressBook.replaceContact(originalContact,newContact);
+            }catch(Exception ex){
+            }
+            finally {
+                actual = testAddressBook.getContacts().contains(originalContact);
+            }
+            //Assert
+            assertTrue(actual);
+        }
+
 
 
     }

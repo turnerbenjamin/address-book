@@ -48,3 +48,11 @@ that the relevant method was invoked just once.
 
 I also noticed that the moment there is an unexplained fail I am instinctively starting
 the debugging process. 
+
+## After User Story 7
+
+I stopped debugging for every test because I am feeling comfortable with the process. I did make
+fairly heavy use of debugging in this user story, particularly the tests for the AddressBook class. 
+
+For example, I was getting an error with AB26 because I was checking equals on null. The debugger was useful here
+as I could step into invoked methods to see where null was comming from.
