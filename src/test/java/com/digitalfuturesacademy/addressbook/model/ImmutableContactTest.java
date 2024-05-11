@@ -8,6 +8,7 @@ import static org.mockito.Mockito.mock;
 public class ImmutableContactTest {
 
     private String testName = "Jane Doe";
+    private String testPhoneNumber = "00000000000";
 
     @DisplayName("Constructor Tests")
     @Nested
@@ -16,20 +17,21 @@ public class ImmutableContactTest {
         @Test
         @DisplayName("IC1, IC5, IC9: Test that constructor correctly assigns parameters")
         public void testThatConstructorCorrectlyAssignsParameters() {
-            IImmutableContact testContact = new ImmutableContact(testName);
+            IImmutableContact testContact = new ImmutableContact(testName, testPhoneNumber);
             //Assert
             assertAll(
-                   () -> assertEquals(testName, testContact.getName())
+                    () -> assertEquals(testName, testContact.getName()),
+                    () -> assertEquals(testPhoneNumber, testContact.getPhoneNumber())
             );
         }
 
         @Test
         @DisplayName("IC2, IC8, IC12: Test that constructor trims parameters")
         public void testThatConstructorTrimsParameters() {
-            IImmutableContact testContact = new ImmutableContact(" " + testName + " ");
+            IImmutableContact testContact = new ImmutableContact(" " + testName + " ", testPhoneNumber);
             //Assert
             assertAll(
-                   () -> assertEquals(testName, testContact.getName())
+                    () -> assertEquals(testName, testContact.getName())
             );
         }
 
@@ -38,7 +40,7 @@ public class ImmutableContactTest {
         public void testThatConstructorThrowsErrorForNullStringArguments() {
             //Assert
             assertAll(
-                   () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(null, testPhoneNumber))
             );
         }
 
@@ -47,7 +49,7 @@ public class ImmutableContactTest {
         public void testThatConstructorThrowsErrorForEmptyStringArguments() {
             //Assert
             assertAll(
-                   () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  "))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber))
             );
         }
 

@@ -92,7 +92,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] IC4:	should throw exception where an empty string is passed for name
 
 #### Constructor - Phone number
-- [ ] IC5:	should return correct phone number
+- [X] IC5:	should return correct phone number
 - [ ] IC6:	should throw error is phone number is null
 - [ ] IC7:	should throw error is phone number is empty
 - [ ] IC8:	should trim phone number
@@ -102,6 +102,8 @@ between types and their members can be found in the [class diagram](./class-diag
 - [ ] IC10:	should throw error is email address is null
 - [ ] IC11:	should throw error is email address is empty
 - [ ] IC12:	should trim email address
+
+#### Constructor - Pattern Validation
 - [ ] IC13:	should ensure that phone number follows pattern \/^[+\d]\d*$/gm\
 - [ ] IC14:	should ensure that email address follows pattern \.*@.*\.*\
 
