@@ -27,7 +27,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB4:	should throw exception when a contact with a value of null is added
 
 #### Search contacts
-- [ ] AB5:	should return list with a size of 1 where a match to only one contact is found
+- [X] AB5:	should return list with a size of 1 where a match to only one contact is found
 - [ ] AB6:	should return list containing matched contact where a match to only one contact is found
 - [ ] AB7:	should return an empty list where no matches found
 - [ ] AB8:	should return list with a size of 2 where a match to two contacts is found

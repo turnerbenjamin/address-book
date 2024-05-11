@@ -20,5 +20,14 @@ public class AddressBook {
         return contacts.size();
     }
 
+    public List<IImmutableContact> searchContacts(String searchTerm){
+        List<IImmutableContact> matchingContacts = new ArrayList<>();
+        for(IImmutableContact candidateContact : contacts){
+            if(!candidateContact.getName().matches(searchTerm)) continue;
+            matchingContacts.add(candidateContact);
+        }
+        return matchingContacts;
+    }
+
 
 }
