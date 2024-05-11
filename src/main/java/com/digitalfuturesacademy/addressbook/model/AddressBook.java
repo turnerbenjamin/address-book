@@ -10,6 +10,7 @@ public class AddressBook {
 
     private final List<IImmutableContact> contacts = new ArrayList<>();
     private final Set<String> phoneNumbers = new HashSet<>();
+    private final Set<String> emailAddresses = new HashSet<>();
 
 
     public boolean addContact(IImmutableContact contactToAdd){
@@ -29,7 +30,10 @@ public class AddressBook {
     private void checkHasUniqueContactDetails(IImmutableContact contactToCheck){
         if(phoneNumbers.contains(contactToCheck.getPhoneNumber()))
             throw new IllegalArgumentException("Phone number must be unique");
+        if(emailAddresses.contains(contactToCheck.getEmailAddress()))
+            throw new IllegalArgumentException("Email address must be unique");
         phoneNumbers.add(contactToCheck.getPhoneNumber());
+        emailAddresses.add(contactToCheck.getEmailAddress());
     }
 
     private String formatStringForSearch(String str){

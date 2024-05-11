@@ -167,17 +167,38 @@ public class AddressBookTest {
     @DisplayName("Test Duplicate Checks")
     @Nested
     class DuplicateTestChecks{
+        private IImmutableContact testContactA;
+        private IImmutableContact testContactB;
+        private String testContactAPhoneNumber;
+        private String testContactAEmail;
+
+        @BeforeEach
+        public void setUpForDuplicateChecks(){
+            testContactA = mock(IImmutableContact.class);
+            testContactB = mock(IImmutableContact.class);
+            when(testContactA.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
+            when(testContactA.getEmailAddress()).thenReturn(testContactAEmail);
+            when(testContactB.getPhoneNumber()).thenReturn("11111111111");
+            when(testContactB.getEmailAddress()).thenReturn("unique@email.com");
+        }
+
 
 
         @Test
         @DisplayName("AB16: Test throws error when adding contact with a duplicate phone number.")
         public void testDuplicateProtectionWhenAddingAContactWithDuplicatePhoneNumber() {
             //Arrange
-            String testPhoneNumber = "0101";
-            IImmutableContact testContactA = mock(IImmutableContact.class);
-            IImmutableContact testContactB = mock(IImmutableContact.class);
-            when(testContactA.getPhoneNumber()).thenReturn(testPhoneNumber);
-            when(testContactB.getPhoneNumber()).thenReturn(testPhoneNumber);
+            when(testContactB.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
+            //Act
+            testAddressBook.addContact(testContactA);
+            //Assert
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContactB));
+        }
+        @Test
+        @DisplayName("AB17: Test throws error when adding contact with a duplicate email address.")
+        public void testDuplicateProtectionWhenAddingAContactWithDuplicateEmailAddress() {
+            //Arrange
+            when(testContactB.getEmailAddress()).thenReturn(testContactAEmail);
             //Act
             testAddressBook.addContact(testContactA);
             //Assert
