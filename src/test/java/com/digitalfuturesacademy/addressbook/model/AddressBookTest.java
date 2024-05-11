@@ -379,6 +379,14 @@ public class AddressBookTest {
             assertEquals(2, testAddressBook.getContacts().size());
         }
 
+        @Test
+        @DisplayName("AB30: Should return empty collection where no contacts")
+        public void AB30() {
+            //Act
+            //Assert
+            assertEquals(0, testAddressBook.getContacts().size());
+        }
+
 
     }
 }
