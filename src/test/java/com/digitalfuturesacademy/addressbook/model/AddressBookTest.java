@@ -276,6 +276,19 @@ public class AddressBookTest {
             assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(originalContact,newContact));
         }
 
+        @Test
+        @DisplayName("AB23: Should throw exception where another contact has the same emailAddress")
+        public void AB23() {
+            //Arrange
+            IImmutableContact contactWithDuplicateEmailAddress = mock(IImmutableContact.class);
+            when(contactWithDuplicateEmailAddress.getEmailAddress()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
+            //Act
+            testAddressBook.addContact(contactWithDuplicateEmailAddress);
+            testAddressBook.addContact(originalContact);
+            //Assert
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(originalContact,newContact));
+        }
+
 
 
     }
