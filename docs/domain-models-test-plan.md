@@ -101,7 +101,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] IC9:	should return correct email address
 - [X] IC10:	should throw error is email address is null
 - [X] IC11:	should throw error is email address is empty
-- [ ] IC12:	should trim email address
+- [X] IC12:	should trim email address
 
 #### Constructor - Pattern Validation
 - [ ] IC13:	should ensure that phone number follows pattern \/^[+\d]\d*$/gm\

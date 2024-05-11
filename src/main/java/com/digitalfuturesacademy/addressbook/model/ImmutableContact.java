@@ -12,7 +12,7 @@ public final class ImmutableContact implements IImmutableContact{
         if(emailAddress == null || emailAddress.trim().isEmpty()) throw new IllegalArgumentException("Arguments cannot be null or empty");
         this.name = name.trim();
         this.phoneNumber = phoneNumber.trim();
-        this.emailAddress = emailAddress;
+        this.emailAddress = emailAddress.trim();
     };
 
     public String getName() {
