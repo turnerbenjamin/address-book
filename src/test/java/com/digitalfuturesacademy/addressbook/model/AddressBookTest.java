@@ -320,6 +320,20 @@ public class AddressBookTest {
             assertEquals(newContact, testAddressBook.replaceContact(originalContact,newContact));
         }
 
+        @Test
+        @DisplayName("AB26: Should return null if contact to replace not found")
+        public void AB26() {
+            //Arrange
+            IImmutableContact contactNotInContacts = mock(IImmutableContact.class);
+            when(contactNotInContacts.getPhoneNumber()).thenReturn("NOT IN CONTACTS");
+
+            //Act
+            testAddressBook.addContact(originalContact);
+            IImmutableContact actual = testAddressBook.replaceContact(contactNotInContacts, newContact);
+            //Assert
+            assertNull(actual);
+        }
+
 
 
     }

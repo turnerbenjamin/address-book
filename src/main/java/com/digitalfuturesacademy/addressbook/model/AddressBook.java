@@ -57,7 +57,7 @@ public class AddressBook {
     }
 
     public IImmutableContact replaceContact(IImmutableContact old, IImmutableContact updated){
-        if(!deleteContact(old).equals(old)) return null;
+        if(deleteContact(old) == null) return null;
         try {addContact(updated);}
         catch(IllegalArgumentException ex){
             addContact(old);
