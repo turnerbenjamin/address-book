@@ -89,7 +89,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] IC1:	should return correct name
 - [X] IC2:	should trim contact name
 - [X] IC3:	should throw exception where null passed for name
-- [ ] IC4:	should throw exception where an empty string is passed for name
+- [X] IC4:	should throw exception where an empty string is passed for name
 
 #### Constructor - Phone number
 - [ ] IC5:	should return correct phone number

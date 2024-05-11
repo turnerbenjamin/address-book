@@ -42,6 +42,15 @@ public class ImmutableContactTest {
             );
         }
 
+        @Test
+        @DisplayName("IC4, IC7, IC11: Test that constructor throws error for empty String arguments")
+        public void testThatConstructorThrowsErrorForEmptyStringArguments() {
+            //Assert
+            assertAll(
+                   () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  "))
+            );
+        }
+
 
 
     }
