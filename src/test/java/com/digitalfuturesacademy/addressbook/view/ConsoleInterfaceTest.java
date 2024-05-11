@@ -12,8 +12,8 @@ public class ConsoleInterfaceTest {
     private final String TEST_MESSAGE = "Test message";
 
     private PrintStream defaultOut;
-   private ByteArrayOutputStream mockOut;
-   private final String lineSeparator = System.getProperty("line.separator");
+    private ByteArrayOutputStream mockOut;
+    private final String lineSeparator = System.getProperty("line.separator");
 
     @BeforeEach
     public void setUp()
@@ -35,6 +35,16 @@ public class ConsoleInterfaceTest {
         String expected = TEST_MESSAGE + lineSeparator;
         //Act
         ConsoleInterface.printMessage(TEST_MESSAGE);
+        String output = new String(mockOut.toByteArray());
+        assertEquals(expected, output);
+    }
+
+    @Test
+    @DisplayName("CI2: Should print passed prompt to console")
+    public void CI2() {
+        String expected = TEST_MESSAGE + lineSeparator;
+        //Act
+        ConsoleInterface.getUserInput(TEST_MESSAGE);
         String output = new String(mockOut.toByteArray());
         assertEquals(expected, output);
     }
