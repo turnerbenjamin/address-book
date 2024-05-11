@@ -53,7 +53,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB22:	Should throw exception where another contact has the same phoneNumber
 - [X] AB23:	Should throw exception where another contact has the same emailAddress
 - [X] AB24:	Should add a contact where another contact, added with the same phone number, is updated with a new number
-- [ ] AB25:	Should add a contact where another contact, added with the same email address, is updated with a new email address
+- [X] AB25:	Should add a contact where another contact, added with the same email address, is updated with a new email address
 - [ ] AB26:	Should return null if contact to replace not found
 - [ ] AB27:	Should include contact in contacts if error thrown
 

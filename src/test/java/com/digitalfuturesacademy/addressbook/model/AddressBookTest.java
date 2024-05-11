@@ -2,7 +2,6 @@ package com.digitalfuturesacademy.addressbook.model;
 
 import org.junit.jupiter.api.*;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -300,6 +299,22 @@ public class AddressBookTest {
             //Act
             testAddressBook.addContact(originalContactWithDuplicatePhoneNumber);
             testAddressBook.replaceContact(originalContactWithDuplicatePhoneNumber, newContactWithDuplicatePhoneNumberReplaced);
+            testAddressBook.addContact(originalContact);
+            //Assert
+            assertEquals(newContact, testAddressBook.replaceContact(originalContact,newContact));
+        }
+
+        @Test
+        @DisplayName("AB25: Should add a contact where another contact, added with the same email address, is updated with a new email address")
+        public void AB25() {
+            //Arrange
+            IImmutableContact originalContactWithDuplicateEmailAddress = mock(IImmutableContact.class);
+            when(originalContactWithDuplicateEmailAddress.getPhoneNumber()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
+            IImmutableContact newContactWithDuplicateEmailAddressReplaced = mock(IImmutableContact.class);
+            when(newContactWithDuplicateEmailAddressReplaced.getPhoneNumber()).thenReturn("02010");
+            //Act
+            testAddressBook.addContact(originalContactWithDuplicateEmailAddress);
+            testAddressBook.replaceContact(originalContactWithDuplicateEmailAddress, newContactWithDuplicateEmailAddressReplaced);
             testAddressBook.addContact(originalContact);
             //Assert
             assertEquals(newContact, testAddressBook.replaceContact(originalContact,newContact));
