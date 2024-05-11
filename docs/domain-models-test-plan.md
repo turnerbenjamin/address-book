@@ -119,7 +119,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### With Email Address
 - [X] IC21:	Should return Contact with updated email address when with email address is called
-- [ ] IC22:	Should return Contact with only the email address updated when with email address is called
+- [X] IC22:	Should return Contact with only the email address updated when with email address is called
 - [ ] IC23:	Should not mutate the object on which with email address is called
 
 ## AddressBookApp

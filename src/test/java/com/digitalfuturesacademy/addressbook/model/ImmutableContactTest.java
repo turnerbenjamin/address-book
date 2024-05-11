@@ -129,7 +129,9 @@ public class ImmutableContactTest {
             IImmutableContact newTestContact = originalContact.withEmailAddress(NEW_EMAIL_ADDRESS);
             //Assert
             assertAll(
-                    () -> assertEquals(NEW_EMAIL_ADDRESS, newTestContact.getEmailAddress())
+                    () -> assertEquals(NEW_EMAIL_ADDRESS, newTestContact.getEmailAddress()),
+                    () -> assertEquals(OLD_NAME, newTestContact.getName()),
+                    () -> assertEquals(OLD_PHONE_NUMBER, newTestContact.getPhoneNumber())
             );
         }
         }
