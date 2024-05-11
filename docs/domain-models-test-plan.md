@@ -49,18 +49,19 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Update Contact
 - [X] AB20:	Should replace contact with new contact
-- [ ] AB21:	Should return updated contact when contact updated
+- [X] AB21:	Should return updated contact when contact updated
 - [ ] AB22:	Should throw exception where another contact has the same phoneNumber
 - [ ] AB23:	Should throw exception where another contact has the same emailAddress
 - [ ] AB24:	Should add a contact where another contact, added with the same phone number, is updated with a new number
 - [ ] AB25:	Should add a contact where another contact, added with the same email address, is updated with a new email address
 - [ ] AB26:	Should return null if contact to replace not found
+- [ ] AB27:	Should include contact in contacts if error thrown
 
 #### View All Contacts
-- [ ] AB27:	Should return collection with one element where one contact
-- [ ] AB28:	Should return collection with all contacts where more than one contact
-- [ ] AB29:	Should return empty collection where no contacts
-- [ ] AB30:	Adding an element to the returned collection should not add an element to the contacts in Address Book
+- [ ] AB28:	Should return collection with one element where one contact
+- [ ] AB29:	Should return collection with all contacts where more than one contact
+- [ ] AB30:	Should return empty collection where no contacts
+- [ ] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 
 #### Sorting Results
 - [ ] AB31:	Results of search should be in alphabetical order

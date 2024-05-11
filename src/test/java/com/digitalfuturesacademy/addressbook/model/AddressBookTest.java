@@ -256,10 +256,11 @@ public class AddressBookTest {
         public void AB20_AB21() {
             //Act
             testAddressBook.addContact(originalContact);
-            IImmutableContact result = testAddressBook.replaceContact(originalContact,newContact);
+            IImmutableContact actual = testAddressBook.replaceContact(originalContact,newContact);
             //Assert
             assertAll(
-                    () -> assertEquals(newContact, testAddressBook.getContacts().get(0))
+                    () -> assertEquals(newContact, testAddressBook.getContacts().get(0)),
+                    () -> assertEquals(newContact, actual)
             );
         }
 
