@@ -354,7 +354,20 @@ public class AddressBookTest {
             //Assert
             assertTrue(actual);
         }
+    }
 
+    @DisplayName("View AllContactsTests")
+    @Nested
+    class ViewAllContactsTests{
+
+        @Test
+        @DisplayName("AB28: Should return collection with one element where one contact")
+        public void AB28() {
+            //Act
+            testAddressBook.addContact(testContacts[0]);
+            //Assert
+            assertEquals(1, testAddressBook.getContacts().size());
+        }
 
 
     }
