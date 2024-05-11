@@ -61,7 +61,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB28:	Should return collection with one element where one contact
 - [X] AB29:	Should return collection with all contacts where more than one contact
 - [X] AB30:	Should return empty collection where no contacts
-- [ ] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
+- [X] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 
 #### Sorting Results
 - [ ] AB31:	Results of search should be in alphabetical order

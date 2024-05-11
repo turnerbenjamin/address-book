@@ -382,9 +382,18 @@ public class AddressBookTest {
         @Test
         @DisplayName("AB30: Should return empty collection where no contacts")
         public void AB30() {
-            //Act
-            //Assert
             assertEquals(0, testAddressBook.getContacts().size());
+        }
+
+        @Test
+        @DisplayName("AB31: Adding an element to the returned collection should not add an element to the contacts in Address Book")
+        public void AB31() {
+            //Act
+            testAddressBook.addContact(testContacts[0]);
+            List<IImmutableContact> results = testAddressBook.getContacts();
+            results.add(testContacts[1]);
+            //Assert
+            assertNotEquals(testAddressBook.size(), results.size());
         }
 
 
