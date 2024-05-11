@@ -9,9 +9,9 @@ public final class ImmutableContact implements IImmutableContact{
     private final String emailAddress;
 
     public ImmutableContact(String name, String phoneNumber, String emailAddress){
-        this.name = trimStringIfNotNullOrEmpty(name);
+        this.name = validateString(name);
         this.phoneNumber = validatePhoneNumber(phoneNumber);
-        this.emailAddress = trimStringIfNotNullOrEmpty(emailAddress);
+        this.emailAddress = validateEmailAddress(emailAddress);
     };
 
     public String getName() {
@@ -27,19 +27,28 @@ public final class ImmutableContact implements IImmutableContact{
     }
 
 
-    private String trimStringIfNotNullOrEmpty(String str){
-        if(str == null) throw new IllegalArgumentException("Arguments cannot be null");
-        String trimmed = str.trim();
+
+    private String validateString(String string){
+        if(string == null) throw new IllegalArgumentException("Arguments cannot be null");
+        String trimmed = string.trim();
         if(trimmed.isEmpty()) throw new IllegalArgumentException("Arguments cannot be empty");
-        return str.trim();
+        return string.trim();
     }
 
+    private String validateString(String string, String regex, String exceptionMessage){
+        String trimmedString = validateString(string);
+        if(!trimmedString.matches(regex))  throw new IllegalArgumentException(exceptionMessage);
+        return  trimmedString;
+    }
 
     private String validatePhoneNumber(String phoneNumber){
-        String trimmedPhoneNumber = trimStringIfNotNullOrEmpty(phoneNumber);
-        if(!trimmedPhoneNumber.matches("^[\\+\\d]\\d+$"))
-          throw new IllegalArgumentException("Phone number must include only digits, other than the first character which may be a `+`");
-        return trimmedPhoneNumber;
+        String phoneNumberRegex = "^[\\+\\d]\\d+$";
+        return validateString(phoneNumber, phoneNumberRegex, "Phone number must include only digits, other than the first character which may be a `+`");
+    }
+
+    private String validateEmailAddress(String emailAddress){
+        String emailRegEx = "^.+@.+\\..+$";
+        return validateString(emailAddress, emailRegEx, "Invalid email, must contain @ symbol and a domain");
     }
 
 

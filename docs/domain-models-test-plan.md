@@ -105,7 +105,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Constructor - Pattern Validation
 - [X] IC13:	should ensure that phone number follows valid pattern
-- [ ] IC14:	should ensure that email address follows valid pattern
+- [X] IC14:	should ensure that email address follows valid pattern
 
 #### With Name
 - [ ] IC15:	Should return Contact with updated name when set name is called
