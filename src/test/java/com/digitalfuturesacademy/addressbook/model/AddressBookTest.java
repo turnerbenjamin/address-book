@@ -238,17 +238,17 @@ public class AddressBookTest {
     class UpdateContactTest{
         private IImmutableContact originalContact;
         private IImmutableContact newContact;
-        private final String ORIGINAL_CONTACT_PHONE_NUMBER = "00000000";
-        private final String ORIGINAL_CONTACT_EMAIL_ADDRESS = "old@b.c";
+        private final String NEW_CONTACT_PHONE_NUMBER = "00000000";
+        private final String NEW_CONTACT_EMAIL_ADDRESS = "new@b.c";
 
         @BeforeEach
         public void setUpForDuplicateChecks(){
             originalContact = mock(IImmutableContact.class);
             newContact = mock(IImmutableContact.class);
-            when(originalContact.getPhoneNumber()).thenReturn(ORIGINAL_CONTACT_PHONE_NUMBER);
-            when(originalContact.getEmailAddress()).thenReturn(ORIGINAL_CONTACT_EMAIL_ADDRESS);
-            when(newContact.getPhoneNumber()).thenReturn("11111111111");
-            when(newContact.getEmailAddress()).thenReturn("new@email.com");
+            when(originalContact.getPhoneNumber()).thenReturn("11111111111");
+            when(originalContact.getEmailAddress()).thenReturn("old@email.com");
+            when(newContact.getPhoneNumber()).thenReturn(NEW_CONTACT_PHONE_NUMBER);
+            when(newContact.getEmailAddress()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
         }
 
         @Test
@@ -262,6 +262,18 @@ public class AddressBookTest {
                     () -> assertEquals(newContact, testAddressBook.getContacts().get(0)),
                     () -> assertEquals(newContact, actual)
             );
+        }
+        @Test
+        @DisplayName("AB22: Updating a contact with a duplicate phone number")
+        public void AB22() {
+            //Arrange
+            IImmutableContact contactWithDuplicatePhoneNumber = mock(IImmutableContact.class);
+            when(contactWithDuplicatePhoneNumber.getPhoneNumber()).thenReturn(NEW_CONTACT_PHONE_NUMBER);
+            //Act
+            testAddressBook.addContact(contactWithDuplicatePhoneNumber);
+            testAddressBook.addContact(originalContact);
+            //Assert
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(originalContact,newContact));
         }
 
 
