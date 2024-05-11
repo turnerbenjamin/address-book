@@ -20,14 +20,24 @@ public class AddressBook {
         return contacts.size();
     }
 
+
+
     public List<IImmutableContact> searchContacts(String searchTerm){
         List<IImmutableContact> matchingContacts = new ArrayList<>();
+        String formattedSearchTerm = formatStringForSearch(searchTerm);
+
         for(IImmutableContact candidateContact : contacts){
-            if(!candidateContact.getName().contains(searchTerm)) continue;
+            String formattedStringToSearch = formatStringForSearch(candidateContact.getName());
+            if(!formattedStringToSearch.contains(formattedSearchTerm)) continue;
             matchingContacts.add(candidateContact);
         }
         return matchingContacts;
     }
+
+    private String formatStringForSearch(String str){
+        return str.toLowerCase();
+    }
+
 
 
 }

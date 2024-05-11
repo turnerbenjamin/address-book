@@ -106,5 +106,19 @@ public class AddressBookTest {
                     () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingTwoCandidatesByName).containsAll(matchingCandidates))
             );
         }
+
+        @Test
+        @DisplayName("AB10-11: Test search trimmed and case-insensitive")
+        public void testSearchTermTrimmedAndCaseInsensitive() {
+            //Arrange
+            IImmutableContact testContact = testContacts[0];
+            String searchTermMatchingOneCandidateByName = testContact.getName().substring(0,4);
+            //Assert
+            assertAll(
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName.toUpperCase()).contains(testContact))
+            );
+        }
+
+
     }
 }
