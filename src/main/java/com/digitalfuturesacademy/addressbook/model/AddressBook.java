@@ -23,7 +23,7 @@ public class AddressBook {
     public List<IImmutableContact> searchContacts(String searchTerm){
         List<IImmutableContact> matchingContacts = new ArrayList<>();
         for(IImmutableContact candidateContact : contacts){
-            if(!candidateContact.getName().matches(searchTerm)) continue;
+            if(!candidateContact.getName().contains(searchTerm)) continue;
             matchingContacts.add(candidateContact);
         }
         return matchingContacts;

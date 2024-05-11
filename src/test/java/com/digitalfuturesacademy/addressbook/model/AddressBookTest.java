@@ -17,7 +17,7 @@ public class AddressBookTest {
         testContacts = new IImmutableContact[testNames.length];
         for(int i = 0; i<testNames.length; i++){
             IImmutableContact testContact = mock(IImmutableContact.class);
-            when(testContact.getName()).thenReturn(testNames[0]);
+            when(testContact.getName()).thenReturn(testNames[i]);
             testContacts[i] = testContact;
         }
     }
@@ -70,10 +70,13 @@ public class AddressBookTest {
         @DisplayName("AB5-6: Test search where search term matches one candidate")
         public void testSearchWhereSearchTermMatchesOneCandidate() {
             //Arrange
-            String searchTermMatchingOneCandidateByName = "Jane";
+            IImmutableContact testContact = testContacts[0];
+
+            String searchTermMatchingOneCandidateByName = testContact.getName().substring(0,4);
             //Assert
             assertAll(
-                    () -> assertEquals(1,testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).size())
+                    () -> assertEquals(1,testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).size()),
+                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneCandidateByName).contains(testContact))
             );
 
 
