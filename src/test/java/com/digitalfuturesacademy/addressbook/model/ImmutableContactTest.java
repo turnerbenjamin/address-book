@@ -64,12 +64,45 @@ public class ImmutableContactTest {
         @Test
         @DisplayName("IC13-IC14: Test that constructor performs pattern validation on phone number and email")
         public void testThatConstructorPerformsPatternValidationOnPhoneNumberAndEmail() {
-
             //Assert
             assertAll(
                     () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "phoneNumber", testEmailAddress)),
                     () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, testPhoneNumber, "A@B,com"))
             );
         }
+    }
+
+    @DisplayName("With Field Tests")
+    @Nested
+    class WithFieldTests{
+
+        private IImmutableContact originalContact;
+        private final String OLD_NAME = "Old Name";
+        private final String OLD_PHONE_NUMBER = "00000000";
+        private final String OLD_EMAIL_ADDRESS = "old@b.c";
+        private final String NEW_NAME = "New Name";
+
+        @BeforeEach
+        public void setUpWithFieldTests(){
+            originalContact = new ImmutableContact(OLD_NAME, OLD_PHONE_NUMBER, OLD_EMAIL_ADDRESS);
+        }
+
+        @AfterEach
+        public void cleanUpWithFieldTests(){
+            originalContact = null;
+        }
+
+        @Test
+        @DisplayName("IC15, IC16, IC17: Test with name")
+        public void testWithName() {
+            //Act
+            IImmutableContact newTestContact = originalContact.withName(NEW_NAME);
+            //Assert
+            assertAll(
+                    () -> assertEquals(NEW_NAME, newTestContact.getName())
+            );
+        }
+
+
     }
 }

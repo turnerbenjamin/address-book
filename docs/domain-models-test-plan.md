@@ -108,19 +108,19 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] IC14:	should ensure that email address follows valid pattern
 
 #### With Name
-- [ ] IC15:	Should return Contact with updated name when set name is called
-- [ ] IC16:	Should return Contact with only the name updated when set name is called
-- [ ] IC17:	Should not mutate the object on which set name is called
+- [X] IC15:	Should return Contact with updated name when with name is called
+- [ ] IC16:	Should return Contact with only the name updated when with name is called
+- [ ] IC17:	Should not mutate the object on which with name is called
 
 #### With Phone Number
-- [ ] IC18:	Should return Contact with updated phone number when set phone number is called
-- [ ] IC19:	Should return Contact with only the phone number updated when set phone number is called
-- [ ] IC20:	Should not mutate the object on which set phone number is called
+- [ ] IC18:	Should return Contact with updated phone number when with phone number is called
+- [ ] IC19:	Should return Contact with only the phone number updated when with phone number is called
+- [ ] IC20:	Should not mutate the object on which with phone number is called
 
 #### With Email Address
-- [ ] IC21:	Should return Contact with updated email address when set email address is called
-- [ ] IC22:	Should return Contact with only the email address updated when set email address is called
-- [ ] IC23:	Should not mutate the object on which set email address is called
+- [ ] IC21:	Should return Contact with updated email address when with email address is called
+- [ ] IC22:	Should return Contact with only the email address updated when with email address is called
+- [ ] IC23:	Should not mutate the object on which with email address is called
 
 ## AddressBookApp
 

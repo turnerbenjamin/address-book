@@ -44,9 +44,9 @@ classDiagram
         +getEmailAddress() String
         +getName() String
         +getPhoneNumber() String
-        +withEmailAddress(String) IImmutableContact
-        +withPhoneNumber(String) IImmutableContact
-        +withName(String) IImmutableContact
+        +withEmailAddress(String newEmailAddress) IImmutableContact
+        +withPhoneNumber(String newPhoneNumber) IImmutableContact
+        +withName(String newName) IImmutableContact
     }
      IImmutableContact <|-- ImmutableContract
      
