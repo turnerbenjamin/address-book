@@ -94,7 +94,7 @@ between types and their members can be found in the [class diagram](./class-diag
 #### Constructor - Phone number
 - [X] IC5:	should return correct phone number
 - [X] IC6:	should throw error is phone number is null
-- [ ] IC7:	should throw error is phone number is empty
+- [X] IC7:	should throw error is phone number is empty
 - [ ] IC8:	should trim phone number
 
 #### Constructor - Email Address

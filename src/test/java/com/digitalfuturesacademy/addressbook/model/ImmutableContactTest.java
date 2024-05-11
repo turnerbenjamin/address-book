@@ -50,7 +50,8 @@ public class ImmutableContactTest {
         public void testThatConstructorThrowsErrorForEmptyStringArguments() {
             //Assert
             assertAll(
-                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber))
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact("  ", testPhoneNumber)),
+                    () -> assertThrows(IllegalArgumentException.class, ()->new ImmutableContact(testName, "  "))
             );
         }
 
