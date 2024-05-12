@@ -27,6 +27,7 @@ public class AddressBookApp {
 
     public void run(){
         printAddressBookMenu();
+        getUserSelectionFrom(addressBookMenu);
     }
 
     private void printAddressBookMenu(){
@@ -38,6 +39,11 @@ public class AddressBookApp {
             addressBookMenuStringBuilder.append("\n");
         }
         userInterface.printMessage(addressBookMenuStringBuilder.toString());
+    }
+
+    private String getUserSelectionFrom(SortedMap<String, String> menu){
+        String userInput = userInterface.getUserInput("Select an option by number or 'e' to exit \n");
+        return userInput;
     }
 
 }
