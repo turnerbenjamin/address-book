@@ -63,13 +63,27 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB30:	Should return empty collection where no contacts
 - [X] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 
+#### Search by Phone Number
+- [ ] AB32:	should return list with a size of 1 where phone number is matched to just one contact
+- [ ] AB33:	should return list containing matched contact where phone number is matched to just one contact
+- [ ] AB34:	should return an empty list where no phone number matches found
+- [ ] AB35:	should return list with a size of 2 where partial phone number is matched to two contacts
+- [ ] AB36:	should return list containing both matched contacts where partial phone number is matched to two contacts
+
+#### Search by Email Address
+- [ ] ABA37:	should return list with a size of 1 where email address is matched to just one contact
+- [ ] ABA38:	should return list containing matched contact where email address is matched to just one contact
+- [ ] ABA39:	should return an empty list where no email address matches found
+- [ ] ABA40:	should return list with a size of 2 where partial email address is matched to two contacts
+- [ ] ABA41:	should return list containing both matched contacts where partial email address is matched to two contacts
+
 #### Sorting Results
-- [ ] AB32:	Results of search should be in alphabetical order
+- [ ] AB42:	Results of search should be in alphabetical order
 
 #### Delete All Contacts
 - [ ] AB33:	Contacts should be an empty list after deletion
-- [ ] AB34:	Should add contact where email address is the same as a contact removed by delete all
-- [ ] AB35:	Should add contact where phone number is the same as a contact removed by delete all
+- [ ] AB44:	Should add contact where email address is the same as a contact removed by delete all
+- [ ] AB45:	Should add contact where phone number is the same as a contact removed by delete all
 
 ## ImmutableContract
 
@@ -133,79 +147,32 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ### AddressBookApp Tests
 
-#### Run - Top-Menu
-
-- [X] ABA1:	Should call printMessage with top-level menu options preceded by 1-based index and separated by newlines
-- [X] ABA2:	Should call getUserInput with a prompt to select a contact by index number or press e for exit
-- [X] ABA3:	Should print error message where invalid input received
-- [X] ABA4:	Should call getUserInput again where invalid input received
-
 #### Run - Create Contact
-- [X] ABA5:   	Should call getUserInput with a prompt for a contact's name
-- [X] ABA6:	    Should call getUserInput with a prompt for a contact's phone number
-- [X] ABA7:	    Should call getUserInput with a prompt for a contact's email
-- [X] ABA8:	    Should call add contact, passing a contact object with the correct state
-- [X] ABA9:	    Should print success message if contact added successfully
-- [X] ABA10     Should reprint top-level menu if contact successfully added
-- [X] ABA11:	Should call printErrorMessage with an error message where an error is thrown
-- [X] ABA12:	Should return to top-level menu after error is printed
-
+- [X] APP1:   	Should call add contact, passing a contact object with the correct state
+- [X] APP2:	    Should handle error when invalid input for new contact
 
 #### Run - Read Contacts
-- [ ] ABA11:	Should call printMessage with each contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines
-- [ ] ABA12:	Should call getUserInput with a prompt to select a contact by index number or press e for exit
-- [ ] ABA13:	Should print error message where invalid input received
-- [ ] ABA14:	Should recall getUserInput where invalid input received
-- [ ] ABA15:	Should print top-level menu when exit selected
+- [ ] APP3:	    Should call printMessage with each contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines
 
 #### Run - Read Contact
-- [ ] ABA16:	Should call printMessage with the contact's name, phone number and email address when contact selected
+- [ ] APP4:	    Should call printMessage with the contact's name, phone number and email address when contact selected
 
 #### Run - Update Contact
-- [ ] ABA17:	Should call getUserInput with a prompt for a contact's name, defaulting to the current name
-- [ ] ABA18:	Should call getUserInput with a prompt for a contact's phone number, defaulting to the current phoneNumber
-- [ ] ABA19:	Should call getUserInput with a prompt for a contact's email, defaulting to the current email address
-- [ ] ABA20:	Should call printErrorMessage with an error message where an error is thrown
-- [ ] ABA21:	Should update contact in contacts with correct values
-- [ ] ABA22:	Should print success message with notification that user has been updated
-- [ ] ABA23:	Should reprint user details
-- [ ] ABA24:	Should reprint user menu
+- [ ] APP5:     Should update contact in contacts with correct values
+- [ ] APP6:	    Should handle error when invalid input for contact updates
 
 #### Run - Delete Contact
-- [ ] ABA25:	Should remove contact from contacts
-- [ ] ABA26:	Should print success message to inform user that contact deleted
-- [ ] ABA27:	Should print top level menu options after informing user that the contact has been deleted
+- [ ] APP7:	Should remove contact from contacts
 
-#### Run - Search by Name
-- [ ] ABA28:	Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
-- [ ] ABA29:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
-- [ ] ABA30:	Should print warning message that no matching contacts found where no matches
-- [ ] ABA31:	Should re-print top-level menu where no matches
-
-#### Run - Search by Phone Number
-- [ ] ABA32:	should return list with a size of 1 where phone number is matched to just one contact
-- [ ] ABA33:	should return list containing matched contact where phone number is matched to just one contact
-- [ ] ABA34:	should return an empty list where no phone number matches found
-- [ ] ABA35:	should return list with a size of 2 where partial phone number is matched to two contacts
-- [ ] ABA36:	should return list containing both matched contacts where partial phone number is matched to two contacts
-
-#### Run - Search by Email Address
-- [ ] ABA37:	should return list with a size of 1 where email address is matched to just one contact
-- [ ] ABA38:	should return list containing matched contact where email address is matched to just one contact
-- [ ] ABA39:	should return an empty list where no email address matches found
-- [ ] ABA40:	should return list with a size of 2 where partial email address is matched to two contacts
-- [ ] ABA41:	should return list containing both matched contacts where partial email address is matched to two contacts
+#### Run - Search
+- [ ] APP8:	Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
+- [ ] APP9:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
+- [ ] APP10:	Should print warning message that no matching contacts found where no matches
 
 #### Run - Delete All Contacts
-- [ ] ABA42:	Should print warning message asking to confirm delete all contacts
-- [ ] ABA43:	Should call getUserInput with a prompt to type "YES" or "NO"
-- [ ] ABA44:	Should print error if invalid input received
-- [ ] ABA45:	Should prompt user for input again if invalid input received
-- [ ] ABA46:	Should call delete all contacts if user enters "YES"
-- [ ] ABA47:	Should call success message to inform user that contact deleted
-- [ ] ABA48:	Should print top-level menu after contact deleted
-- [ ] ABA49:	Should not call delete all contacts if user enters "NO
-- [ ] ABA50:	Should print top-level menu after user enters "NO"
+- [ ] APP11:	Should print warning message asking to confirm delete all contacts
+- [ ] APP12:	Should call delete all contacts if user enters "YES"
+- [ ] APP13:	Should not call delete all contacts if user enters "NO
 
 ## ConsoleInterface
 

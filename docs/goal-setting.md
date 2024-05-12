@@ -69,3 +69,11 @@ where ANSI codes used.
 For the AddressBookApp tests debugging was used to fix tests after a loop was added to get user input. 
 
 I have not had the impulse to log any values to the console for the purposes of debugging. 
+
+## After User Story 9
+Debugging used to understand how ArgumentCaptor from mockito was working. I had expected
+arguments captured to be ordered by method invocation - But they seem to be ordered first by method,
+i.e. arguments passed to the first method verify is used on come first, and then invocation order. 
+
+I am more used to using step into and step over correctly. I have not been using step-out but will make
+an effort to use that in the next story.
