@@ -32,7 +32,7 @@ public class ConsoleInterface implements IUserInterface {
 
     public String getUserInput(String prompt){
         printMessage(prompt, ANSI_DEFAULT);
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     private void printMessage(String message, String textColor){

@@ -1,9 +1,11 @@
 package com.digitalfuturesacademy.addressbook.controller;
 
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
+import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -31,30 +33,60 @@ public class AddressBookApp {
     }
 
     private void topLevelMenuControl(){
-
-        String userSelection = null;
+        String userSelection;
         while(true){
-            printAddressBookMenu();
+            printMenu(addressBookMenu);
             userSelection = getUserSelectionFrom(addressBookMenu);
             if(userSelection == null || userSelection.equals("e")) break;
             switch (userSelection){
                 case "1":
                     createUserControl();
                     break;
+                case "2":
+                    readAllContactsControl();
+                    break;
             }
-
         }
     }
 
-    private void printAddressBookMenu(){
-        StringBuilder addressBookMenuStringBuilder = new StringBuilder();
-        for(Map.Entry entry : addressBookMenu.entrySet()){
-            addressBookMenuStringBuilder.append(entry.getKey())
+    private void createUserControl(){
+        String nameInput = userInterface.getUserInput("Enter the contact's name:");
+        String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
+        String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
+        System.out.println(nameInput + phoneNumberInput + emailAddressInput);
+        try{
+            addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
+            userInterface.printSuccessMessage("Success: Contact added to address book");
+        }catch(IllegalArgumentException ex){
+            userInterface.printErrorMessage(ex.getMessage());
+        }
+    }
+
+    private void readAllContactsControl(){
+        SortedMap<String,String> contactsMenu = getContactsMenu(addressBook.getContacts());
+        printMenu(contactsMenu);
+
+    }
+
+    private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
+        SortedMap<String,String> contactsMenu = new TreeMap<>();
+      for(int i = 0; i < contactsToPrint.size(); i++){
+          contactsMenu.put(Integer.valueOf(i+1).toString(),contactsToPrint.get(i).getName());
+      }
+        return contactsMenu;
+    }
+
+
+
+    private void printMenu(SortedMap<String,String> menu){
+        StringBuilder menuString = new StringBuilder();
+        for(Map.Entry entry : menu.entrySet()){
+            menuString.append(entry.getKey())
                     .append(":\t")
                     .append(entry.getValue())
                     .append("\n");
         }
-        userInterface.printMessage(addressBookMenuStringBuilder.toString());
+        userInterface.printMessage(menuString.toString());
     }
 
     private String getUserSelectionFrom(SortedMap<String, String> menu){
@@ -67,18 +99,6 @@ public class AddressBookApp {
         return userInput;
     }
 
-    private void createUserControl(){
-        String nameInput = userInterface.getUserInput("Enter the contact's name:");
-        String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
-        String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
-        try{
-            addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
-            userInterface.printSuccessMessage("Success: Contact added to address book");
-        }catch(IllegalArgumentException ex){
-            userInterface.printErrorMessage("Error: Invalid contact information!!");
-        }
 
-
-    }
 
 }
