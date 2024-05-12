@@ -40,7 +40,7 @@ public class ConsoleInterfaceTest {
     @Test
     @DisplayName("CI1: Should print passed message to console")
     public void CI1() {
-        String expected = TEST_MESSAGE + lineSeparator;
+        String expected = "\u001B[0m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
         testConsoleInterface.printMessage(TEST_MESSAGE);
         String output = new String(mockOut.toByteArray());
@@ -50,10 +50,12 @@ public class ConsoleInterfaceTest {
     @Test
     @DisplayName("CI2: Should print passed prompt to console")
     public void CI2() {
-        String expected = TEST_MESSAGE + lineSeparator;
+        //Arrange
+        String expected = "\u001B[0m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
         testConsoleInterface.getUserInput(TEST_MESSAGE);
         String output = new String(mockOut.toByteArray());
+        //Assert
         assertEquals(expected, output);
     }
 
@@ -65,7 +67,22 @@ public class ConsoleInterfaceTest {
         when(mockScanner.next()).thenReturn(testUserInput);
         //Act
         String actualInput = testConsoleInterface.getUserInput(TEST_MESSAGE);
+        //Assert
         assertEquals(testUserInput, actualInput);
     }
+
+    @Test
+    @DisplayName("CI4: Should print passed error message to console with red text")
+    public void CI4() {
+        //Arrange
+        String expected = "\u001B[31m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        //Act
+        testConsoleInterface.printErrorMessage(TEST_MESSAGE);
+        String output = new String(mockOut.toByteArray());
+        //Assert
+        assertEquals(expected, output);
+    }
+
+
 
 }
