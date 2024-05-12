@@ -107,15 +107,16 @@ public class AddressBookAppTest {
         @DisplayName("ABA5-9: Should call getUserInput with a prompts for values, call add contact with the values and print success message")
         public void AB5_AB6_AB7_AB8_AB9() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1","Jane Doe", "11111");
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1","Jane Doe", "11111", "a@b.c");
             //Act
             testAddressBookApp.run();
-            verify(mockUserInterface, times(3)).getUserInput(stringArgumentCaptor.capture());
+            verify(mockUserInterface, times(4)).getUserInput(stringArgumentCaptor.capture());
             List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
             //Assert
             assertAll(
                     () -> assertEquals("Enter the contact's name:", promptsActuallyMade.get(1)),
-                    () -> assertEquals("Enter the contact's phone number:", promptsActuallyMade.get(2))
+                    () -> assertEquals("Enter the contact's phone number:", promptsActuallyMade.get(2)),
+                    () -> assertEquals("Enter the contact's email address:", promptsActuallyMade.get(3))
             );
         }
 
