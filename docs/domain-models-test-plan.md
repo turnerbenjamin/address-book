@@ -147,7 +147,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] ABA8:	    Should call add contact, passing a contact object with the correct state
 - [X] ABA9:	    Should print success message if contact added successfully
 - [X] ABA10     Should reprint top-level menu if contact successfully added
-- [ ] ABA11:	Should call printErrorMessage with an error message where an error is thrown
+- [X] ABA11:	Should call printErrorMessage with an error message where an error is thrown
 - [ ] ABA12:	Should return to top-level menu after error is printed
 
 

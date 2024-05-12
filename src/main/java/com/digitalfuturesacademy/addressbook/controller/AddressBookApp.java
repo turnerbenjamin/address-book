@@ -71,8 +71,14 @@ public class AddressBookApp {
         String nameInput = userInterface.getUserInput("Enter the contact's name:");
         String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
         String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
-        addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
-        userInterface.printSuccessMessage("Success: Contact added to address book");
+        try{
+            addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
+            userInterface.printSuccessMessage("Success: Contact added to address book");
+        }catch(IllegalArgumentException ex){
+            userInterface.printErrorMessage("Error: Invalid contact information!!");
+        }
+
+
     }
 
 }

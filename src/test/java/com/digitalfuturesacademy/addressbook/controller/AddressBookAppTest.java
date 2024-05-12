@@ -145,6 +145,23 @@ public class AddressBookAppTest {
             );
         }
 
+        @Test
+        @DisplayName("AB11-12: Create contact - Invalid Input")
+        public void AB11_AB12() {
+            // Arrange
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1", "e");
+            //Act
+                testAddressBookApp.run();
+                verify(mockUserInterface, times(1)).printErrorMessage(stringArgumentCaptor.capture());
+                verify(mockUserInterface, times(2)).printMessage(stringArgumentCaptor.capture());
+
+                List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
+
+            assertAll(
+                    () -> assertEquals("Error: Invalid contact information!!", promptsActuallyMade.get(0))
+            );
+        }
+
     }
 
 
