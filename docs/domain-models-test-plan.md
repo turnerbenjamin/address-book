@@ -141,7 +141,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] ABA4:	Should call getUserInput again where invalid input received
 
 #### Run - Create Contact
-- [ ] ABA5:   	Should call getUserInput with a prompt for a contact's name
+- [X] ABA5:   	Should call getUserInput with a prompt for a contact's name
 - [ ] ABA6:	    Should call getUserInput with a prompt for a contact's phone number
 - [ ] ABA7:	    Should call getUserInput with a prompt for a contact's email
 - [ ] ABA8:	    Should call printErrorMessage with an error message where an error is thrown

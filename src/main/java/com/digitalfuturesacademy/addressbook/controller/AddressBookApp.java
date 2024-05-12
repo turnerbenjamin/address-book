@@ -26,17 +26,26 @@ public class AddressBookApp {
     }
 
     public void run(){
+       topLevelMenuControl();
+    }
+
+    private void topLevelMenuControl(){
         printAddressBookMenu();
-        getUserSelectionFrom(addressBookMenu);
+        String userSelection = getUserSelectionFrom(addressBookMenu);
+        switch (userSelection){
+            case "1":
+                createUserControl();
+                break;
+        }
     }
 
     private void printAddressBookMenu(){
         StringBuilder addressBookMenuStringBuilder = new StringBuilder();
         for(Map.Entry entry : addressBookMenu.entrySet()){
-            addressBookMenuStringBuilder.append(entry.getKey());
-            addressBookMenuStringBuilder.append(":\t");
-            addressBookMenuStringBuilder.append(entry.getValue());
-            addressBookMenuStringBuilder.append("\n");
+            addressBookMenuStringBuilder.append(entry.getKey())
+                    .append(":\t")
+                    .append(entry.getValue())
+                    .append("\n");
         }
         userInterface.printMessage(addressBookMenuStringBuilder.toString());
     }
@@ -45,10 +54,15 @@ public class AddressBookApp {
         String userInput = null;
         while(userInput == null || !menu.containsKey(userInput)){
             userInput = userInterface.getUserInput("Select an option by number or 'e' to exit:");
-            if(userInput != null && userInput.toLowerCase() == "e") break;
+            if(userInput != null && userInput.toLowerCase().equals("e")) break;
             if(!menu.containsKey(userInput))  userInterface.printErrorMessage("Invalid selection!");
         }
         return userInput;
+    }
+
+    private void createUserControl(){
+        String name = userInterface.getUserInput("Enter the contact's name:");
+
     }
 
 }

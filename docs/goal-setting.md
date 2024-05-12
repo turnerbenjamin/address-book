@@ -61,3 +61,11 @@ as I could step into invoked methods to see where null was coming from.
 
 No debugging, the tests were very basic and did not require any change in implementation. Note: I did
 run each test with false expected values to ensure that the tests would fail.
+
+## After User Story 8
+Debugging used quite a bit here - For the ConsoleInterface, debugging was used to look at String values
+where ANSI codes used. 
+
+For the AddressBookApp tests debugging was used to fix tests after a loop was added to get user input. 
+
+I have not had the impulse to log any values to the console for the purposes of debugging. 

@@ -43,8 +43,6 @@ public class AddressBookAppTest {
     @DisplayName("Top-Level Menu Tests")
     @Nested
     class TopLevelMenuTests{
-
-
         @Test
         @DisplayName("ABA1: Should call printMessage with top-level menu options preceded by 1-based index and separated by newlines")
         public void AB1() {
@@ -100,8 +98,29 @@ public class AddressBookAppTest {
             //Assert
             assertEquals(EXPECTED_TOP_LEVEL_INPUT_PROMPT, actual);
         }
+    }
+
+    @DisplayName("Create Contact Tests")
+    @Nested
+    class CreateContactTests{
+        @Test
+        @DisplayName("ABA5-7: Should call getUserInput with a prompt for a contact's name, phone number and email")
+        public void AB5() {
+            // Arrange
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1","Jane Doe");
+            //Act
+            testAddressBookApp.run();
+            verify(mockUserInterface, times(2)).getUserInput(stringArgumentCaptor.capture());
+            List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
+            //Assert
+            assertAll(
+                    () -> assertEquals("Enter the contact's name:", promptsActuallyMade.get(1))
+            );
+        }
 
     }
+
+
 
 
 
