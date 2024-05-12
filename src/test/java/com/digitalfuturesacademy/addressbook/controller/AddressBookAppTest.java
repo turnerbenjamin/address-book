@@ -107,24 +107,30 @@ public class AddressBookAppTest {
     @Nested
     class CreateContactTests{
         @Test
-        @DisplayName("ABA5-9: Create contact - normal conditions")
-        public void AB5_AB6_AB7_AB8_AB9() {
+        @DisplayName("ABA5-10: Create contact - normal conditions")
+        public void AB5_AB6_AB7_AB8_AB9_AB10() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1");
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1", "e");
             when(mockUserInterface.getUserInput("Enter the contact's name:")).thenReturn("Jane Doe");
             when(mockUserInterface.getUserInput("Enter the contact's phone number:")).thenReturn("11111");
             when(mockUserInterface.getUserInput("Enter the contact's email address:")).thenReturn("a@b.c");
             //Act
             testAddressBookApp.run();
-
-            verify(mockUserInterface, times(4)).getUserInput(stringArgumentCaptor.capture());
+            verify(mockUserInterface, times(5)).getUserInput(stringArgumentCaptor.capture());
             verify(mockAddressBook, times(1)).addContact(contactArgumentCaptor.capture());
             verify(mockUserInterface, times(1)).printSuccessMessage(stringArgumentCaptor.capture());
+            verify(mockUserInterface, times(2)).printMessage(stringArgumentCaptor.capture());
 
             List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
             IImmutableContact contactCreated = contactArgumentCaptor.getValue();
 
             //Assert
+            /*
+            * Expected stringArgumentCapture profile:
+            * Get User inputs 0-4
+            * Success Message: 5
+            * printMessage: 6-7
+            * */
             assertAll(
                     () -> assertEquals("Enter the contact's name:", promptsActuallyMade.get(1)),
                     () -> assertEquals("Enter the contact's phone number:", promptsActuallyMade.get(2)),
@@ -134,7 +140,8 @@ public class AddressBookAppTest {
                             ()->assertEquals("11111", contactCreated.getPhoneNumber()),
                             ()-> assertEquals("a@b.c", contactCreated.getEmailAddress())
                     ),
-                    ()-> assertEquals("Contact added to address book", promptsActuallyMade.get(4))
+                    ()-> assertEquals("Success: Contact added to address book", promptsActuallyMade.get(5)),
+                    ()-> assertEquals(EXPECTED_TOP_LEVEL_MENU_STRING, promptsActuallyMade.get(7))
             );
         }
 

@@ -27,16 +27,22 @@ public class AddressBookApp {
     }
 
     public void run(){
-       topLevelMenuControl();
+        topLevelMenuControl();
     }
 
     private void topLevelMenuControl(){
-        printAddressBookMenu();
-        String userSelection = getUserSelectionFrom(addressBookMenu);
-        switch (userSelection){
-            case "1":
-                createUserControl();
-                break;
+
+        String userSelection = null;
+        while(true){
+            printAddressBookMenu();
+            userSelection = getUserSelectionFrom(addressBookMenu);
+            if(userSelection == null || userSelection.equals("e")) break;
+            switch (userSelection){
+                case "1":
+                    createUserControl();
+                    break;
+            }
+
         }
     }
 
@@ -66,7 +72,7 @@ public class AddressBookApp {
         String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
         String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
         addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
-        userInterface.printSuccessMessage("Contact added to address book");
+        userInterface.printSuccessMessage("Success: Contact added to address book");
     }
 
 }
