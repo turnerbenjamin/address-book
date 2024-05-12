@@ -83,6 +83,18 @@ public class ConsoleInterfaceTest {
         assertEquals(expected, output);
     }
 
+    @Test
+    @DisplayName("CI5: Should print passed warning message to console with yellow text")
+    public void CI5() {
+        //Arrange
+        String expected = "\u001B[33m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        //Act
+        testConsoleInterface.printWarningMessage(TEST_MESSAGE);
+        String output = new String(mockOut.toByteArray());
+        //Assert
+        assertEquals(expected, output);
+    }
+
 
 
 }

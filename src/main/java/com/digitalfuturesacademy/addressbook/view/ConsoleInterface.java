@@ -7,35 +7,34 @@ import java.util.Scanner;
 public class ConsoleInterface implements IConsoleInterface {
 
     private Scanner scanner;
-
-    private static Map<String, String> consoleColors = new HashMap<>();
-    static{
-        consoleColors.put("DEFAULT", "\u001B[0m");
-        consoleColors.put("RED", "\u001B[31m");
-        consoleColors.put("GREEN", "\u001B[32m");
-    }
-
-
+    public static final String ANSI_DEFAULT = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
 
     public ConsoleInterface(Scanner scanner){
         this.scanner = scanner;
     }
 
     public void printMessage(String message){
-        printMessage(message, consoleColors.get("DEFAULT"));
+        printMessage(message, ANSI_DEFAULT);
     }
 
     public void printErrorMessage(String message){
-        printMessage(message, consoleColors.get("RED"));
+        printMessage(message, ANSI_RED);
+    }
+
+    public void printWarningMessage(String message){
+        printMessage(message, ANSI_YELLOW);
     }
 
     public String getUserInput(String prompt){
-        printMessage(prompt, consoleColors.get("DEFAULT"));
+        printMessage(prompt, ANSI_DEFAULT);
         return scanner.next();
     }
 
     private void printMessage(String message, String textColor){
-        String formattedMessage = textColor + message + consoleColors.get("DEFAULT");
+        String formattedMessage = textColor + message + ANSI_DEFAULT;
         System.out.println(formattedMessage);
     }
 }
