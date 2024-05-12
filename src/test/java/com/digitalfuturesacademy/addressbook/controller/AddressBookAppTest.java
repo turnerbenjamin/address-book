@@ -158,7 +158,8 @@ public class AddressBookAppTest {
                 List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
 
             assertAll(
-                    () -> assertEquals("Error: Invalid contact information!!", promptsActuallyMade.get(0))
+                    () -> assertEquals("Error: Invalid contact information!!", promptsActuallyMade.get(0)),
+                    () -> assertEquals(EXPECTED_TOP_LEVEL_MENU_STRING, promptsActuallyMade.get(2))
             );
         }
 
