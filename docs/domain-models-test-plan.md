@@ -137,7 +137,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 - [X] ABA1:	Should call printMessage with top-level menu options preceded by 1-based index and separated by newlines
 - [X] ABA2:	Should call getUserInput with a prompt to select a contact by index number or press e for exit
-- [ ] ABA3:	Should print error message where invalid input received
+- [X] ABA3:	Should print error message where invalid input received
 - [ ] ABA4:	Should call getUserInput again where invalid input received
 
 #### Run - Create Contact

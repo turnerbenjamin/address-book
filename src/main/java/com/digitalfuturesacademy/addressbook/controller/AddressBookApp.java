@@ -42,7 +42,9 @@ public class AddressBookApp {
     }
 
     private String getUserSelectionFrom(SortedMap<String, String> menu){
-        String userInput = userInterface.getUserInput("Select an option by number or 'e' to exit \n");
+        String userInput = userInterface.getUserInput("Select an option by number or 'e' to exit");
+        if(userInput == null || !menu.containsKey(userInput))
+            userInterface.printErrorMessage("Invalid selection!");
         return userInput;
     }
 

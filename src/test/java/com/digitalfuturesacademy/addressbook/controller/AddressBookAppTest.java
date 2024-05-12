@@ -11,8 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class AddressBookAppTest {
 
@@ -22,7 +21,8 @@ public class AddressBookAppTest {
     private IAddressBook mockAddressBook;
     private ArgumentCaptor<String> stringArgumentCaptor;
     private final String EXPECTED_TOP_LEVEL_MENU_STRING = "1:\tAdd a contact\n2:\tView all contacts\n3:\tSearch contacts\n";
-    private final String EXPECTED_TOP_LEVEL_INPUT_PROMPT = "Select an option by number or 'e' to exit \n";
+    private final String EXPECTED_TOP_LEVEL_INPUT_PROMPT = "Select an option by number or 'e' to exit";
+    private final String EXPECTED_INVALID_SELECTION_MESSAGE = "Invalid selection!";
 
     @BeforeEach
     public void setUpAddressBookAppTests(){
@@ -69,6 +69,20 @@ public class AddressBookAppTest {
             actual = stringArgumentCaptor.getValue();
             //Assert
             assertEquals(EXPECTED_TOP_LEVEL_INPUT_PROMPT, actual);
+        }
+
+        @Test
+        @DisplayName("ABA3: Should print error message where invalid input received")
+        public void AB3() {
+            // Arrange
+            String actual;
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("INVALID INPUT");
+            //Act
+            testAddressBookApp.run();
+            verify(mockUserInterface).printErrorMessage(stringArgumentCaptor.capture());
+            actual = stringArgumentCaptor.getValue();
+            //Assert
+            assertEquals(EXPECTED_INVALID_SELECTION_MESSAGE, actual);
         }
 
     }
