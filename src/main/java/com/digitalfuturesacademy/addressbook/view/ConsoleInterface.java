@@ -1,12 +1,21 @@
 package com.digitalfuturesacademy.addressbook.view;
 
-public class ConsoleInterface {
+import java.util.Scanner;
 
-    static void printMessage(String message){
+public class ConsoleInterface implements IConsoleInterface {
+
+    private Scanner scanner;
+
+    public ConsoleInterface(Scanner scanner){
+        this.scanner = scanner;
+    }
+
+    public void printMessage(String message){
         System.out.println(message);
     }
 
-    static void getUserInput(String prompt){
+    public String getUserInput(String prompt){
         System.out.println(prompt);
+        return scanner.next();
     }
 }

@@ -52,21 +52,19 @@ classDiagram
      
     class IUserInterface { 
         <<Interface>>
-        +getUserInput(String prompt)$ String
-        +printErrorMessage(String message)$ void
-        +printMessage(String message)$ void
-        +printSuccessMessage(String message)$ void
-        +printWarningMessage(String message)$ void
+        +getUserInput(String prompt) String
+        +printErrorMessage(String message) void
+        +printMessage(String message) void
+        +printSuccessMessage(String message) void
+        +printWarningMessage(String message) void
     }
     
     class ConsoleInterface{
-        <<final>>
-        -ConsoleInterface()
-        +getUserInput(String prompt)$ String
-        +printErrorMessage(String message)$ void
-        +printMessage(String message)$ void
-        +printSuccessMessage(String message)$ void
-        +printWarningMessage(String message)$ void
+        +getUserInput(String prompt) String
+        +printErrorMessage(String message) void
+        +printMessage(String message) void
+        +printSuccessMessage(String message) void
+        +printWarningMessage(String message) void
         
     }
     

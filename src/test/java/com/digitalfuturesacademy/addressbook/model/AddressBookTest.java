@@ -12,7 +12,26 @@ import static org.mockito.Mockito.when;
 public class AddressBookTest {
     private AddressBook testAddressBook;
     private IImmutableContact[] testContacts;
+    
+    @BeforeEach
+    public void setUpForAllTests(){
+        String[] testNames = new String[] {"Jane Doe", "John Doe", "Fox Mulder"};
+        testAddressBook = new AddressBook();
+        testContacts = new IImmutableContact[testNames.length];
+        for(int i = 0; i<testNames.length; i++){
+            IImmutableContact testContact = mock(IImmutableContact.class);
+            when(testContact.getName()).thenReturn(testNames[i]);
+            when(testContact.getPhoneNumber()).thenReturn(String.format("%011d",i));
+            when(testContact.getEmailAddress()).thenReturn(String.format("%d@b.c",i));
+            testContacts[i] = testContact;
+        }
+    }
 
+    @AfterEach
+    public void cleanUpForAllTests(){
+        testAddressBook = null;
+        testContacts = null;
+    }
 
     @DisplayName("Test Add Entry")
     @Nested
