@@ -1,6 +1,7 @@
 package com.digitalfuturesacademy.addressbook.controller;
 
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
+import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 
 import java.util.Map;
@@ -64,7 +65,7 @@ public class AddressBookApp {
         String nameInput = userInterface.getUserInput("Enter the contact's name:");
         String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
         String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
-
+        addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
     }
 
 }

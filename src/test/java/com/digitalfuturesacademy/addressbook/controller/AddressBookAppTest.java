@@ -20,6 +20,7 @@ public class AddressBookAppTest {
     private IUserInterface mockUserInterface;
     private IAddressBook mockAddressBook;
     private ArgumentCaptor<String> stringArgumentCaptor;
+    private ArgumentCaptor<IImmutableContact> contactArgumentCaptor;
     private final String EXPECTED_TOP_LEVEL_MENU_STRING = "1:\tAdd a contact\n2:\tView all contacts\n3:\tSearch contacts\n";
     private final String EXPECTED_TOP_LEVEL_INPUT_PROMPT = "Select an option by number or 'e' to exit:";
     private final String EXPECTED_INVALID_SELECTION_MESSAGE = "Invalid selection!";
@@ -30,6 +31,7 @@ public class AddressBookAppTest {
         mockAddressBook = mock(IAddressBook.class);
         testAddressBookApp = new AddressBookApp(mockUserInterface, mockAddressBook);
         stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        contactArgumentCaptor = ArgumentCaptor.forClass(IImmutableContact.class);
     }
 
     @AfterEach
@@ -38,6 +40,7 @@ public class AddressBookAppTest {
         mockAddressBook = null;
         testAddressBookApp = null;
         stringArgumentCaptor = null;
+        contactArgumentCaptor = null;
     }
 
     @DisplayName("Top-Level Menu Tests")
@@ -107,16 +110,26 @@ public class AddressBookAppTest {
         @DisplayName("ABA5-9: Should call getUserInput with a prompts for values, call add contact with the values and print success message")
         public void AB5_AB6_AB7_AB8_AB9() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1","Jane Doe", "11111", "a@b.c");
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1");
+            when(mockUserInterface.getUserInput("Enter the contact's name:")).thenReturn("Jane Doe");
+            when(mockUserInterface.getUserInput("Enter the contact's phone number:")).thenReturn("11111");
+            when(mockUserInterface.getUserInput("Enter the contact's email address:")).thenReturn("a@b.c");
             //Act
             testAddressBookApp.run();
             verify(mockUserInterface, times(4)).getUserInput(stringArgumentCaptor.capture());
+            verify(mockAddressBook, times(1)).addContact(contactArgumentCaptor.capture());
             List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
+            IImmutableContact contactCreated = contactArgumentCaptor.getValue();
             //Assert
             assertAll(
                     () -> assertEquals("Enter the contact's name:", promptsActuallyMade.get(1)),
                     () -> assertEquals("Enter the contact's phone number:", promptsActuallyMade.get(2)),
-                    () -> assertEquals("Enter the contact's email address:", promptsActuallyMade.get(3))
+                    () -> assertEquals("Enter the contact's email address:", promptsActuallyMade.get(3)),
+                    () -> assertAll(
+                            ()->assertEquals("Jane Doe", contactCreated.getName()),
+                            ()->assertEquals("11111", contactCreated.getPhoneNumber()),
+                            ()-> assertEquals("a@b.c", contactCreated.getEmailAddress())
+                    )
             );
         }
 
