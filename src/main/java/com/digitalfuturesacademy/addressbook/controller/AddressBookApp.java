@@ -66,6 +66,7 @@ public class AddressBookApp {
         String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
         String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
         addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
+        userInterface.printSuccessMessage("Contact added to address book");
     }
 
 }

@@ -107,7 +107,7 @@ public class AddressBookAppTest {
     @Nested
     class CreateContactTests{
         @Test
-        @DisplayName("ABA5-9: Should call getUserInput with a prompts for values, call add contact with the values and print success message")
+        @DisplayName("ABA5-9: Create contact - normal conditions")
         public void AB5_AB6_AB7_AB8_AB9() {
             // Arrange
             when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn("1");
@@ -116,10 +116,14 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput("Enter the contact's email address:")).thenReturn("a@b.c");
             //Act
             testAddressBookApp.run();
+
             verify(mockUserInterface, times(4)).getUserInput(stringArgumentCaptor.capture());
             verify(mockAddressBook, times(1)).addContact(contactArgumentCaptor.capture());
+            verify(mockUserInterface, times(1)).printSuccessMessage(stringArgumentCaptor.capture());
+
             List<String> promptsActuallyMade = stringArgumentCaptor.getAllValues();
             IImmutableContact contactCreated = contactArgumentCaptor.getValue();
+
             //Assert
             assertAll(
                     () -> assertEquals("Enter the contact's name:", promptsActuallyMade.get(1)),
@@ -129,7 +133,8 @@ public class AddressBookAppTest {
                             ()->assertEquals("Jane Doe", contactCreated.getName()),
                             ()->assertEquals("11111", contactCreated.getPhoneNumber()),
                             ()-> assertEquals("a@b.c", contactCreated.getEmailAddress())
-                    )
+                    ),
+                    ()-> assertEquals("Contact added to address book", promptsActuallyMade.get(4))
             );
         }
 
