@@ -142,12 +142,13 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Create Contact
 - [X] ABA5:   	Should call getUserInput with a prompt for a contact's name
-- [ ] ABA6:	    Should call getUserInput with a prompt for a contact's phone number
+- [X] ABA6:	    Should call getUserInput with a prompt for a contact's phone number
 - [ ] ABA7:	    Should call getUserInput with a prompt for a contact's email
-- [ ] ABA8:	    Should call printErrorMessage with an error message where an error is thrown
-- [ ] ABA9:	    Should return to top-level menu after error is printed
-- [ ] ABA10:	Should call add contact, passing a contact object with the correct state
-- [ ] ABA11:	Should print success message if contact added successfully
+- [ ] ABA8:	    Should call add contact, passing a contact object with the correct state
+- [ ] ABA9:	    Should print success message if contact added successfully
+- [ ] ABA10:	Should call printErrorMessage with an error message where an error is thrown
+- [ ] ABA11:	Should return to top-level menu after error is printed
+
 
 #### Run - Read Contacts
 - [ ] ABA11:	Should call printMessage with each contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines

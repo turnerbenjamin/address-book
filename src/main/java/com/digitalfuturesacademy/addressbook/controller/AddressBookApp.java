@@ -62,6 +62,7 @@ public class AddressBookApp {
 
     private void createUserControl(){
         String name = userInterface.getUserInput("Enter the contact's name:");
+        String phoneNumber = userInterface.getUserInput("Enter the contact's phone number:");
 
     }
 
