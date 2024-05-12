@@ -76,6 +76,7 @@ classDiagram
         -addContactControl() void
         -deleteAllContactsControl() void
         -deleteContactControl() void
+        -printAddressBookMenu() void
         -printContactMenu() void
         -searchContactsControl() void
         -updateContactControl() void

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AddressBook {
+public class AddressBook implements  IAddressBook{
 
     private final List<IImmutableContact> contacts = new ArrayList<>();
     private final Set<String> phoneNumbers = new HashSet<>();

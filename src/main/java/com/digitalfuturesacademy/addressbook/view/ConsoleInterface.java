@@ -1,10 +1,8 @@
 package com.digitalfuturesacademy.addressbook.view;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
-public class ConsoleInterface implements IConsoleInterface {
+public class ConsoleInterface implements IUserInterface {
 
     private Scanner scanner;
     public static final String ANSI_DEFAULT = "\u001B[0m";

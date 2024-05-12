@@ -64,12 +64,12 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 
 #### Sorting Results
-- [ ] AB31:	Results of search should be in alphabetical order
+- [ ] AB32:	Results of search should be in alphabetical order
 
 #### Delete All Contacts
-- [ ] AB32:	Contacts should be an empty list after deletion
-- [ ] AB33:	Should add contact where email address is the same as a contact removed by delete all
-- [ ] AB34:	Should add contact where phone number is the same as a contact removed by delete all
+- [ ] AB33:	Contacts should be an empty list after deletion
+- [ ] AB34:	Should add contact where email address is the same as a contact removed by delete all
+- [ ] AB35:	Should add contact where phone number is the same as a contact removed by delete all
 
 ## ImmutableContract
 
@@ -135,7 +135,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Top-Menu
 
-- [ ] ABA1:	Should call printMessage with top-level menu options preceded by 1-based index and separated by newlines
+- [X] ABA1:	Should call printMessage with top-level menu options preceded by 1-based index and separated by newlines
 - [ ] ABA2:	Should call getUserInput with a prompt to select a contact by index number or press e for exit
 - [ ] ABA3:	Should print error message where invalid input received
 - [ ] ABA4:	Should call getUserInput again where invalid input received

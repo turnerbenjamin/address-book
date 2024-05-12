@@ -1,6 +1,6 @@
 package com.digitalfuturesacademy.addressbook.view;
 
-public interface IConsoleInterface
+public interface IUserInterface
 {
 
      String getUserInput(String prompt);

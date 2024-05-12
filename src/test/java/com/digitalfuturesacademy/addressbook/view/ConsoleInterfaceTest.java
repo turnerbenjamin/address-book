@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 public class ConsoleInterfaceTest {
 
     private Scanner mockScanner;
-    private IConsoleInterface testConsoleInterface;
+    private IUserInterface testConsoleInterface;
     private PrintStream defaultOut;
     private ByteArrayOutputStream mockOut;
     private final String TEST_MESSAGE = "Test message";
