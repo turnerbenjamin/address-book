@@ -24,6 +24,10 @@ public class ConsoleInterface implements IConsoleInterface {
         printMessage(message, ANSI_RED);
     }
 
+    public void printSuccessMessage(String message){
+        printMessage(message, ANSI_GREEN);
+    }
+
     public void printWarningMessage(String message){
         printMessage(message, ANSI_YELLOW);
     }

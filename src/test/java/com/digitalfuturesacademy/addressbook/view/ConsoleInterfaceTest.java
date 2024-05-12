@@ -95,6 +95,18 @@ public class ConsoleInterfaceTest {
         assertEquals(expected, output);
     }
 
+    @Test
+    @DisplayName("CI6: Should print passed success message to console with green text")
+    public void CI6() {
+        //Arrange
+        String expected = "\u001B[32m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        //Act
+        testConsoleInterface.printSuccessMessage(TEST_MESSAGE);
+        String output = new String(mockOut.toByteArray());
+        //Assert
+        assertEquals(expected, output);
+    }
+
 
 
 }
