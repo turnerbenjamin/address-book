@@ -152,7 +152,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP2:	    Should handle error when invalid input for new contact
 
 #### Run - Read Contacts
-- [X] APP3:	    Should call printMessage with each contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines
+- [X] APP3:	    Should call printMenu with a 1-based index for keys mapped to usernames as values
 - [X] APP4:	    Should print error message where no contact's found
 
 #### Run - Read Contact

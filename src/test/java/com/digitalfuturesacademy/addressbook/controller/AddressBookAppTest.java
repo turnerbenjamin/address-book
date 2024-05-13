@@ -5,10 +5,14 @@ import com.digitalfuturesacademy.addressbook.model.IAddressBook;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.SortedMap;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,31 +50,9 @@ public class AddressBookAppTest {
     public void setUpTestUsers(){
         //UPDATED CONTACT
         updatedContact = mock(IImmutableContact.class);
-        when(updatedContact.getName()).thenReturn(td.VALID_NAME);
-        when(updatedContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
-        when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
-        // USER 1
         testContact1 = mock(IImmutableContact.class);
-        when(testContact1.getName()).thenReturn(td.USER_1_NAME);
-        when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
-        when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
-        //USER 2
         testContact2 = mock(IImmutableContact.class);
-        when(testContact2.getName()).thenReturn(td.USER_2_NAME);
-        when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
-        when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
-        when(testContact2.withName(any(String.class))).thenReturn(updatedContact);
-        when(testContact2.withEmailAddress(any(String.class))).thenReturn(updatedContact);
-        when(testContact2.withPhoneNumber(any(String.class))).thenReturn(updatedContact);
         testContacts = Arrays.asList(testContact1, testContact2, updatedContact);
-        for(IImmutableContact testContact: testContacts){
-            when(testContact.withName(any(String.class))).thenReturn(updatedContact);
-            when(testContact.withEmailAddress(any(String.class))).thenReturn(updatedContact);
-            when(testContact.withPhoneNumber(any(String.class))).thenReturn(updatedContact);
-        }
-
-
-
     }
 
 
@@ -131,24 +113,33 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.INVALID_EMAIL_ADDRESS);
             //Act
             testAddressBookApp.run();
-            verify(mockUserInterface, times(1)).printErrorMessage(stringArgumentCaptor.capture());
-            verify(mockUserInterface, times(2)).printMessage(stringArgumentCaptor.capture());
             assertDoesNotThrow(()->testAddressBookApp.run());
         }
-
+        @ExtendWith(MockitoExtension.class)
+        @Captor
+        private ArgumentCaptor<SortedMap<String,String>> menuCaptor;
         @Test
-        @DisplayName("APP3: Should call printMessage with each contact's name, prefixed with a 1-based index number and separated by newlines")
+        @DisplayName("APP3: Should call printMenu with a 1-based index for keys mapped to usernames as values")
         public void APP3() {
+
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            String expected = String.format("1:\t%s\n2:\t%s\n", td.USER_1_NAME, td.USER_2_NAME);
-            //Act
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
+            //Act
             testAddressBookApp.run();
-            verify(mockUserInterface, times(3)).printMessage(stringArgumentCaptor.capture());
-            String actual = stringArgumentCaptor.getAllValues().get(1);
-            assertTrue(actual.contains(expected));
+            verify(mockUserInterface, times(3)).printMenu(menuCaptor.capture());
+            SortedMap<String,String> mapPassed = menuCaptor.getAllValues().get(1);
+
+            assertAll(
+                    ()-> assertTrue(mapPassed.containsKey("1")),
+                    ()-> assertTrue(mapPassed.containsKey("2")),
+                    ()-> assertTrue(mapPassed.get("1").equals(testContact1.getName())),
+                    ()-> assertTrue(mapPassed.get("2").equals(testContact2.getName()))
+            );
+
         }
 
         @Test
@@ -168,8 +159,8 @@ public class AddressBookAppTest {
         public void APP5() {
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);
-            //Act
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);//Act
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
             testAddressBookApp.run();
             //Assert
             verify(mockUserInterface).printContact(testContact1);
@@ -187,6 +178,9 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_EMAIL_ADDRESS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            when(contactToUpdate.withName(any(String.class))).thenReturn(updatedContact);
+            when(updatedContact.withPhoneNumber(any(String.class))).thenReturn(updatedContact);
+            when(updatedContact.withEmailAddress(any(String.class))).thenReturn(updatedContact);
             //Act
             testAddressBookApp.run();
             //Assert

@@ -40,7 +40,7 @@ public class AddressBookApp {
     private void topLevelMenuControl(){
         String userSelection;
         while(true){
-            printMenu(addressBookMenu);
+            userInterface.printMenu(addressBookMenu);
             userSelection = getUserSelectionFrom(addressBookMenu.keySet());
             if(userSelection.equals("e")) break;
             if(userSelection.equals("1")) createUserControl();
@@ -67,7 +67,7 @@ public class AddressBookApp {
             return;
         }
         SortedMap<String,String> contactsMenu = getContactsMenu(addressBook.getContacts());
-        printMenu(contactsMenu);
+        userInterface.printMenu(contactsMenu);
         String userSelection = getUserSelectionFrom(contactsMenu.keySet());
         if(userSelection.equals("e")) return;
         readContactControl(contacts.get(Integer.parseInt(userSelection) - 1));
@@ -77,7 +77,7 @@ public class AddressBookApp {
 
     private void readContactControl(IImmutableContact contactToRead){
         userInterface.printContact(contactToRead);
-        printMenu(contactMenu);
+        userInterface.printMenu(contactMenu);
         String userSelection = getUserSelectionFrom(contactMenu.keySet());
         if(userSelection.equals("e")) return;
         if(userSelection.equals("1")) updateContactControl(contactToRead);
@@ -118,22 +118,6 @@ public class AddressBookApp {
             contactsMenu.put(Integer.valueOf(i+1).toString(),contactsToPrint.get(i).getName());
         }
         return contactsMenu;
-    }
-
-
-
-    //Calls print message on userInterface with the passed menu as a String.
-    //Menu should be a SortedMap with the keys being valid user inputs
-    //and the values being descriptions for each option.
-    private void printMenu(SortedMap<String,String> menu){
-        StringBuilder menuString = new StringBuilder();
-        menuString.append("\n---------------------------\n");
-        menu.forEach((key, value) -> menuString
-                .append(key)
-                .append(":\t")
-                .append(value)
-                .append("\n"));
-        userInterface.printMessage(menuString.toString());
     }
 
     //Gets user selection from a menu. The menu should be a set of valid
