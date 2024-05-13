@@ -216,7 +216,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] SV9:	isValidEmailAddress should return true if argument is valid email
 - [X] SV10: isValidEmailAddress should return false if argument is null
 - [X] SV11: isValidEmailAddress should return false if argument is empty
-- [ ] SV12: isValidEmailAddress should return false if argument does not contain '@'
+- [X] SV12: isValidEmailAddress should return false if argument does not contain '@'
 - [ ] SV13: isValidEmailAddress should return false if argument does not contain '.' after '@'
 
 
