@@ -194,6 +194,30 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] CI5:	Should print passed warning message to console with yellow text
 - [X] CI6:	Should print passed success message to console with green text
 
+## StringValidation
+
+| property | message                      | output  |
+|----------|------------------------------|---------|
+|          | hasContent(@String)          | @bool   |
+|          | isValidPhoneNumber(@String)  | @bool   |
+|          | isValidEmailAddress(@String) | @bool   |
+
+
+## StringValidation Tests
+
+- [X] SV1:	hasContent should return true if argument is not empty or null
+- [ ] SV2:	hasContent should return false if argument is null
+- [ ] SV3:	hasContent should return false if trimmed argument is empty
+- [ ] SV4:  isValidPhoneNumber should return true if argument is valid phone number
+- [ ] SV5:	isValidPhoneNumber should return false if argument is null
+- [ ] SV6:	isValidPhoneNumber should return false if argument is empty
+- [ ] SV7:	isValidPhoneNumber should return false if first char of argument is not a '+' or digit
+- [ ] SV8:	isValidPhoneNumber should return false if chars after the first char are not digits
+- [ ] SV9:	isValidEmailAddress should return true if argument is valid email
+- [ ] SV10: isValidEmailAddress should return false if argument is null
+- [ ] SV11: isValidEmailAddress should return false if argument is empty
+- [ ] SV12: isValidEmailAddress should return false if argument does not contain '@'
+- [ ] SV13: isValidEmailAddress should return false if argument does not contain '.' after '@'
 
 
 
