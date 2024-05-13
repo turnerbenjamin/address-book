@@ -10,8 +10,8 @@ public class StringValidationTest {
     private final String STRING_WITH_CONTENT = "String with content";
     private final String STRING_WITHOUT_CONTENT = "   ";
     private final String VALID_PHONE_NUMBER = "+441780410545";
-    private final String INVALID_PHONE_NUMBER = "+44178041X545";
-    private final String VALID_EMAIL_ADDRESS = "test@email.com";
+    private final String PHONE_NUMBER_WITH_INVALID_FIRST_CHAR = "X441780410545";
+    private final String PHONE_NUMBER_WITH_INVALID_LATER_CHAR = "+4417804105+5";
     private final String EMAIL_ADDRESS_WITHOUT_AT_SYMBOL = "test_email.com";
     private final String EMAIL_ADDRESS_WITHOUT_DOMAIN = "test.me@email,com";
 
@@ -31,7 +31,8 @@ public class StringValidationTest {
         assertAll(
                 ()-> assertTrue(StringValidation.isValidPhoneNumber(VALID_PHONE_NUMBER)), //SV4
                 ()-> assertFalse(StringValidation.isValidPhoneNumber(null)), //SV5
-                ()-> assertFalse(StringValidation.isValidPhoneNumber(STRING_WITHOUT_CONTENT)) //SV6
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(STRING_WITHOUT_CONTENT)), //SV6
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(PHONE_NUMBER_WITH_INVALID_FIRST_CHAR)) //SV6
         );
     }
 

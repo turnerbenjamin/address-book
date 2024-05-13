@@ -8,7 +8,7 @@ public final class StringValidation {
     }
 
     public static boolean isValidPhoneNumber (String string){
-        return hasContent(string);
+        return hasContent(string) && string.matches("^[\\+\\d]\\d+$");
     }
 
 }
