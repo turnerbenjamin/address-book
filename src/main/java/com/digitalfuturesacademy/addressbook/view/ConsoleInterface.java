@@ -48,6 +48,7 @@ public class ConsoleInterface implements IUserInterface {
     }
 
     public void printMenu(SortedMap<String, String> menu){
+        if(menu == null) throw new IllegalArgumentException("Menu cannot be null or empty");
         StringBuilder menuString = new StringBuilder();
         menuString.append("\n---------------------------\n");
         menu.forEach((key, value) -> menuString

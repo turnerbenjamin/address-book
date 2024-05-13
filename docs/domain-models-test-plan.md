@@ -198,7 +198,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] CI7:  Should print contact's name, phone number and email address when contact passed
 - [X] CI8:  Should throw error where contact is null
 - [X] CI9:  Should print each key and value of passed menu
-- [ ] CI10: Should throw error where menu is null
+- [X] CI10: Should throw error where menu is null
 - [ ] CI11: Should throw error where menu is empty
 
 ## StringValidation
