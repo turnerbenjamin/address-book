@@ -153,26 +153,27 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Read Contacts
 - [X] APP3:	    Should call printMessage with each contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines
+- [X] APP4:	    Should print error message where no contact's found
 
 #### Run - Read Contact
-- [ ] APP4:	    Should call printMessage with the contact's name, phone number and email address when contact selected
+- [ ] APP5:	    Should call printMessage with the contact's name, phone number and email address when contact selected
 
 #### Run - Update Contact
-- [ ] APP5:     Should update contact in contacts with correct values
-- [ ] APP6:	    Should handle error when invalid input for contact updates
+- [ ] APP6:     Should update contact in contacts with correct values
+- [ ] APP7:	    Should handle error when invalid input for contact updates
 
 #### Run - Delete Contact
-- [ ] APP7:	Should remove contact from contacts
+- [ ] APP8:	Should remove contact from contacts
 
 #### Run - Search
-- [ ] APP8:	Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
-- [ ] APP9:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
-- [ ] APP10:	Should print warning message that no matching contacts found where no matches
+- [ ] APP9:	Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
+- [ ] APP10:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
+- [ ] APP111:	Should print warning message that no matching contacts found where no matches
 
 #### Run - Delete All Contacts
-- [ ] APP11:	Should print warning message asking to confirm delete all contacts
-- [ ] APP12:	Should call delete all contacts if user enters "YES"
-- [ ] APP13:	Should not call delete all contacts if user enters "NO
+- [ ] APP12:	Should print warning message asking to confirm delete all contacts
+- [ ] APP13:	Should call delete all contacts if user enters "YES"
+- [ ] APP14:	Should not call delete all contacts if user enters "NO
 
 ## ConsoleInterface
 

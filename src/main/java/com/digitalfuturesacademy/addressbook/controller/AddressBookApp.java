@@ -37,15 +37,9 @@ public class AddressBookApp {
         while(true){
             printMenu(addressBookMenu);
             userSelection = getUserSelectionFrom(addressBookMenu);
-            if(userSelection == null || userSelection.equals("e")) break;
-            switch (userSelection){
-                case "1":
-                    createUserControl();
-                    break;
-                case "2":
-                    readAllContactsControl();
-                    break;
-            }
+            if(userSelection.equals("e")) break;
+            if(userSelection.equals("1")) createUserControl();
+            if(userSelection.equals("2")) readAllContactsControl();
         }
     }
 
@@ -53,7 +47,6 @@ public class AddressBookApp {
         String nameInput = userInterface.getUserInput("Enter the contact's name:");
         String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
         String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
-        System.out.println(nameInput + phoneNumberInput + emailAddressInput);
         try{
             addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
             userInterface.printSuccessMessage("Success: Contact added to address book");
@@ -63,9 +56,13 @@ public class AddressBookApp {
     }
 
     private void readAllContactsControl(){
+        List<IImmutableContact> contacts = addressBook.getContacts();
+        if(contacts.isEmpty()){
+            userInterface.printErrorMessage("No contacts found!");
+            return;
+        }
         SortedMap<String,String> contactsMenu = getContactsMenu(addressBook.getContacts());
         printMenu(contactsMenu);
-
     }
 
     private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
@@ -80,6 +77,7 @@ public class AddressBookApp {
 
     private void printMenu(SortedMap<String,String> menu){
         StringBuilder menuString = new StringBuilder();
+        menuString.append("\n---------------------------\n");
         for(Map.Entry entry : menu.entrySet()){
             menuString.append(entry.getKey())
                     .append(":\t")

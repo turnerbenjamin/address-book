@@ -64,7 +64,7 @@ public class ConsoleInterfaceTest {
     public void CI3() {
         //Arrange
         String testUserInput = "INPUT";
-        when(mockScanner.next()).thenReturn(testUserInput);
+        when(mockScanner.nextLine()).thenReturn(testUserInput);
         //Act
         String actualInput = testConsoleInterface.getUserInput(TEST_MESSAGE);
         //Assert

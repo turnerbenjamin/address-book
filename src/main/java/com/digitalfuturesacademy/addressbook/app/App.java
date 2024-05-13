@@ -17,7 +17,12 @@ public class App {
         IAddressBook addressBook = new AddressBook();
 
         //Run program
-        AddressBookApp addressBookApp = new AddressBookApp(userInterface,addressBook);
-        addressBookApp.run();
+        try{
+            AddressBookApp addressBookApp = new AddressBookApp(userInterface,addressBook);
+            addressBookApp.run();
+        }catch(Throwable ex){
+            userInterface.printErrorMessage("Unexpected error occurred. Exiting application");
+        }
+
     }
 }

@@ -112,6 +112,19 @@ public class AddressBookAppTest {
             assertEquals(expected, actual);
         }
 
+        @Test
+        @DisplayName("APP4: Should call printMessage with the contact's name, phone number and email address when contact selected")
+        public void APP4() {
+            // Arrange
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT))
+                    .thenReturn(READ_ALL_CONTACTS_SELECTION, EXIT_MENU_SELECTION, EXIT_MENU_SELECTION);
+            //Act
+            testAddressBookApp.run();
+            verify(mockUserInterface).printErrorMessage(stringArgumentCaptor.capture());
+            String actual = stringArgumentCaptor.getValue();
+            assertEquals("No contacts found!", actual);
+        }
+
     }
 
 
