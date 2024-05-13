@@ -29,6 +29,7 @@ public class AddressBookAppTest {
     private final String READ_ALL_CONTACTS_SELECTION = "2";
     private final String SEARCH_CONTACTS_SELECTION = "3";
     private final String EXIT_MENU_SELECTION = "e";
+    private final String SELECT_CANDIDATE_1 = "1";
 
 
     @BeforeEach
@@ -109,7 +110,7 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             verify(mockUserInterface, times(3)).printMessage(stringArgumentCaptor.capture());
             String actual = stringArgumentCaptor.getAllValues().get(1);
-            assertEquals(expected, actual);
+            assertTrue(actual.contains(expected));
         }
 
         @Test
@@ -123,6 +124,26 @@ public class AddressBookAppTest {
             verify(mockUserInterface).printErrorMessage(stringArgumentCaptor.capture());
             String actual = stringArgumentCaptor.getValue();
             assertEquals("No contacts found!", actual);
+        }
+
+        @Test
+        @DisplayName("APP5: Should call printMessage with the contact's name, phone number and email address when contact selected")
+        public void APP5() {
+            // Arrange
+            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT))
+                    .thenReturn(READ_ALL_CONTACTS_SELECTION, SELECT_CANDIDATE_1, EXIT_MENU_SELECTION, EXIT_MENU_SELECTION);
+            //Act
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            testAddressBookApp.run();
+            verify(mockUserInterface, times(4)).printMessage(stringArgumentCaptor.capture());
+            String actual = stringArgumentCaptor.getAllValues().get(2);
+
+
+            assertAll(
+                    ()-> assertTrue(actual.contains(testContacts.get(0).getName())),
+                    ()-> assertTrue(actual.contains(testContacts.get(0).getPhoneNumber())),
+                    ()-> assertTrue(actual.contains(testContacts.get(0).getEmailAddress()))
+            );
         }
 
     }

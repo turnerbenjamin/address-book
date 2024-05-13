@@ -15,10 +15,14 @@ public class AddressBookApp {
     private IUserInterface userInterface;
     private IAddressBook addressBook;
     private SortedMap<String, String> addressBookMenu = new TreeMap<>();
+    private SortedMap<String, String> contactMenu = new TreeMap<>();
     {
         addressBookMenu.put("1", "Add a contact");
         addressBookMenu.put("2", "View all contacts");
         addressBookMenu.put("3", "Search contacts");
+
+        contactMenu.put("1", "Update Contact");
+        contactMenu.put("2", "Delete Contact");
     }
 
     public AddressBookApp(IUserInterface userInterface, IAddressBook addressBook){
@@ -63,6 +67,21 @@ public class AddressBookApp {
         }
         SortedMap<String,String> contactsMenu = getContactsMenu(addressBook.getContacts());
         printMenu(contactsMenu);
+        String userSelection = getUserSelectionFrom(contactsMenu);
+        if(userSelection == "e") return;
+        readContactControl(contacts.get(Integer.valueOf(userSelection) - 1));
+    }
+
+    private void readContactControl(IImmutableContact contactToRead){
+        StringBuilder contactStringBuilder = new StringBuilder();
+        contactStringBuilder
+                .append("Name:\t\t\t")
+                .append(contactToRead.getName())
+                .append("\nPhone number:\t")
+                .append(contactToRead.getPhoneNumber())
+                .append("\nEmail address:\t")
+                .append(contactToRead.getEmailAddress());
+        userInterface.printMessage(contactStringBuilder.toString());
     }
 
     private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
@@ -72,6 +91,7 @@ public class AddressBookApp {
       }
         return contactsMenu;
     }
+
 
 
 

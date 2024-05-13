@@ -156,7 +156,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP4:	    Should print error message where no contact's found
 
 #### Run - Read Contact
-- [ ] APP5:	    Should call printMessage with the contact's name, phone number and email address when contact selected
+- [X] APP5:	    Should call printMessage with the contact's name, phone number and email address when contact selected
 
 #### Run - Update Contact
 - [ ] APP6:     Should update contact in contacts with correct values
