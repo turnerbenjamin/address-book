@@ -1,6 +1,6 @@
 package com.digitalfuturesacademy.addressbook.model;
 
-import org.intellij.lang.annotations.RegExp;
+import com.digitalfuturesacademy.addressbook.utils.StringValidation;
 
 public final class ImmutableContact implements IImmutableContact{
 
@@ -12,7 +12,7 @@ public final class ImmutableContact implements IImmutableContact{
         this.name = validateString(name);
         this.phoneNumber = validatePhoneNumber(phoneNumber);
         this.emailAddress = validateEmailAddress(emailAddress);
-    };
+    }
 
     public String getName() {
         return name;
@@ -41,27 +41,21 @@ public final class ImmutableContact implements IImmutableContact{
 
 
     private String validateString(String string){
-        if(string == null) throw new IllegalArgumentException("Arguments cannot be null");
-        String trimmed = string.trim();
-        if(trimmed.isEmpty()) throw new IllegalArgumentException("Arguments cannot be empty");
+        if(!StringValidation.hasContent(string))
+            throw new IllegalArgumentException("Arguments cannot be null");
         return string.trim();
     }
 
-    private String validateString(String string, String regex, String exceptionMessage){
-        String trimmedString = validateString(string);
-        if(!trimmedString.matches(regex))  throw new IllegalArgumentException(exceptionMessage);
-        return  trimmedString;
-    }
 
     private String validatePhoneNumber(String phoneNumber){
-        String phoneNumberRegex = "^[\\+\\d]\\d+$";
-        return validateString(phoneNumber, phoneNumberRegex, "Phone number must include only digits, other than the first character which may be a `+`");
+        if(!StringValidation.isValidPhoneNumber(validateString(phoneNumber)))
+            throw new IllegalArgumentException("Phone number must include only digits, other than the first character which may be a `+`");
+        return phoneNumber.trim();
     }
 
     private String validateEmailAddress(String emailAddress){
-        String emailRegEx = "^.+@.+\\..+$";
-        return validateString(emailAddress, emailRegEx, "Invalid email, must contain @ symbol and a domain");
+         if(!StringValidation.isValidEmailAddress(validateString(emailAddress)))
+            throw new IllegalArgumentException("Invalid email, must contain @ symbol and a domain");
+        return emailAddress.trim();
     }
-
-
 }

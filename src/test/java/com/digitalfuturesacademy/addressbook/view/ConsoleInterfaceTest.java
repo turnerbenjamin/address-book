@@ -1,5 +1,6 @@
 package com.digitalfuturesacademy.addressbook.view;
 
+import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
@@ -105,6 +106,26 @@ public class ConsoleInterfaceTest {
         String output = new String(mockOut.toByteArray());
         //Assert
         assertEquals(expected, output);
+    }
+
+    @Test
+    @DisplayName("CI7: Should print contact's name, phone number and email address when contact passed")
+    public void CI7() {
+        //Arrange
+        String testName = "A", testNumber = "1", testEmail = "@";
+        IImmutableContact mockContact = mock(IImmutableContact.class);
+        when(mockContact.getName()).thenReturn(testName);
+        when(mockContact.getPhoneNumber()).thenReturn(testNumber);
+        when(mockContact.getEmailAddress()).thenReturn(testEmail);
+        //Act
+        testConsoleInterface.printContact(mockContact);
+        String output = new String(mockOut.toByteArray());
+        assertAll(
+                ()->assertTrue(output.contains(testName)),
+                ()->assertTrue(output.contains(testNumber)),
+                ()->assertTrue(output.contains(testEmail))
+        );
+
     }
 
 

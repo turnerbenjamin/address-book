@@ -1,5 +1,7 @@
 package com.digitalfuturesacademy.addressbook.view;
 
+import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
+
 public interface IUserInterface
 {
 
@@ -12,4 +14,6 @@ public interface IUserInterface
      void printSuccessMessage(String message);
 
      void printWarningMessage(String message);
+
+     void printContact(IImmutableContact contact);
 }

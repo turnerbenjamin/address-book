@@ -3,7 +3,6 @@ package com.digitalfuturesacademy.addressbook.app;
 import com.digitalfuturesacademy.addressbook.controller.AddressBookApp;
 import com.digitalfuturesacademy.addressbook.model.AddressBook;
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
-import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
 import com.digitalfuturesacademy.addressbook.view.ConsoleInterface;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;

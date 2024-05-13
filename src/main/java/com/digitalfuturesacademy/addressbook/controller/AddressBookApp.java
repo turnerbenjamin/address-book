@@ -6,16 +6,16 @@ import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class AddressBookApp {
 
-    private IUserInterface userInterface;
-    private IAddressBook addressBook;
-    private SortedMap<String, String> addressBookMenu = new TreeMap<>();
-    private SortedMap<String, String> contactMenu = new TreeMap<>();
+    private final IUserInterface userInterface;
+    private final IAddressBook addressBook;
+    private final SortedMap<String, String> addressBookMenu = new TreeMap<>();
+    private final SortedMap<String, String> contactMenu = new TreeMap<>();
     {
         addressBookMenu.put("1", "Add a contact");
         addressBookMenu.put("2", "View all contacts");
@@ -41,7 +41,7 @@ public class AddressBookApp {
         String userSelection;
         while(true){
             printMenu(addressBookMenu);
-            userSelection = getUserSelectionFrom(addressBookMenu);
+            userSelection = getUserSelectionFrom(addressBookMenu.keySet());
             if(userSelection.equals("e")) break;
             if(userSelection.equals("1")) createUserControl();
             if(userSelection.equals("2")) readAllContactsControl();
@@ -68,9 +68,9 @@ public class AddressBookApp {
         }
         SortedMap<String,String> contactsMenu = getContactsMenu(addressBook.getContacts());
         printMenu(contactsMenu);
-        String userSelection = getUserSelectionFrom(contactsMenu);
-        if(userSelection == "e") return;
-        readContactControl(contacts.get(Integer.valueOf(userSelection) - 1));
+        String userSelection = getUserSelectionFrom(contactsMenu.keySet());
+        if(userSelection.equals("e")) return;
+        readContactControl(contacts.get(Integer.parseInt(userSelection) - 1));
     }
 
 
@@ -78,7 +78,7 @@ public class AddressBookApp {
     private void readContactControl(IImmutableContact contactToRead){
         printContact(contactToRead);
         printMenu(contactMenu);
-        String userSelection = getUserSelectionFrom(contactMenu);
+        String userSelection = getUserSelectionFrom(contactMenu.keySet());
         if(userSelection.equals("e")) return;
         if(userSelection.equals("1")) updateContactControl(contactToRead);
         if(userSelection.equals("2")) deleteContactControl(contactToRead);
@@ -106,19 +106,27 @@ public class AddressBookApp {
         userInterface.printSuccessMessage("Contact deleted!");
     }
 
+
+    //Prints a contact to the console.
+    //Note 1: StringBuilder not used here based on suggestion from IDE
+    //Note 2: This could be written in 1 line, I have broken the 5 line rule for readability only
+    //Note 3: I could override toString in implementations of IImmutableContact - However, I have
+    //        created the string here
+
     private void printContact(IImmutableContact contactToPrint){
-        StringBuilder contactStringBuilder = new StringBuilder();
-        contactStringBuilder
-                .append("Name:\t\t\t")
-                .append(contactToPrint.getName())
-                .append("\nPhone number:\t")
-                .append(contactToPrint.getPhoneNumber())
-                .append("\nEmail address:\t")
-                .append(contactToPrint.getEmailAddress());
-        userInterface.printMessage(contactStringBuilder.toString());
+        // This could be done in one line, I have split it into 7 lines because it is more
+        //readable - String, rather than StringBuilder based on IDE warning
+        String contactString = "Name:\t\t\t";
+        contactString += contactToPrint.getName();
+        contactString += "\nPhone number:\t";
+        contactString += contactToPrint.getPhoneNumber();
+        contactString += "\nEmail address:\t";
+        contactString += contactToPrint.getEmailAddress();
+        userInterface.printMessage(contactString);
     }
 
-
+    //Returns a SortedMap representing a menu for a list of contacts. The keys
+    //are a 1-based index for each contact and the values the contact's name.
     private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
         SortedMap<String,String> contactsMenu = new TreeMap<>();
         for(int i = 0; i < contactsToPrint.size(); i++){
@@ -129,29 +137,31 @@ public class AddressBookApp {
 
 
 
-
+    //Calls print message on userInterface with the passed menu as a String.
+    //Menu should be a SortedMap with the keys being valid user inputs
+    //and the values being descriptions for each option.
     private void printMenu(SortedMap<String,String> menu){
         StringBuilder menuString = new StringBuilder();
         menuString.append("\n---------------------------\n");
-        for(Map.Entry entry : menu.entrySet()){
-            menuString.append(entry.getKey())
-                    .append(":\t")
-                    .append(entry.getValue())
-                    .append("\n");
-        }
+        menu.forEach((key, value) -> menuString
+                .append(key)
+                .append(":\t")
+                .append(value)
+                .append("\n"));
         userInterface.printMessage(menuString.toString());
     }
 
-    private String getUserSelectionFrom(SortedMap<String, String> menu){
-        String userInput = null;
-        while(userInput == null || !menu.containsKey(userInput)){
+    //Gets user selection from a menu. The menu should be a set of valid
+    //user inputs. "e" is treated as a valid input for exit
+    private String getUserSelectionFrom(Set<String> menu){
+        String userInput;
+        while(true){
             userInput = userInterface.getUserInput("Select an option by number or 'e' to exit:");
-            if(userInput != null && userInput.toLowerCase().equals("e")) break;
-            if(!menu.containsKey(userInput))  userInterface.printErrorMessage("Invalid selection!");
+            if(userInput != null && (menu.contains(userInput) || userInput.equalsIgnoreCase("e"))) break;
+            userInterface.printErrorMessage("Invalid selection!");
         }
         return userInput;
     }
-
 
 
 }

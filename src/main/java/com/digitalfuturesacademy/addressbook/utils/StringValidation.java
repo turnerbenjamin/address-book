@@ -1,8 +1,8 @@
 package com.digitalfuturesacademy.addressbook.utils;
 
 public final class StringValidation {
-    private StringValidation(){};
-    private static final String PHONE_NUMBER_VALIDATION_REGEX = "^[\\+\\d]\\d+$";
+    private StringValidation(){}
+    private static final String PHONE_NUMBER_VALIDATION_REGEX = "^[+\\d]\\d+$";
     private static final String EMAIL_ADDRESS_VALIDATION_REGEX = "^.+@.+\\..+$";
 
 

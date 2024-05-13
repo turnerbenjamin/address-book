@@ -177,13 +177,15 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ## ConsoleInterface
 
-| property | message                      | output  |
-|----------|------------------------------|---------|
-|          | getUserInput(@String)        | @String |
-|          | printErrorMessage(@String)   | @void   |
-|          | printMessage(@String)        | @void   |
-|          | printSuccessMessage(@String) | @void   |
-|          | printWarningMessage(@String) | @void   |
+| property | message                                | output  |
+|----------|----------------------------------------|---------|
+|          | getUserInput(@String)                  | @String |
+|          | printErrorMessage(@String)             | @void   |
+|          | printMessage(@String)                  | @void   |
+|          | printSuccessMessage(@String)           | @void   |
+|          | printWarningMessage(@String)           | @void   |
+|          | printContact(@IImmutableContact)       | @void   |
+|          | printMenu(@SortedMap<@String,@String>) | @void   |
 
 ## ConsoleInterface Tests
 
@@ -193,6 +195,11 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] CI4:	Should print passed error message to console with red text
 - [X] CI5:	Should print passed warning message to console with yellow text
 - [X] CI6:	Should print passed success message to console with green text
+- [X] CI7:  Should print contact's name, phone number and email address when contact passed
+- [ ] CI8:  Should throw error where contact is null
+- [ ] CI9:  Should print each key and value of passed menu
+- [ ] CI10: Should throw error where menu is null
+- [ ] CI11: Should throw error where menu is empty
 
 ## StringValidation
 

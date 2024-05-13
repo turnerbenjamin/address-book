@@ -1,5 +1,7 @@
 package com.digitalfuturesacademy.addressbook.view;
 
+import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
+
 import java.util.Scanner;
 
 public class ConsoleInterface implements IUserInterface {
@@ -35,8 +37,18 @@ public class ConsoleInterface implements IUserInterface {
         return scanner.nextLine();
     }
 
+    public void printContact(IImmutableContact contact){
+        String contactString = String.format(
+                "Name:\t\t\t%s\nPhone number:\t%s\nEmail address:\t%s",
+                contact.getName(), contact.getPhoneNumber(), contact.getEmailAddress()
+                );
+        printMessage(contactString);
+    }
+
     private void printMessage(String message, String textColor){
         String formattedMessage = textColor + message + ANSI_DEFAULT;
         System.out.println(formattedMessage);
     }
+
+
 }

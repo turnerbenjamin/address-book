@@ -3,7 +3,6 @@ package com.digitalfuturesacademy.addressbook.controller;
 
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
-import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
