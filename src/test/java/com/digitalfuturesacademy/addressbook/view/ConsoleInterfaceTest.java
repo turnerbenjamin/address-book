@@ -159,14 +159,9 @@ public class ConsoleInterfaceTest {
     public void CI10_CI11() {
         //Arrange
         SortedMap<String,String> testMenu = new TreeMap<>();
-        testMenu.put("1", "Option One");
-        testMenu.put("2", "Option Two");
-        //act
-        testConsoleInterface.printMenu(testMenu);
-        String output = new String(mockOut.toByteArray());
-
         assertAll(
-                ()->assertThrows(IllegalArgumentException.class, ()->testConsoleInterface.printMenu(null)) //CI10
+                ()->assertThrows(IllegalArgumentException.class, ()->testConsoleInterface.printMenu(null)), //CI10
+                ()->assertThrows(IllegalArgumentException.class, ()->testConsoleInterface.printMenu(testMenu)) //CI11
         );
     }
 

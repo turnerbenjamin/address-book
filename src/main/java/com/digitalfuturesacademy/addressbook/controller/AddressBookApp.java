@@ -107,15 +107,9 @@ public class AddressBookApp {
     }
 
 
-    //Prints a contact to the console.
-    //Note 1: StringBuilder not used here based on suggestion from IDE
-    //Note 2: This could be written in 1 line, I have broken the 5 line rule for readability only
-    //Note 3: I could override toString in implementations of IImmutableContact - However, I have
-    //        created the string here
+
 
     private void printContact(IImmutableContact contactToPrint){
-        // This could be done in one line, I have split it into 7 lines because it is more
-        //readable - String, rather than StringBuilder based on IDE warning
         String contactString = "Name:\t\t\t";
         contactString += contactToPrint.getName();
         contactString += "\nPhone number:\t";

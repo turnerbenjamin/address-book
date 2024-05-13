@@ -43,12 +43,15 @@ public class ConsoleInterface implements IUserInterface {
         String contactString = String.format(
                 "Name:\t\t\t%s\nPhone number:\t%s\nEmail address:\t%s",
                 contact.getName(), contact.getPhoneNumber(), contact.getEmailAddress()
-                );
+        );
         printMessage(contactString);
     }
 
+    //Calls print message on userInterface with the passed menu as a String.
+    //Menu should be a SortedMap with the keys being valid user inputs
+    //and the values being descriptions for each option.
     public void printMenu(SortedMap<String, String> menu){
-        if(menu == null) throw new IllegalArgumentException("Menu cannot be null or empty");
+        if(menu == null || menu.isEmpty()) throw new IllegalArgumentException("Menu cannot be null or empty");
         StringBuilder menuString = new StringBuilder();
         menuString.append("\n---------------------------\n");
         menu.forEach((key, value) -> menuString
