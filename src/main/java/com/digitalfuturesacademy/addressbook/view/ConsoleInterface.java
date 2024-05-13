@@ -3,6 +3,7 @@ package com.digitalfuturesacademy.addressbook.view;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class ConsoleInterface implements IUserInterface {
 
@@ -46,10 +47,23 @@ public class ConsoleInterface implements IUserInterface {
         printMessage(contactString);
     }
 
+    public void printMenu(SortedMap<String, String> menu){
+        StringBuilder menuString = new StringBuilder();
+        menuString.append("\n---------------------------\n");
+        menu.forEach((key, value) -> menuString
+                .append(key)
+                .append(":\t")
+                .append(value)
+                .append("\n"));
+        printMessage(menuString.toString());
+    }
+
     private void printMessage(String message, String textColor){
         String formattedMessage = textColor + message + ANSI_DEFAULT;
         System.out.println(formattedMessage);
     }
+
+
 
 
 }

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -131,6 +133,25 @@ public class ConsoleInterfaceTest {
     @DisplayName("CI8: Should throw error where contact is null")
     public void CI8() {
         assertThrows(IllegalArgumentException.class, ()->testConsoleInterface.printContact(null));
+    }
+
+    @Test
+    @DisplayName("CI9: Should print each key and value of passed menu")
+    public void CI9() {
+        //Arrange
+        SortedMap<String,String> testMenu = new TreeMap<>();
+        testMenu.put("1", "Option One");
+        testMenu.put("2", "Option Two");
+        //act
+        testConsoleInterface.printMenu(testMenu);
+        String output = new String(mockOut.toByteArray());
+
+        assertAll(
+                ()->assertTrue(output.contains("1")),
+                ()->assertTrue(output.contains("2")),
+                ()->assertTrue(output.contains("Option One")),
+                ()->assertTrue(output.contains("Option Two"))
+        );
     }
 
 
