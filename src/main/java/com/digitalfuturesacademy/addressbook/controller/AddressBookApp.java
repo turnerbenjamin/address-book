@@ -88,10 +88,10 @@ public class AddressBookApp {
         String updatedPhoneNumber = userInterface.getUserInput("Enter new phone number, or press enter to keep current phone number:");
         String updatedEmailAddress = userInterface.getUserInput("Enter new email address, or press enter to keep current email address:");
         IImmutableContact updatedContact = contactToUpdate;
-        if(updatedNameInput != null && !updatedNameInput.trim().isEmpty()) updatedContact = contactToUpdate.withName(updatedNameInput);
-        if(updatedPhoneNumber != null && !updatedPhoneNumber.trim().isEmpty()) updatedContact = contactToUpdate.withPhoneNumber(updatedPhoneNumber);
-        if(updatedEmailAddress != null && !updatedEmailAddress.trim().isEmpty()) updatedContact = contactToUpdate.withEmailAddress(updatedEmailAddress);
         try{
+            if(updatedNameInput != null && !updatedNameInput.trim().isEmpty()) updatedContact = updatedContact.withName(updatedNameInput);
+            if(updatedPhoneNumber != null && !updatedPhoneNumber.trim().isEmpty()) updatedContact = updatedContact.withPhoneNumber(updatedPhoneNumber);
+            if(updatedEmailAddress != null && !updatedEmailAddress.trim().isEmpty()) updatedContact = updatedContact.withEmailAddress(updatedEmailAddress);
             addressBook.replaceContact(contactToUpdate, updatedContact);
         }
         catch(IllegalArgumentException ex){
@@ -115,9 +115,9 @@ public class AddressBookApp {
 
     private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
         SortedMap<String,String> contactsMenu = new TreeMap<>();
-      for(int i = 0; i < contactsToPrint.size(); i++){
-          contactsMenu.put(Integer.valueOf(i+1).toString(),contactsToPrint.get(i).getName());
-      }
+        for(int i = 0; i < contactsToPrint.size(); i++){
+            contactsMenu.put(Integer.valueOf(i+1).toString(),contactsToPrint.get(i).getName());
+        }
         return contactsMenu;
     }
 

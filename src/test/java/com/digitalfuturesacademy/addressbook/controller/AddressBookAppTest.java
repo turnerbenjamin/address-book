@@ -27,6 +27,7 @@ public class AddressBookAppTest {
     private List<IImmutableContact> testContacts;
     private IImmutableContact testContact1;
     private IImmutableContact testContact2;
+    private IImmutableContact updatedContact;
 
     @BeforeEach
     public void setUpTestAddressBookAndMockDependencies(){
@@ -44,23 +45,31 @@ public class AddressBookAppTest {
 
     @BeforeEach
     public void setUpTestUsers(){
+        //UPDATED CONTACT
+        updatedContact = mock(IImmutableContact.class);
+        when(updatedContact.getName()).thenReturn(td.VALID_NAME);
+        when(updatedContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
+        when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
         // USER 1
         testContact1 = mock(IImmutableContact.class);
         when(testContact1.getName()).thenReturn(td.USER_1_NAME);
         when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
         when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
-        when(testContact1.withName(any(String.class))).thenReturn(testContact1);
-        when(testContact1.withEmailAddress(any(String.class))).thenReturn(testContact1);
-        when(testContact1.withPhoneNumber(any(String.class))).thenReturn(testContact1);
         //USER 2
         testContact2 = mock(IImmutableContact.class);
         when(testContact2.getName()).thenReturn(td.USER_2_NAME);
         when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
         when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
-        when(testContact2.withName(any(String.class))).thenReturn(testContact2);
-        when(testContact2.withEmailAddress(any(String.class))).thenReturn(testContact2);
-        when(testContact2.withPhoneNumber(any(String.class))).thenReturn(testContact2);
-        testContacts = Arrays.asList(testContact1, testContact2);
+        when(testContact2.withName(any(String.class))).thenReturn(updatedContact);
+        when(testContact2.withEmailAddress(any(String.class))).thenReturn(updatedContact);
+        when(testContact2.withPhoneNumber(any(String.class))).thenReturn(updatedContact);
+        testContacts = Arrays.asList(testContact1, testContact2, updatedContact);
+        for(IImmutableContact testContact: testContacts){
+            when(testContact.withName(any(String.class))).thenReturn(updatedContact);
+            when(testContact.withEmailAddress(any(String.class))).thenReturn(updatedContact);
+            when(testContact.withPhoneNumber(any(String.class))).thenReturn(updatedContact);
+        }
+
 
 
     }
@@ -84,6 +93,8 @@ public class AddressBookAppTest {
     public void cleanUpTestUsers(){
         testContact1 = null;
         testContact2 = null;
+        updatedContact = null;
+        testContacts = null;
     }
 
 
@@ -187,9 +198,10 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //Assert
             verify(contactToUpdate).withName(td.VALID_NAME);
-            verify(contactToUpdate).withPhoneNumber(td.VALID_PHONE_NUMBER);
-            verify(contactToUpdate).withEmailAddress(td.VALID_EMAIL_ADDRESS);
-            verify(mockAddressBook).replaceContact(any(IImmutableContact.class),any(IImmutableContact.class));
+            verify(updatedContact).withPhoneNumber(td.VALID_PHONE_NUMBER);
+            verify(updatedContact).withEmailAddress(td.VALID_EMAIL_ADDRESS);
+            verify(mockAddressBook).replaceContact(any(IImmutableContact.class), contactArgumentCaptor.capture());
+            assertEquals(updatedContact, contactArgumentCaptor.getValue());
         }
 
         @Test
