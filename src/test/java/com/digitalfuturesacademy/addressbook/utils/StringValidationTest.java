@@ -45,7 +45,8 @@ public class StringValidationTest {
                 ()-> assertTrue(StringValidation.isValidEmailAddress(VALID_EMAIL_ADDRESS)), //SV9
                 ()-> assertFalse(StringValidation.isValidEmailAddress(null)), //SV10
                 ()-> assertFalse(StringValidation.isValidEmailAddress(STRING_WITHOUT_CONTENT)), //SV11
-                ()-> assertFalse(StringValidation.isValidEmailAddress(EMAIL_ADDRESS_WITHOUT_AT_SYMBOL)) //SV12
+                ()-> assertFalse(StringValidation.isValidEmailAddress(EMAIL_ADDRESS_WITHOUT_AT_SYMBOL)), //SV12
+                ()-> assertFalse(StringValidation.isValidEmailAddress(EMAIL_ADDRESS_WITHOUT_DOMAIN)) //SV13
         );
     }
 
