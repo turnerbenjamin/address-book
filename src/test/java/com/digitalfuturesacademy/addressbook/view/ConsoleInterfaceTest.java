@@ -125,7 +125,12 @@ public class ConsoleInterfaceTest {
                 ()->assertTrue(output.contains(testNumber)),
                 ()->assertTrue(output.contains(testEmail))
         );
+    }
 
+    @Test
+    @DisplayName("CI8: Should throw error where contact is null")
+    public void CI8() {
+        assertThrows(IllegalArgumentException.class, ()->testConsoleInterface.printContact(null));
     }
 
 

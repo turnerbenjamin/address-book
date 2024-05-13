@@ -38,6 +38,7 @@ public class ConsoleInterface implements IUserInterface {
     }
 
     public void printContact(IImmutableContact contact){
+        if( contact == null) throw new IllegalArgumentException("contact cannot be null");
         String contactString = String.format(
                 "Name:\t\t\t%s\nPhone number:\t%s\nEmail address:\t%s",
                 contact.getName(), contact.getPhoneNumber(), contact.getEmailAddress()
