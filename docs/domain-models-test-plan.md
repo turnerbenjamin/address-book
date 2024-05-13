@@ -159,7 +159,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP5:	    Should call printMessage with the contact's name, phone number and email address when contact selected
 
 #### Run - Update Contact
-- [ ] APP6:     Should update contact in contacts with correct values
+- [X] APP6:     Should update contact in contacts with correct values
 - [ ] APP7:	    Should handle error when invalid input for contact updates
 
 #### Run - Delete Contact

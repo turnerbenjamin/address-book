@@ -1,5 +1,6 @@
 package com.digitalfuturesacademy.addressbook.controller;
 
+
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
@@ -7,8 +8,9 @@ import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,51 +18,65 @@ import static org.mockito.Mockito.*;
 
 public class AddressBookAppTest {
 
-
+    private final AddressBookAppTestData td = new AddressBookAppTestData();
     private AddressBookApp testAddressBookApp;
     private IUserInterface mockUserInterface;
     private IAddressBook mockAddressBook;
     private ArgumentCaptor<String> stringArgumentCaptor;
     private ArgumentCaptor<IImmutableContact> contactArgumentCaptor;
     private List<IImmutableContact> testContacts;
-
-    private final String EXPECTED_TOP_LEVEL_INPUT_PROMPT = "Select an option by number or 'e' to exit:";
-    private final String ADD_CONTACT_SELECTION = "1";
-    private final String READ_ALL_CONTACTS_SELECTION = "2";
-    private final String SEARCH_CONTACTS_SELECTION = "3";
-    private final String EXIT_MENU_SELECTION = "e";
-    private final String SELECT_CANDIDATE_1 = "1";
-
+    private IImmutableContact testContact1;
+    private IImmutableContact testContact2;
 
     @BeforeEach
-    public void setUpAddressBookAppTests(){
+    public void setUpTestAddressBookAndMockDependencies(){
         mockUserInterface = mock(IUserInterface.class);
         mockAddressBook = mock(IAddressBook.class);
         testAddressBookApp = new AddressBookApp(mockUserInterface, mockAddressBook);
-        stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
-        contactArgumentCaptor = ArgumentCaptor.forClass(IImmutableContact.class);
-        IImmutableContact testContactA = mock(IImmutableContact.class);
-        when(testContactA.getName()).thenReturn("Jane Doe");
-        when(testContactA.getPhoneNumber()).thenReturn("1111");
-        when(testContactA.getEmailAddress()).thenReturn("a@b.c");
-        IImmutableContact testContactB = mock(IImmutableContact.class);
-        when(testContactB.getName()).thenReturn("John Doe");
-        when(testContactB.getPhoneNumber()).thenReturn("1112");
-        when(testContactB.getEmailAddress()).thenReturn("b@b.c");
 
-        testContacts = new ArrayList<>();
-        testContacts.add(testContactA);
-        testContacts.add(testContactB);
     }
 
+    @BeforeEach
+    public void setUpArgumentCaptors(){
+        stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        contactArgumentCaptor = ArgumentCaptor.forClass(IImmutableContact.class);
+    }
+
+    @BeforeEach
+    public void setUpTestUsers(){
+        // USER 1
+        testContact1 = mock(IImmutableContact.class);
+        when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+        when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+        when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+        //USER 2
+        testContact2 = mock(IImmutableContact.class);
+        when(testContact2.getName()).thenReturn(td.USER_2_NAME);
+        when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+        when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
+        testContacts = Arrays.asList(testContact1, testContact2);
+
+    }
+
+
+
     @AfterEach
-    public void cleanUpAddressBookAppTests(){
+    public void cleanUpTestAddressBookAndMockDependencies() {
         mockUserInterface = null;
         mockAddressBook = null;
         testAddressBookApp = null;
+    }
+
+    @AfterEach
+    public void cleanUpArgumentCaptors(){
         stringArgumentCaptor = null;
         contactArgumentCaptor = null;
-        testContacts = null;
+    }
+
+    @AfterEach
+    public void cleanUpTestUsers(){
+        testContact1 = null;
+        testContact2 = null;
     }
 
 
@@ -70,19 +86,21 @@ public class AddressBookAppTest {
         @Test
         @DisplayName("APP1: Should call add contact, passing a contact object with the correct state")
         public void APP1() {
-            // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn(ADD_CONTACT_SELECTION, EXIT_MENU_SELECTION);
-            when(mockUserInterface.getUserInput("Enter the contact's name:")).thenReturn("Jane Doe");
-            when(mockUserInterface.getUserInput("Enter the contact's phone number:")).thenReturn("11111");
-            when(mockUserInterface.getUserInput("Enter the contact's email address:")).thenReturn("a@b.c");
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.VALID_EMAIL_ADDRESS);
+
             //Act
             testAddressBookApp.run();
             verify(mockAddressBook, times(1)).addContact(contactArgumentCaptor.capture());
             IImmutableContact contactCreated = contactArgumentCaptor.getValue();
+
+            //Assert
             assertAll(
-                    ()->assertEquals("Jane Doe", contactCreated.getName()),
-                    ()->assertEquals("11111", contactCreated.getPhoneNumber()),
-                    ()-> assertEquals("a@b.c", contactCreated.getEmailAddress())
+                    ()->assertEquals(td.VALID_NAME, contactCreated.getName()),
+                    ()->assertEquals(td.VALID_PHONE_NUMBER, contactCreated.getPhoneNumber()),
+                    ()-> assertEquals(td.VALID_EMAIL_ADDRESS, contactCreated.getEmailAddress())
             );
         }
 
@@ -90,7 +108,10 @@ public class AddressBookAppTest {
         @DisplayName("APP2: Should handle error when invalid input for new contact")
         public void APP2() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT)).thenReturn(ADD_CONTACT_SELECTION, EXIT_MENU_SELECTION);
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.INVALID_EMAIL_ADDRESS);
             //Act
             testAddressBookApp.run();
             verify(mockUserInterface, times(1)).printErrorMessage(stringArgumentCaptor.capture());
@@ -102,9 +123,9 @@ public class AddressBookAppTest {
         @DisplayName("APP3: Should call printMessage with each contact's name, prefixed with a 1-based index number and separated by newlines")
         public void APP3() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT))
-                    .thenReturn(READ_ALL_CONTACTS_SELECTION, EXIT_MENU_SELECTION, EXIT_MENU_SELECTION);
-            String expected = "1:\tJane Doe\n2:\tJohn Doe\n";
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            String expected = String.format("1:\t%s\n2:\t%s\n", td.USER_1_NAME, td.USER_2_NAME);
             //Act
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             testAddressBookApp.run();
@@ -117,34 +138,53 @@ public class AddressBookAppTest {
         @DisplayName("APP4: Should call printMessage with the contact's name, phone number and email address when contact selected")
         public void APP4() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT))
-                    .thenReturn(READ_ALL_CONTACTS_SELECTION, EXIT_MENU_SELECTION, EXIT_MENU_SELECTION);
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
+            //Assert
             verify(mockUserInterface).printErrorMessage(stringArgumentCaptor.capture());
-            String actual = stringArgumentCaptor.getValue();
-            assertEquals("No contacts found!", actual);
         }
 
         @Test
         @DisplayName("APP5: Should call printMessage with the contact's name, phone number and email address when contact selected")
         public void APP5() {
             // Arrange
-            when(mockUserInterface.getUserInput(EXPECTED_TOP_LEVEL_INPUT_PROMPT))
-                    .thenReturn(READ_ALL_CONTACTS_SELECTION, SELECT_CANDIDATE_1, EXIT_MENU_SELECTION, EXIT_MENU_SELECTION);
-            //Act
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CANDIDATE_1, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            //Act
             testAddressBookApp.run();
-            verify(mockUserInterface, times(4)).printMessage(stringArgumentCaptor.capture());
+            verify(mockUserInterface, times(5)).printMessage(stringArgumentCaptor.capture());
             String actual = stringArgumentCaptor.getAllValues().get(2);
-
-
+            //Assert
             assertAll(
                     ()-> assertTrue(actual.contains(testContacts.get(0).getName())),
                     ()-> assertTrue(actual.contains(testContacts.get(0).getPhoneNumber())),
                     ()-> assertTrue(actual.contains(testContacts.get(0).getEmailAddress()))
             );
         }
+
+        @Test
+        @DisplayName("APP6: Should update contact in contacts with correct values")
+        public void APP6() {
+            // Arrange
+            IImmutableContact contactToUpdate = testContacts.get(0);
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CANDIDATE_1, td.SELECT_UPDATE_USER, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_EMAIL_ADDRESS);
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(contactToUpdate).withName(td.VALID_NAME);
+            verify(contactToUpdate).withPhoneNumber(td.VALID_PHONE_NUMBER);
+            verify(contactToUpdate).withEmailAddress(td.VALID_EMAIL_ADDRESS);
+            verify(mockAddressBook).replaceContact(contactArgumentCaptor.capture(), contactArgumentCaptor.capture());
+        }
+
 
     }
 

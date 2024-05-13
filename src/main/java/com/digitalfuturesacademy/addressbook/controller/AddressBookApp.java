@@ -72,17 +72,40 @@ public class AddressBookApp {
         readContactControl(contacts.get(Integer.valueOf(userSelection) - 1));
     }
 
+
+
     private void readContactControl(IImmutableContact contactToRead){
+        printContact(contactToRead);
+        printMenu(contactMenu);
+        String userSelection = getUserSelectionFrom(contactMenu);
+        if(userSelection.equals("e")) return;
+        if(userSelection.equals("1")) updateContactControl(contactToRead);
+
+    }
+
+    private void updateContactControl(IImmutableContact contactToUpdate){
+        String updatedNameInput = userInterface.getUserInput("Enter new name, or press enter to keep current name:");
+        String updatedPhoneNumber = userInterface.getUserInput("Enter new phone number, or press enter to keep current phone number:");
+        String updatedEmailAddress = userInterface.getUserInput("Enter new email address, or press enter to keep current email address:");
+        IImmutableContact updatedContact = contactToUpdate;
+        if(updatedNameInput != null && !updatedNameInput.trim().isEmpty()) updatedContact = contactToUpdate.withName(updatedNameInput);
+        if(updatedPhoneNumber != null && !updatedPhoneNumber.trim().isEmpty()) updatedContact = contactToUpdate.withPhoneNumber(updatedPhoneNumber);
+        if(updatedEmailAddress != null && !updatedEmailAddress.trim().isEmpty()) updatedContact = contactToUpdate.withEmailAddress(updatedEmailAddress);
+        addressBook.replaceContact(contactToUpdate, updatedContact);
+    }
+
+    private void printContact(IImmutableContact contactToPrint){
         StringBuilder contactStringBuilder = new StringBuilder();
         contactStringBuilder
                 .append("Name:\t\t\t")
-                .append(contactToRead.getName())
+                .append(contactToPrint.getName())
                 .append("\nPhone number:\t")
-                .append(contactToRead.getPhoneNumber())
+                .append(contactToPrint.getPhoneNumber())
                 .append("\nEmail address:\t")
-                .append(contactToRead.getEmailAddress());
+                .append(contactToPrint.getEmailAddress());
         userInterface.printMessage(contactStringBuilder.toString());
     }
+
 
     private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
         SortedMap<String,String> contactsMenu = new TreeMap<>();

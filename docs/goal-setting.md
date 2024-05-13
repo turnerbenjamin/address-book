@@ -77,3 +77,7 @@ i.e. arguments passed to the first method verify is used on come first, and then
 
 I am more used to using step into and step over correctly. I have not been using step-out but will make
 an effort to use that in the next story.
+
+## After User Stories 10-12
+I became distracted from the goal as I decided to simplify the UI tests. I have continued debugging throughout
+particularly to look at the collection of messages captured. 
