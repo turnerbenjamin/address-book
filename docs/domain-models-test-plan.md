@@ -160,7 +160,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Update Contact
 - [X] APP6:     Should update contact in contacts with correct values
-- [ ] APP7:	    Should handle error when invalid input for contact updates
+- [X] APP7:	    Should handle error when invalid input for contact updates
 
 #### Run - Delete Contact
 - [ ] APP8:	Should remove contact from contacts

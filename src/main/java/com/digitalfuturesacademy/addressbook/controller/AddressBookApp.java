@@ -91,7 +91,13 @@ public class AddressBookApp {
         if(updatedNameInput != null && !updatedNameInput.trim().isEmpty()) updatedContact = contactToUpdate.withName(updatedNameInput);
         if(updatedPhoneNumber != null && !updatedPhoneNumber.trim().isEmpty()) updatedContact = contactToUpdate.withPhoneNumber(updatedPhoneNumber);
         if(updatedEmailAddress != null && !updatedEmailAddress.trim().isEmpty()) updatedContact = contactToUpdate.withEmailAddress(updatedEmailAddress);
-        addressBook.replaceContact(contactToUpdate, updatedContact);
+        try{
+            addressBook.replaceContact(contactToUpdate, updatedContact);
+        }
+        catch(IllegalArgumentException ex){
+            userInterface.printErrorMessage(ex.getMessage());
+        }
+
     }
 
     private void printContact(IImmutableContact contactToPrint){
