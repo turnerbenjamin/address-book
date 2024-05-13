@@ -42,7 +42,8 @@ public class StringValidationTest {
     @DisplayName("Is Valid Email Address Tests")
     public void SV9_SV10_SV11_SV12_SV13(){
         assertAll(
-                ()-> assertTrue(StringValidation.isValidEmailAddress(VALID_EMAIL_ADDRESS)) //SV9
+                ()-> assertTrue(StringValidation.isValidEmailAddress(VALID_EMAIL_ADDRESS)), //SV9
+                ()-> assertFalse(StringValidation.isValidEmailAddress(null)) //SV10
         );
     }
 
