@@ -30,7 +30,8 @@ public class StringValidationTest {
     public void SV4_SV5_SV6_SV7_SV8(){
         assertAll(
                 ()-> assertTrue(StringValidation.isValidPhoneNumber(VALID_PHONE_NUMBER)), //SV4
-                ()-> assertFalse(StringValidation.isValidPhoneNumber(null)) //SV5
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(null)), //SV5
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(STRING_WITHOUT_CONTENT)) //SV6
         );
     }
 
