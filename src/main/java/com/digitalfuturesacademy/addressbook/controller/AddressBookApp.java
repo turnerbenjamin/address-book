@@ -80,6 +80,7 @@ public class AddressBookApp {
         String userSelection = getUserSelectionFrom(contactMenu);
         if(userSelection.equals("e")) return;
         if(userSelection.equals("1")) updateContactControl(contactToRead);
+        if(userSelection.equals("2")) deleteContactControl(contactToRead);
 
     }
 
@@ -97,7 +98,11 @@ public class AddressBookApp {
         catch(IllegalArgumentException ex){
             userInterface.printErrorMessage(ex.getMessage());
         }
+    }
 
+    private void deleteContactControl(IImmutableContact contactToDelete){
+        addressBook.deleteContact(contactToDelete);
+        userInterface.printSuccessMessage("Contact deleted!");
     }
 
     private void printContact(IImmutableContact contactToPrint){

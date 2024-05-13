@@ -169,7 +169,7 @@ public class AddressBookAppTest {
         public void APP5() {
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CANDIDATE_1, td.SELECT_EXIT, td.SELECT_EXIT);
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
@@ -189,7 +189,7 @@ public class AddressBookAppTest {
             // Arrange
             IImmutableContact contactToUpdate = testContacts.get(0);
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CANDIDATE_1, td.SELECT_UPDATE_USER, td.SELECT_EXIT, td.SELECT_EXIT);
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_UPDATE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_NAME);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_EMAIL_ADDRESS);
@@ -208,13 +208,24 @@ public class AddressBookAppTest {
         @DisplayName("APP7: Should handle error when invalid input for contact updates")
         public void APP7() {
             // Arrange
-            IImmutableContact contactToUpdate = testContacts.get(0);
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CANDIDATE_1, td.SELECT_UPDATE_USER, td.SELECT_EXIT, td.SELECT_EXIT);
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_UPDATE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockAddressBook.replaceContact(any(IImmutableContact.class), any(IImmutableContact.class))).thenThrow(new IllegalArgumentException());
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Assert
             assertDoesNotThrow(()->testAddressBookApp.run());
+        }
+
+        @Test
+        @DisplayName("APP8: Should remove contact from contacts")
+        public void APP8() {
+            // Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_DELETE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            testAddressBookApp.run();
+            //Assert
+            verify(mockAddressBook).deleteContact(testContact1);
         }
 
 

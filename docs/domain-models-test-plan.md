@@ -163,10 +163,10 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP7:	    Should handle error when invalid input for contact updates
 
 #### Run - Delete Contact
-- [ ] APP8:	Should remove contact from contacts
+- [X] APP8:	Should remove contact from contacts
 
 #### Run - Search
-- [ ] APP9:	Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
+- [ ] APP9:	    Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
 - [ ] APP10:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
 - [ ] APP111:	Should print warning message that no matching contacts found where no matches
 

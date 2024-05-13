@@ -27,11 +27,12 @@ public class AddressBookAppTestData {
     public final String SELECT_SEARCH_CONTACTS = "3";
 
     //TEST USER INPUT - CONTACTS MENU
-    public final String SELECT_CANDIDATE_1 = "1";
-    public final String SELECT_CANDIDATE_2 = "2";
+    public final String SELECT_CONTACT_1 = "1";
+    public final String SELECT_CONTACT_2 = "2";
 
     //TEST USER INPUT - CONTACT MENU
-    public final String SELECT_UPDATE_USER = "1";
+    public final String SELECT_UPDATE_CONTACT = "1";
+    public final String SELECT_DELETE_CONTACT = "2";
 
 
 
