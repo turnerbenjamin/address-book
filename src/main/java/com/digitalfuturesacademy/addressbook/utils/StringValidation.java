@@ -11,4 +11,8 @@ public final class StringValidation {
         return hasContent(string) && string.matches("^[\\+\\d]\\d+$");
     }
 
+    public static boolean isValidEmailAddress (String string){
+        return hasContent(string);
+    }
+
 }
