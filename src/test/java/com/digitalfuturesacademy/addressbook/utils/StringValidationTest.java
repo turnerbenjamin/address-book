@@ -3,8 +3,7 @@ package com.digitalfuturesacademy.addressbook.utils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringValidationTest {
 
@@ -20,8 +19,8 @@ public class StringValidationTest {
     @DisplayName("HasContent should return true if argument is not empty or null")
     public void SV1_SV2_SV3(){
         assertAll(
-                //SV1
-                ()-> assertFalse(StringValidation.hasContent(null))
+                ()-> assertTrue(StringValidation.hasContent(STRING_WITH_CONTENT)), //SV1
+                ()-> assertFalse(StringValidation.hasContent(null)) //SV2
         );
     }
 

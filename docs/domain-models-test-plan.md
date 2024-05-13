@@ -206,7 +206,7 @@ between types and their members can be found in the [class diagram](./class-diag
 ## StringValidation Tests
 
 - [X] SV1:	hasContent should return true if argument is not empty or null
-- [ ] SV2:	hasContent should return false if argument is null
+- [X] SV2:	hasContent should return false if argument is null
 - [ ] SV3:	hasContent should return false if trimmed argument is empty
 - [ ] SV4:  isValidPhoneNumber should return true if argument is valid phone number
 - [ ] SV5:	isValidPhoneNumber should return false if argument is null
