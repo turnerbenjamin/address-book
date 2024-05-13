@@ -29,7 +29,8 @@ public class StringValidationTest {
     @DisplayName("Is Valid Phone Number Tests")
     public void SV4_SV5_SV6_SV7_SV8(){
         assertAll(
-                ()-> assertTrue(StringValidation.isValidPhoneNumber(VALID_PHONE_NUMBER)) //SV4
+                ()-> assertTrue(StringValidation.isValidPhoneNumber(VALID_PHONE_NUMBER)), //SV4
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(null)) //SV5
         );
     }
 
