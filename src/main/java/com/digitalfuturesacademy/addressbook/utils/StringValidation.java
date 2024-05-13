@@ -7,4 +7,8 @@ public final class StringValidation {
         return string != null && !string.trim().isEmpty();
     }
 
+    public static boolean isValidPhoneNumber (String string){
+        return true;
+    }
+
 }

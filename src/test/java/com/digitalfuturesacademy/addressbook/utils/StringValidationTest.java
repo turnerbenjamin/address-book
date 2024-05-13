@@ -16,12 +16,20 @@ public class StringValidationTest {
     private final String EMAIL_ADDRESS_WITHOUT_DOMAIN = "test.me@email,com";
 
     @Test
-    @DisplayName("HasContent should return true if argument is not empty or null")
+    @DisplayName("Has Content tests")
     public void SV1_SV2_SV3(){
         assertAll(
                 ()-> assertTrue(StringValidation.hasContent(STRING_WITH_CONTENT)), //SV1
                 ()-> assertFalse(StringValidation.hasContent(null)), //SV2
                 ()-> assertFalse(StringValidation.hasContent(STRING_WITHOUT_CONTENT)) //SV3
+        );
+    }
+
+    @Test
+    @DisplayName("Is Valid Phone Number Tests")
+    public void SV4_SV5_SV6_SV7_SV8(){
+        assertAll(
+                ()-> assertTrue(StringValidation.isValidPhoneNumber(VALID_PHONE_NUMBER)) //SV4
         );
     }
 
