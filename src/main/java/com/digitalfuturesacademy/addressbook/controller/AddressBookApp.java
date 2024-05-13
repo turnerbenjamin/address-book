@@ -76,7 +76,7 @@ public class AddressBookApp {
 
 
     private void readContactControl(IImmutableContact contactToRead){
-        printContact(contactToRead);
+        userInterface.printContact(contactToRead);
         printMenu(contactMenu);
         String userSelection = getUserSelectionFrom(contactMenu.keySet());
         if(userSelection.equals("e")) return;
@@ -109,15 +109,6 @@ public class AddressBookApp {
 
 
 
-    private void printContact(IImmutableContact contactToPrint){
-        String contactString = "Name:\t\t\t";
-        contactString += contactToPrint.getName();
-        contactString += "\nPhone number:\t";
-        contactString += contactToPrint.getPhoneNumber();
-        contactString += "\nEmail address:\t";
-        contactString += contactToPrint.getEmailAddress();
-        userInterface.printMessage(contactString);
-    }
 
     //Returns a SortedMap representing a menu for a list of contacts. The keys
     //are a 1-based index for each contact and the values the contact's name.

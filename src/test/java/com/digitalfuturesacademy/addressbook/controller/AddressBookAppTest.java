@@ -164,22 +164,16 @@ public class AddressBookAppTest {
         }
 
         @Test
-        @DisplayName("APP5: Should call printMessage with the contact's name, phone number and email address when contact selected")
+        @DisplayName("APP5: Should call printContact with the selected contact")
         public void APP5() {
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
-            verify(mockUserInterface, times(5)).printMessage(stringArgumentCaptor.capture());
-            String actual = stringArgumentCaptor.getAllValues().get(2);
             //Assert
-            assertAll(
-                    ()-> assertTrue(actual.contains(testContacts.get(0).getName())),
-                    ()-> assertTrue(actual.contains(testContacts.get(0).getPhoneNumber())),
-                    ()-> assertTrue(actual.contains(testContacts.get(0).getEmailAddress()))
-            );
+            verify(mockUserInterface).printContact(testContact1);
+
         }
 
         @Test
