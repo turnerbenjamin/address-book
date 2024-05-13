@@ -20,7 +20,8 @@ public class StringValidationTest {
     public void SV1_SV2_SV3(){
         assertAll(
                 ()-> assertTrue(StringValidation.hasContent(STRING_WITH_CONTENT)), //SV1
-                ()-> assertFalse(StringValidation.hasContent(null)) //SV2
+                ()-> assertFalse(StringValidation.hasContent(null)), //SV2
+                ()-> assertFalse(StringValidation.hasContent(STRING_WITHOUT_CONTENT)) //SV3
         );
     }
 
