@@ -43,7 +43,8 @@ public class StringValidationTest {
     public void SV9_SV10_SV11_SV12_SV13(){
         assertAll(
                 ()-> assertTrue(StringValidation.isValidEmailAddress(VALID_EMAIL_ADDRESS)), //SV9
-                ()-> assertFalse(StringValidation.isValidEmailAddress(null)) //SV10
+                ()-> assertFalse(StringValidation.isValidEmailAddress(null)), //SV10
+                ()-> assertFalse(StringValidation.isValidEmailAddress(STRING_WITHOUT_CONTENT)) //SV111
         );
     }
 
