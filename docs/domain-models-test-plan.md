@@ -211,8 +211,8 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] SV4:  isValidPhoneNumber should return true if argument is valid phone number
 - [X] SV5:	isValidPhoneNumber should return false if argument is null
 - [X] SV6:	isValidPhoneNumber should return false if argument is empty
-- [X] SV7:	isValidPhoneNumber should return false if first char of argument is not a '+' or digit
-- [ ] SV8:	isValidPhoneNumber should return false if chars after the first char are not digits
+- [X] SV7:	isValidPhoneNumber should return false if chars after the first char are not digits
+- [X] SV8:	isValidPhoneNumber should return false if first char of argument is not a '+' or digit
 - [ ] SV9:	isValidEmailAddress should return true if argument is valid email
 - [ ] SV10: isValidEmailAddress should return false if argument is null
 - [ ] SV11: isValidEmailAddress should return false if argument is empty

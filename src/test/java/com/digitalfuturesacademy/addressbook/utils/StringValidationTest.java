@@ -32,9 +32,11 @@ public class StringValidationTest {
                 ()-> assertTrue(StringValidation.isValidPhoneNumber(VALID_PHONE_NUMBER)), //SV4
                 ()-> assertFalse(StringValidation.isValidPhoneNumber(null)), //SV5
                 ()-> assertFalse(StringValidation.isValidPhoneNumber(STRING_WITHOUT_CONTENT)), //SV6
-                ()-> assertFalse(StringValidation.isValidPhoneNumber(PHONE_NUMBER_WITH_INVALID_FIRST_CHAR)) //SV6
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(PHONE_NUMBER_WITH_INVALID_LATER_CHAR)), //SV7
+                ()-> assertFalse(StringValidation.isValidPhoneNumber(PHONE_NUMBER_WITH_INVALID_FIRST_CHAR)) //SV8
         );
     }
+
 
 
 }
