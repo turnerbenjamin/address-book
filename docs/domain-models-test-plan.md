@@ -166,14 +166,15 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP8:	Should remove contact from contacts
 
 #### Run - Search
-- [ ] APP9:	    Should call printMessage with each matching contact's name, prefixed with a 1-based index number, e.g. "1. Jane Doe", "2. John Doe" and separated by newlines where multiple matches
+- [X] APP9:	    Should call printMessage with each matching contact's name, prefixed with a 1-based index number and separated by newlines where multiple matches
 - [ ] APP10:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
-- [ ] APP111:	Should print warning message that no matching contacts found where no matches
+- [ ] APP11:	Should print warning message that no matching contacts found where no matches
+- [ ] APP12:    Should print error message where search term has no content
 
 #### Run - Delete All Contacts
-- [ ] APP12:	Should print warning message asking to confirm delete all contacts
-- [ ] APP13:	Should call delete all contacts if user enters "YES"
-- [ ] APP14:	Should not call delete all contacts if user enters "NO
+- [ ] APP13:	Should print warning message asking to confirm delete all contacts
+- [ ] APP14:	Should call delete all contacts if user enters "YES"
+- [ ] APP15:	Should not call delete all contacts if user enters "NO
 
 ## ConsoleInterface
 

@@ -3,6 +3,7 @@ package com.digitalfuturesacademy.addressbook.controller;
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
+import com.digitalfuturesacademy.addressbook.utils.StringValidation;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 
 import java.util.List;
@@ -37,6 +38,8 @@ public class AddressBookApp {
         topLevelMenuControl();
     }
 
+
+
     private void topLevelMenuControl(){
         String userSelection;
         while(true){
@@ -45,15 +48,14 @@ public class AddressBookApp {
             if(userSelection.equals("e")) break;
             if(userSelection.equals("1")) createUserControl();
             if(userSelection.equals("2")) readAllContactsControl();
+            if(userSelection.equals("3")) searchContactsControl();
         }
     }
 
     private void createUserControl(){
-        String nameInput = userInterface.getUserInput("Enter the contact's name:");
-        String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
-        String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
         try{
-            addressBook.addContact(new ImmutableContact(nameInput, phoneNumberInput,emailAddressInput));
+            IImmutableContact newContact = new ImmutableContact(getNameForNewContact(), getPhoneNumberForNewContact(),getEmailAddressForNewContact());
+            addressBook.addContact(newContact);
             userInterface.printSuccessMessage("Success: Contact added to address book");
         }catch(IllegalArgumentException ex){
             userInterface.printErrorMessage(ex.getMessage());
@@ -61,18 +63,25 @@ public class AddressBookApp {
     }
 
     private void readAllContactsControl(){
-        List<IImmutableContact> contacts = addressBook.getContacts();
+        readContactsControl(addressBook.getContacts());
+    }
+
+    private void searchContactsControl(){
+        String searchTerm = userInterface.getUserInput("Search by name:");
+        readContactsControl(addressBook.searchContacts(searchTerm));
+    }
+
+        private void readContactsControl(List<IImmutableContact> contacts){
         if(contacts.isEmpty()){
             userInterface.printErrorMessage("No contacts found!");
             return;
         }
-        SortedMap<String,String> contactsMenu = getContactsMenu(addressBook.getContacts());
+        SortedMap<String,String> contactsMenu = getContactsMenu(contacts);
         userInterface.printMenu(contactsMenu);
         String userSelection = getUserSelectionFrom(contactsMenu.keySet());
         if(userSelection.equals("e")) return;
         readContactControl(contacts.get(Integer.parseInt(userSelection) - 1));
     }
-
 
 
     private void readContactControl(IImmutableContact contactToRead){
@@ -82,18 +91,13 @@ public class AddressBookApp {
         if(userSelection.equals("e")) return;
         if(userSelection.equals("1")) updateContactControl(contactToRead);
         if(userSelection.equals("2")) deleteContactControl(contactToRead);
-
     }
 
     private void updateContactControl(IImmutableContact contactToUpdate){
-        String updatedNameInput = userInterface.getUserInput("Enter new name, or press enter to keep current name:");
-        String updatedPhoneNumber = userInterface.getUserInput("Enter new phone number, or press enter to keep current phone number:");
-        String updatedEmailAddress = userInterface.getUserInput("Enter new email address, or press enter to keep current email address:");
-        IImmutableContact updatedContact = contactToUpdate;
         try{
-            if(updatedNameInput != null && !updatedNameInput.trim().isEmpty()) updatedContact = updatedContact.withName(updatedNameInput);
-            if(updatedPhoneNumber != null && !updatedPhoneNumber.trim().isEmpty()) updatedContact = updatedContact.withPhoneNumber(updatedPhoneNumber);
-            if(updatedEmailAddress != null && !updatedEmailAddress.trim().isEmpty()) updatedContact = updatedContact.withEmailAddress(updatedEmailAddress);
+            IImmutableContact updatedContact = updateContactName(contactToUpdate);
+            updatedContact = updateContactPhoneNumber(updatedContact);
+            updatedContact = updateContactEmailAddress(updatedContact);
             addressBook.replaceContact(contactToUpdate, updatedContact);
         }
         catch(IllegalArgumentException ex){
@@ -106,6 +110,61 @@ public class AddressBookApp {
         userInterface.printSuccessMessage("Contact deleted!");
     }
 
+
+    private String getNameForNewContact(){
+        String nameInput = userInterface.getUserInput("Enter the contact's name:");
+        validateHasContent(nameInput, "Name");
+        return nameInput;
+    }
+
+        private String getPhoneNumberForNewContact(){
+        String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
+        validateHasContent(phoneNumberInput, "Phone number");
+        validatePhoneNumber(phoneNumberInput);
+        return phoneNumberInput;
+    }
+
+        private String getEmailAddressForNewContact(){
+        String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
+        validateHasContent(emailAddressInput, "Email address");
+        validateEmailAddress(emailAddressInput);
+        return emailAddressInput;
+    }
+
+    private IImmutableContact updateContactName(IImmutableContact contactToUpdate){
+        String updatedNameInput = userInterface.getUserInput("Enter new name, or press enter to keep current name:");
+        if(!StringValidation.hasContent(updatedNameInput)) return contactToUpdate;
+        return contactToUpdate.withName(updatedNameInput);
+    }
+
+    private IImmutableContact updateContactPhoneNumber(IImmutableContact contactToUpdate){
+        String updatedPhoneNumberInput = userInterface.getUserInput("Enter new phone number, or press enter to keep current phone number:");
+        if(!StringValidation.hasContent(updatedPhoneNumberInput)) return contactToUpdate;
+        validatePhoneNumber(updatedPhoneNumberInput);
+        return contactToUpdate.withPhoneNumber(updatedPhoneNumberInput);
+    }
+
+    private IImmutableContact updateContactEmailAddress(IImmutableContact contactToUpdate){
+        String updatedEmailAddressInput = userInterface.getUserInput("Enter new email address, or press enter to keep current email address:");
+        if(!StringValidation.hasContent(updatedEmailAddressInput)) return contactToUpdate;
+        validateEmailAddress(updatedEmailAddressInput);
+        return contactToUpdate.withEmailAddress(updatedEmailAddressInput);
+    }
+
+    private void validateHasContent(String stringToCheck, String paramName){
+         if(!StringValidation.hasContent(stringToCheck))
+            throw new IllegalArgumentException(paramName + " must not be empty");
+    }
+
+    private void validatePhoneNumber(String phoneNumber){
+        if(!StringValidation.isValidPhoneNumber(phoneNumber))
+            throw new IllegalArgumentException("Phone number must include only digits, other than the first character which may be a `+`!!");
+    }
+
+    private void validateEmailAddress(String phoneNumber){
+         if(!StringValidation.isValidEmailAddress(phoneNumber))
+            throw new IllegalArgumentException("Email must contain an @ symbol followed by a .domain!!");
+    }
 
 
 

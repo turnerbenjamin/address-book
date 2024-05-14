@@ -8,7 +8,6 @@ public class AddressBookAppTestData {
     //MENU PROMPTS - SELECT AN OPTION
     public final String FOR_SELECT_FROM_MENU = "Select an option by number or 'e' to exit:";
 
-
     ////MENU PROMPTS - ADD CONTACT
     public final String FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT = "Enter the contact's name:";
     public final String FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT = "Enter the contact's phone number:";
@@ -19,6 +18,8 @@ public class AddressBookAppTestData {
     public final String FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_UPDATE_CONTACT = "Enter new phone number, or press enter to keep current phone number:";
     public final String FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_UPDATE_CONTACT = "Enter new email address, or press enter to keep current email address:";
 
+    //SEARCH TERM PROMPT
+    public final String FOR_TYPE_SEARCH_TERM = "Search by name:";
 
     //TEST USER INPUT - TOP LEVEL
 

@@ -32,6 +32,12 @@ public class AddressBookAppTest {
     private IImmutableContact testContact2;
     private IImmutableContact updatedContact;
 
+    @ExtendWith(MockitoExtension.class)
+
+    @Captor
+    private ArgumentCaptor<SortedMap<String,String>> menuCaptor;
+
+
     @BeforeEach
     public void setUpTestAddressBookAndMockDependencies(){
         mockUserInterface = mock(IUserInterface.class);
@@ -52,7 +58,7 @@ public class AddressBookAppTest {
         updatedContact = mock(IImmutableContact.class);
         testContact1 = mock(IImmutableContact.class);
         testContact2 = mock(IImmutableContact.class);
-        testContacts = Arrays.asList(testContact1, testContact2, updatedContact);
+        testContacts = Arrays.asList(testContact1, testContact2);
     }
 
 
@@ -115,9 +121,7 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             assertDoesNotThrow(()->testAddressBookApp.run());
         }
-        @ExtendWith(MockitoExtension.class)
-        @Captor
-        private ArgumentCaptor<SortedMap<String,String>> menuCaptor;
+
         @Test
         @DisplayName("APP3: Should call printMenu with a 1-based index for keys mapped to usernames as values")
         public void APP3() {
@@ -136,8 +140,8 @@ public class AddressBookAppTest {
             assertAll(
                     ()-> assertTrue(mapPassed.containsKey("1")),
                     ()-> assertTrue(mapPassed.containsKey("2")),
-                    ()-> assertTrue(mapPassed.get("1").equals(testContact1.getName())),
-                    ()-> assertTrue(mapPassed.get("2").equals(testContact2.getName()))
+                    ()-> assertEquals(mapPassed.get("1"), testContact1.getName()),
+                    ()-> assertEquals(mapPassed.get("2"), testContact2.getName())
             );
 
         }
@@ -215,11 +219,28 @@ public class AddressBookAppTest {
             verify(mockAddressBook).deleteContact(testContact1);
         }
 
+        @Test
+        @DisplayName("APP9: Should call printMessage with each matching contact's name, prefixed with a 1-based index number and separated by newlines where multiple matches")
+        public void APP9() {
+            // Arrange
+            String searchTerm = "searchTerm";
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+                    .thenReturn(searchTerm);
+            when(mockAddressBook.searchContacts(searchTerm)).thenReturn(testContacts);
+            //Act
+            testAddressBookApp.run();
 
+            //Assert
+            verify(mockUserInterface, times(3)).printMenu(menuCaptor.capture());
+            SortedMap<String,String> mapPassed = menuCaptor.getAllValues().get(1);
+            assertAll(
+                    ()-> assertTrue(mapPassed.containsKey("1")),
+                    ()-> assertTrue(mapPassed.containsKey("2")),
+                    ()-> assertEquals(mapPassed.get("1"), testContact1.getName()),
+                    ()-> assertEquals(mapPassed.get("2"), testContact2.getName())
+            );
+        }
     }
-
-
-
-
-
 }
