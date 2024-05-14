@@ -1,6 +1,6 @@
-package com.digitalfuturesacademy.addressbook.controller;
+package com.digitalfuturesacademy.addressbook.testdata;
 
-public class AddressBookAppTestData {
+public class AddressBookAppTestData extends GeneralTestData{
 
     //TEST USER INPUT - GENERAL
     public final String SELECT_EXIT = "e";
@@ -29,7 +29,6 @@ public class AddressBookAppTestData {
 
     //TEST USER INPUT - CONTACTS MENU
     public final String SELECT_CONTACT_1 = "1";
-    public final String SELECT_CONTACT_2 = "2";
 
     //TEST USER INPUT - CONTACT MENU
     public final String SELECT_UPDATE_CONTACT = "1";
@@ -37,22 +36,4 @@ public class AddressBookAppTestData {
 
 
 
-
-
-    //USER DATA
-    public final String USER_1_NAME = "Jane Doe";
-    public final String USER_1_PHONE_NUMBER = "07712419278";
-    public final String USER_1_EMAIL_ADDRESS = "janedoe98@gmail.com";
-
-    public final String USER_2_NAME = "John Doe";
-    public final String USER_2_PHONE_NUMBER = "07715416278";
-    public final String USER_2_EMAIL_ADDRESS = "johndoe99@gmail.com";
-
-    //VALID NEW/UPDATED USER DATA
-    public final String VALID_NAME = "Fox Mulder";
-    public final String VALID_PHONE_NUMBER = "991";
-    public final String VALID_EMAIL_ADDRESS = "mulder.fox@fbi.gov";
-
-    //INVALID DATA
-    public final String INVALID_EMAIL_ADDRESS = "mulder.fox.fbi.gov";
 }

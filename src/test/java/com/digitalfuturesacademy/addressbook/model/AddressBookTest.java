@@ -1,8 +1,11 @@
 package com.digitalfuturesacademy.addressbook.model;
 
+import com.digitalfuturesacademy.addressbook.testdata.GeneralTestData;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,51 +13,52 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class AddressBookTest {
+
+    @ExtendWith(MockitoExtension.class)
+
     private AddressBook testAddressBook;
-    private IImmutableContact[] testContacts;
-    
+    private List<IImmutableContact> testContacts;
+    private IImmutableContact testContact1;
+    private IImmutableContact testContact2;
+    private final GeneralTestData td = new GeneralTestData();
+
     @BeforeEach
     public void setUpForAllTests(){
-        String[] testNames = new String[] {"Jane Doe", "John Doe", "Fox Mulder"};
+        testContact1 = mock(IImmutableContact.class);
+        testContact2 = mock(IImmutableContact.class);
         testAddressBook = new AddressBook();
-        testContacts = new IImmutableContact[testNames.length];
-        for(int i = 0; i<testNames.length; i++){
-            IImmutableContact testContact = mock(IImmutableContact.class);
-            when(testContact.getName()).thenReturn(testNames[i]);
-            when(testContact.getPhoneNumber()).thenReturn(String.format("%011d",i));
-            when(testContact.getEmailAddress()).thenReturn(String.format("%d@b.c",i));
-            testContacts[i] = testContact;
-        }
+        testContacts = Arrays.asList(testContact1,testContact2);
     }
 
     @AfterEach
     public void cleanUpForAllTests(){
         testAddressBook = null;
         testContacts = null;
+        testContact1 = null;
+        testContact2 = null;
     }
 
     @DisplayName("Test Add Entry")
     @Nested
     class AddContactTests{
-
         @Test
         @DisplayName("AB1-AB3: Test adding a valid contact")
-        public void testAddingValidElement() {
+        public void AB1_AB2_AB3() {
             // Arrange
-            IImmutableContact testContact = testContacts[0];
+            IImmutableContact testContact = testContact1;
             int startingAddressBookSize = testAddressBook.size();
             //Act
             boolean result = testAddressBook.addContact(testContact);
             //Assert
             assertAll(
-                    () -> assertEquals(startingAddressBookSize + 1 , testAddressBook.size()),
-                    () -> assertTrue(testAddressBook.getContacts().contains(testContact)),
-                    () -> assertTrue(result)
+                    () -> assertEquals(startingAddressBookSize + 1 , testAddressBook.size()),// AB1
+                    () -> assertTrue(testAddressBook.getContacts().contains(testContact)), //AB2
+                    () -> assertTrue(result) //AB3
             );
         }
         @Test
         @DisplayName("AB4: Should throw exception when a contact with a value of null is added")
-        public void testAddingNull() {
+        public void AB4() {
             assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(null));
         }
     }
@@ -65,95 +69,75 @@ public class AddressBookTest {
 
         @BeforeEach
         public void setUpForSearchContactTests(){
-            testAddressBook.addContact(testContacts[0]);
-            testAddressBook.addContact(testContacts[1]);
-            testAddressBook.addContact(testContacts[2]);
+            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
+            when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+            when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContact2);
         }
 
         @Test
-        @DisplayName("AB5-6: Test search where search term matches one contact")
-        public void testSearchWhereSearchTermMatchesOneContact() {
-            //Arrange
-            IImmutableContact testContact = testContacts[0];
-
-            String searchTermMatchingOneContactByName = testContact.getName().substring(0,4);
+        @DisplayName("AB5-9: Search Results Tests")
+        public void AB5_AB6_AB7_AB8_AB9() {
             //Assert
             assertAll(
-                    () -> assertEquals(1,testAddressBook.searchContacts(searchTermMatchingOneContactByName).size()),
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneContactByName).contains(testContact))
-            );
-        }
-
-        @Test
-        @DisplayName("AB7: Test search where search term does not match any contacts")
-        public void testSearchWhereSearchTermDoesNotMatchAnyContacts() {
-            //Arrange
-            String testSearchTerm = "SEARCH TERM";
-            //Assert
-            assertEquals(0,testAddressBook.searchContacts(testSearchTerm).size());
-        }
-
-        @Test
-        @DisplayName("AB8-9: Test search where search term matches two contacts")
-        public void testSearchWhereSearchTermMatchesTwoContacts() {
-            //Arrange
-            List<IImmutableContact> matchingContacts = new ArrayList<>();
-            matchingContacts.add(testContacts[0]);
-            matchingContacts.add(testContacts[1]);
-            String searchTermMatchingTwoContactsByName = "Doe";
-            //Assert
-            assertAll(
-                    () -> assertEquals(2,testAddressBook.searchContacts(searchTermMatchingTwoContactsByName).size()),
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingTwoContactsByName).containsAll(matchingContacts))
+                    () -> assertEquals(1,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME).size()), //AB5
+                    () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME).contains(testContact1)), //AB6
+                    ()->assertEquals(0,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ZERO_CONTACTS_BY_NAME).size()), //AB7
+                    () -> assertEquals(2,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME).size()), //AB8
+                    () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME).containsAll(testContacts)) //AB9
             );
         }
 
         @Test
         @DisplayName("AB10-11: Test search trimmed and case-insensitive")
-        public void testSearchTermTrimmedAndCaseInsensitive() {
-            //Arrange
-            IImmutableContact testContact = testContacts[0];
-            String searchTermMatchingOneContactByName = testContact.getName().substring(0,4);
+        public void AB10_AB11() {
             //Assert
             assertAll(
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneContactByName.toUpperCase()).contains(testContact)),
-                    () -> assertTrue(testAddressBook.searchContacts(searchTermMatchingOneContactByName.concat("  ")).contains(testContact))
+                    () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME.toUpperCase()).contains(testContact1)), //AB10
+                    () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME.concat("  ")).contains(testContact1)) //AB11
             );
         }
     }
 
+
     @DisplayName("Test Delete Contact")
     @Nested
     class DeleteContactTests{
-
         @BeforeEach
         public void setUpForDeleteContactTests(){
-            testAddressBook.addContact(testContacts[0]);
-            testAddressBook.addContact(testContacts[1]);
+            when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+            when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContact2);
         }
 
         @Test
         @DisplayName("AB12-14: Test deleting a contact in contacts")
-        public void testDeletingAContactInContacts() {
+        public void AB12_AB13_AB14() {
             //Arrange
             int startingContactsSize = testAddressBook.size();
-            IImmutableContact testContactToDelete = testContacts[0];
+            IImmutableContact testContactToDelete = testContact1;
             IImmutableContact actual;
             //Act
             actual = testAddressBook.deleteContact(testContactToDelete);
             //Assert
             assertAll(
-                    () -> assertEquals(startingContactsSize - 1,testAddressBook.size()),
-                    () -> assertFalse(testAddressBook.getContacts().contains(testContactToDelete)),
-                    () -> assertEquals(testContactToDelete,actual)
+                    () -> assertEquals(startingContactsSize - 1,testAddressBook.size()), //AB12
+                    () -> assertFalse(testAddressBook.getContacts().contains(testContactToDelete)), //AB13
+                    () -> assertEquals(testContactToDelete,actual) //AB14
             );
         }
 
         @Test
         @DisplayName("AB15: Test deleting a contact not in contacts")
-        public void testDeletingAContactNotInContacts() {
+        public void AB15() {
             //Arrange
-            int startingContactsSize = testAddressBook.size();
             IImmutableContact testContactNotInContactsToDelete = mock(IImmutableContact.class);
             IImmutableContact actual;
             //Act
@@ -166,19 +150,12 @@ public class AddressBookTest {
     @DisplayName("Test Duplicate Checks")
     @Nested
     class DuplicateTestChecks{
-        private IImmutableContact testContactA;
-        private IImmutableContact testContactB;
-        private String testContactAPhoneNumber;
-        private String testContactAEmail;
 
         @BeforeEach
         public void setUpForDuplicateChecks(){
-            testContactA = mock(IImmutableContact.class);
-            testContactB = mock(IImmutableContact.class);
-            when(testContactA.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
-            when(testContactA.getEmailAddress()).thenReturn(testContactAEmail);
-            when(testContactB.getPhoneNumber()).thenReturn("11111111111");
-            when(testContactB.getEmailAddress()).thenReturn("unique@email.com");
+            when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            testAddressBook.addContact(testContact1);
         }
 
 
@@ -187,46 +164,40 @@ public class AddressBookTest {
         @DisplayName("AB16: Test throws error when adding contact with a duplicate phone number.")
         public void AB16() {
             //Arrange
-            when(testContactB.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
-            //Act
-            testAddressBook.addContact(testContactA);
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
             //Assert
-            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContactB));
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContact2));
         }
 
         @Test
         @DisplayName("AB17: Test throws error when adding contact with a duplicate email address.")
         public void AB17() {
             //Arrange
-            when(testContactB.getEmailAddress()).thenReturn(testContactAEmail);
-            //Act
-            testAddressBook.addContact(testContactA);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
             //Assert
-            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContactB));
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.addContact(testContact2));
         }
 
         @Test
         @DisplayName("AB18: Should add a contact where another contact, removed from contacts, has the same phone number")
         public void AB18() {
             //Arrange
-            when(testContactB.getPhoneNumber()).thenReturn(testContactAPhoneNumber);
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
             //Act
-            testAddressBook.addContact(testContactA);
-            testAddressBook.deleteContact(testContactA);
+            testAddressBook.deleteContact(testContact1);
             //Assert
-            assertTrue(testAddressBook.addContact(testContactB));
+            assertTrue(testAddressBook.addContact(testContact2));
         }
 
         @Test
         @DisplayName("AB19: Should add a contact where another contact, removed from contacts, has the same email address")
         public void AB19() {
             //Arrange
-            when(testContactB.getEmailAddress()).thenReturn(testContactAEmail);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
             //Act
-            testAddressBook.addContact(testContactA);
-            testAddressBook.deleteContact(testContactA);
+            testAddressBook.deleteContact(testContact1);
             //Assert
-            assertTrue(testAddressBook.addContact(testContactB));
+            assertTrue(testAddressBook.addContact(testContact2));
         }
 
 
@@ -235,89 +206,90 @@ public class AddressBookTest {
     @DisplayName("Update Contact Checks")
     @Nested
     class UpdateContactTest{
-        private IImmutableContact originalContact;
-        private IImmutableContact newContact;
-        private final String NEW_CONTACT_PHONE_NUMBER = "00000000";
-        private final String NEW_CONTACT_EMAIL_ADDRESS = "new@b.c";
 
         @BeforeEach
-        public void setUpForDuplicateChecks(){
-            originalContact = mock(IImmutableContact.class);
-            newContact = mock(IImmutableContact.class);
-            when(originalContact.getPhoneNumber()).thenReturn("11111111111");
-            when(originalContact.getEmailAddress()).thenReturn("old@email.com");
-            when(newContact.getPhoneNumber()).thenReturn(NEW_CONTACT_PHONE_NUMBER);
-            when(newContact.getEmailAddress()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
+        public void setUpForUpdateContactChecks(){
+            when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+            when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContact2);
         }
 
         @Test
         @DisplayName("AB20-21: Standard case, updating a contact")
         public void AB20_AB21() {
             //Act
-            testAddressBook.addContact(originalContact);
-            IImmutableContact actual = testAddressBook.replaceContact(originalContact,newContact);
+            IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
+            when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
+
+            IImmutableContact actual = testAddressBook.replaceContact(testContact1,updatedContact);
             //Assert
             assertAll(
-                    () -> assertEquals(newContact, testAddressBook.getContacts().get(0)),
-                    () -> assertEquals(newContact, actual)
+                    () -> assertAll( //AB20
+                            () -> assertTrue(testAddressBook.getContacts().contains(updatedContact)),
+                            () -> assertFalse(testAddressBook.getContacts().contains(testContact1))
+                    ),
+
+                    () -> assertEquals(updatedContact, actual) //AB21
             );
         }
         @Test
         @DisplayName("AB22: Updating a contact with a duplicate phone number")
         public void AB22() {
             //Arrange
-            IImmutableContact contactWithDuplicatePhoneNumber = mock(IImmutableContact.class);
-            when(contactWithDuplicatePhoneNumber.getPhoneNumber()).thenReturn(NEW_CONTACT_PHONE_NUMBER);
-            //Act
-            testAddressBook.addContact(contactWithDuplicatePhoneNumber);
-            testAddressBook.addContact(originalContact);
+            IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
             //Assert
-            assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(originalContact,newContact));
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(testContact1,updatedContact));
         }
 
         @Test
-        @DisplayName("AB23: Should throw exception where another contact has the same emailAddress")
+        @DisplayName("AB23: Should throw exception where another contact has the same Email Address")
         public void AB23() {
             //Arrange
-            IImmutableContact contactWithDuplicateEmailAddress = mock(IImmutableContact.class);
-            when(contactWithDuplicateEmailAddress.getEmailAddress()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
-            //Act
-            testAddressBook.addContact(contactWithDuplicateEmailAddress);
-            testAddressBook.addContact(originalContact);
+            IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
             //Assert
-            assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(originalContact,newContact));
+            assertThrows(IllegalArgumentException.class, ()->testAddressBook.replaceContact(testContact1,updatedContact));
         }
 
         @Test
         @DisplayName("AB24: Should add a contact where another contact, added with the same phone number, is updated with a new number")
         public void AB24() {
             //Arrange
-            IImmutableContact originalContactWithDuplicatePhoneNumber = mock(IImmutableContact.class);
-            when(originalContactWithDuplicatePhoneNumber.getPhoneNumber()).thenReturn(NEW_CONTACT_PHONE_NUMBER);
-            IImmutableContact newContactWithDuplicatePhoneNumberReplaced = mock(IImmutableContact.class);
-            when(newContactWithDuplicatePhoneNumberReplaced.getPhoneNumber()).thenReturn("02010");
+            IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
+            when(updatedContact.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+
+            IImmutableContact newContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
+
             //Act
-            testAddressBook.addContact(originalContactWithDuplicatePhoneNumber);
-            testAddressBook.replaceContact(originalContactWithDuplicatePhoneNumber, newContactWithDuplicatePhoneNumberReplaced);
-            testAddressBook.addContact(originalContact);
+            testAddressBook.replaceContact(testContact1, updatedContact);
             //Assert
-            assertEquals(newContact, testAddressBook.replaceContact(originalContact,newContact));
+            assertDoesNotThrow(()->testAddressBook.addContact(newContact));
         }
 
         @Test
         @DisplayName("AB25: Should add a contact where another contact, added with the same email address, is updated with a new email address")
         public void AB25() {
             //Arrange
-            IImmutableContact originalContactWithDuplicateEmailAddress = mock(IImmutableContact.class);
-            when(originalContactWithDuplicateEmailAddress.getPhoneNumber()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
-            IImmutableContact newContactWithDuplicateEmailAddressReplaced = mock(IImmutableContact.class);
-            when(newContactWithDuplicateEmailAddressReplaced.getPhoneNumber()).thenReturn("02010");
+            IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(updatedContact.getEmailAddress()).thenReturn(td. VALID_EMAIL_ADDRESS);
+
+            IImmutableContact newContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td. VALID_PHONE_NUMBER);
+            when(updatedContact.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+
             //Act
-            testAddressBook.addContact(originalContactWithDuplicateEmailAddress);
-            testAddressBook.replaceContact(originalContactWithDuplicateEmailAddress, newContactWithDuplicateEmailAddressReplaced);
-            testAddressBook.addContact(originalContact);
+            testAddressBook.replaceContact(testContact1, updatedContact);
             //Assert
-            assertEquals(newContact, testAddressBook.replaceContact(originalContact,newContact));
+            assertDoesNotThrow(()->testAddressBook.addContact(newContact));
         }
 
         @Test
@@ -325,11 +297,9 @@ public class AddressBookTest {
         public void AB26() {
             //Arrange
             IImmutableContact contactNotInContacts = mock(IImmutableContact.class);
-            when(contactNotInContacts.getPhoneNumber()).thenReturn("NOT IN CONTACTS");
-
+            //when(contactNotInContacts.getPhoneNumber()).thenReturn("NOT IN CONTACTS");
             //Act
-            testAddressBook.addContact(originalContact);
-            IImmutableContact actual = testAddressBook.replaceContact(contactNotInContacts, newContact);
+            IImmutableContact actual = testAddressBook.replaceContact(contactNotInContacts, testContact1);
             //Assert
             assertNull(actual);
         }
@@ -338,18 +308,15 @@ public class AddressBookTest {
         @DisplayName("AB27: Should include contact in contacts if error thrown")
         public void AB27() {
             //Arrange
-            IImmutableContact contactWithDuplicateEmailAddress = mock(IImmutableContact.class);
-            when(contactWithDuplicateEmailAddress.getEmailAddress()).thenReturn(NEW_CONTACT_EMAIL_ADDRESS);
+            IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
             boolean actual;
-            //Act
-            testAddressBook.addContact(contactWithDuplicateEmailAddress);
-            testAddressBook.addContact(originalContact);
             try{
-                testAddressBook.replaceContact(originalContact,newContact);
-            }catch(Exception ex){
+                testAddressBook.replaceContact(testContact1,updatedContact);
+            }catch(Exception ignored){
             }
             finally {
-                actual = testAddressBook.getContacts().contains(originalContact);
+                actual = testAddressBook.getContacts().contains(testContact1);
             }
             //Assert
             assertTrue(actual);
@@ -364,7 +331,7 @@ public class AddressBookTest {
         @DisplayName("AB28: Should return collection with one element where one contact")
         public void AB28() {
             //Act
-            testAddressBook.addContact(testContacts[0]);
+            testAddressBook.addContact(testContact1);
             //Assert
             assertEquals(1, testAddressBook.getContacts().size());
         }
@@ -372,9 +339,13 @@ public class AddressBookTest {
         @Test
         @DisplayName("AB29: Should return collection with all contacts where more than one contact")
         public void AB29() {
+            //Arrange
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
             //Act
-            testAddressBook.addContact(testContacts[0]);
-            testAddressBook.addContact(testContacts[1]);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContact2);
+
             //Assert
             assertEquals(2, testAddressBook.getContacts().size());
         }
@@ -389,13 +360,11 @@ public class AddressBookTest {
         @DisplayName("AB31: Adding an element to the returned collection should not add an element to the contacts in Address Book")
         public void AB31() {
             //Act
-            testAddressBook.addContact(testContacts[0]);
+            testAddressBook.addContact(testContact1);
             List<IImmutableContact> results = testAddressBook.getContacts();
-            results.add(testContacts[1]);
+            results.add(testContact1);
             //Assert
             assertNotEquals(testAddressBook.size(), results.size());
         }
-
-
     }
 }

@@ -3,6 +3,7 @@ package com.digitalfuturesacademy.addressbook.controller;
 
 import com.digitalfuturesacademy.addressbook.model.IAddressBook;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
+import com.digitalfuturesacademy.addressbook.testdata.AddressBookAppTestData;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,10 +11,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.SortedMap;
+import java.util.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class AddressBookAppTest {
+    @ExtendWith(MockitoExtension.class)
 
     private final AddressBookAppTestData td = new AddressBookAppTestData();
     private AddressBookApp testAddressBookApp;
@@ -33,7 +32,7 @@ public class AddressBookAppTest {
     private IImmutableContact testContact2;
     private IImmutableContact updatedContact;
 
-    @ExtendWith(MockitoExtension.class)
+
 
     @Captor
     private ArgumentCaptor<SortedMap<String,String>> menuCaptor;
@@ -117,7 +116,7 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.INVALID_EMAIL_ADDRESS);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.EMAIL_ADDRESS_WITHOUT_AT_SYMBOL);
             //Act
             testAddressBookApp.run();
             assertDoesNotThrow(()->testAddressBookApp.run());
@@ -254,7 +253,7 @@ public class AddressBookAppTest {
                     .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
                     .thenReturn(searchTerm);
-            when(mockAddressBook.searchContacts(searchTerm)).thenReturn(Arrays.asList(testContact1));
+            when(mockAddressBook.searchContacts(searchTerm)).thenReturn(Collections.singletonList(testContact1));
             //Act
             testAddressBookApp.run();
             //Assert

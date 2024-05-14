@@ -1,7 +1,10 @@
 package com.digitalfuturesacademy.addressbook.view;
 
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
+import com.digitalfuturesacademy.addressbook.testdata.GeneralTestData;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -14,14 +17,14 @@ import static org.mockito.Mockito.*;
 
 
 public class ConsoleInterfaceTest {
+    @ExtendWith(MockitoExtension.class)
 
+    private final GeneralTestData td = new GeneralTestData();
     private Scanner mockScanner;
     private IUserInterface testConsoleInterface;
     private PrintStream defaultOut;
+    private final String lineSeparator = System.lineSeparator();
     private ByteArrayOutputStream mockOut;
-    private final String TEST_MESSAGE = "Test message";
-    private final String lineSeparator = System.getProperty("line.separator");
-
 
     @BeforeEach
     public void setUp(){
@@ -43,10 +46,10 @@ public class ConsoleInterfaceTest {
     @Test
     @DisplayName("CI1: Should print passed message to console")
     public void CI1() {
-        String expected = "\u001B[0m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        String expected = "\u001B[0m" + td.TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
-        testConsoleInterface.printMessage(TEST_MESSAGE);
-        String output = new String(mockOut.toByteArray());
+        testConsoleInterface.printMessage(td.TEST_MESSAGE);
+        String output = mockOut.toString();
         assertEquals(expected, output);
     }
 
@@ -54,10 +57,10 @@ public class ConsoleInterfaceTest {
     @DisplayName("CI2: Should print passed prompt to console")
     public void CI2() {
         //Arrange
-        String expected = "\u001B[0m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        String expected = "\u001B[0m" + td.TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
-        testConsoleInterface.getUserInput(TEST_MESSAGE);
-        String output = new String(mockOut.toByteArray());
+        testConsoleInterface.getUserInput(td.TEST_MESSAGE);
+        String output = mockOut.toString();
         //Assert
         assertEquals(expected, output);
     }
@@ -69,7 +72,7 @@ public class ConsoleInterfaceTest {
         String testUserInput = "INPUT";
         when(mockScanner.nextLine()).thenReturn(testUserInput);
         //Act
-        String actualInput = testConsoleInterface.getUserInput(TEST_MESSAGE);
+        String actualInput = testConsoleInterface.getUserInput(td.TEST_MESSAGE);
         //Assert
         assertEquals(testUserInput, actualInput);
     }
@@ -78,10 +81,10 @@ public class ConsoleInterfaceTest {
     @DisplayName("CI4: Should print passed error message to console with red text")
     public void CI4() {
         //Arrange
-        String expected = "\u001B[31m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        String expected = "\u001B[31m" + td.TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
-        testConsoleInterface.printErrorMessage(TEST_MESSAGE);
-        String output = new String(mockOut.toByteArray());
+        testConsoleInterface.printErrorMessage(td.TEST_MESSAGE);
+        String output = mockOut.toString();
         //Assert
         assertEquals(expected, output);
     }
@@ -90,10 +93,10 @@ public class ConsoleInterfaceTest {
     @DisplayName("CI5: Should print passed warning message to console with yellow text")
     public void CI5() {
         //Arrange
-        String expected = "\u001B[33m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        String expected = "\u001B[33m" + td.TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
-        testConsoleInterface.printWarningMessage(TEST_MESSAGE);
-        String output = new String(mockOut.toByteArray());
+        testConsoleInterface.printWarningMessage(td.TEST_MESSAGE);
+        String output = mockOut.toString();
         //Assert
         assertEquals(expected, output);
     }
@@ -102,10 +105,10 @@ public class ConsoleInterfaceTest {
     @DisplayName("CI6: Should print passed success message to console with green text")
     public void CI6() {
         //Arrange
-        String expected = "\u001B[32m" + TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        String expected = "\u001B[32m" + td.TEST_MESSAGE + "\u001B[0m" + lineSeparator;
         //Act
-        testConsoleInterface.printSuccessMessage(TEST_MESSAGE);
-        String output = new String(mockOut.toByteArray());
+        testConsoleInterface.printSuccessMessage(td.TEST_MESSAGE);
+        String output = mockOut.toString();
         //Assert
         assertEquals(expected, output);
     }
@@ -121,7 +124,7 @@ public class ConsoleInterfaceTest {
         when(mockContact.getEmailAddress()).thenReturn(testEmail);
         //Act
         testConsoleInterface.printContact(mockContact);
-        String output = new String(mockOut.toByteArray());
+        String output = mockOut.toString();
         assertAll(
                 ()->assertTrue(output.contains(testName)),
                 ()->assertTrue(output.contains(testNumber)),
@@ -144,7 +147,7 @@ public class ConsoleInterfaceTest {
         testMenu.put("2", "Option Two");
         //act
         testConsoleInterface.printMenu(testMenu);
-        String output = new String(mockOut.toByteArray());
+        String output = mockOut.toString();
 
         assertAll(
                 ()->assertTrue(output.contains("1")),
@@ -164,7 +167,4 @@ public class ConsoleInterfaceTest {
                 ()->assertThrows(IllegalArgumentException.class, ()->testConsoleInterface.printMenu(testMenu)) //CI11
         );
     }
-
-
-
 }
