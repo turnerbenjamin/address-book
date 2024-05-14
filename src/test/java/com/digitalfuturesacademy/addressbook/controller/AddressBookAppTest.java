@@ -10,6 +10,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
@@ -258,6 +259,22 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //Assert
             verify(mockUserInterface).printContact(testContact1);
+        }
+
+        @Test
+        @DisplayName("APP11: Should print warning message that no matching contacts found where no matches")
+        public void APP11() {
+            // Arrange
+            String searchTerm = "searchTerm";
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+                    .thenReturn(searchTerm);
+            when(mockAddressBook.searchContacts(searchTerm)).thenReturn(new ArrayList<>());
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockUserInterface).printErrorMessage(any(String.class));
         }
     }
 }
