@@ -1,9 +1,6 @@
 package com.digitalfuturesacademy.addressbook.model;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook implements  IAddressBook{
@@ -118,7 +115,9 @@ public class AddressBook implements  IAddressBook{
     }
 
     private String getContactSearchString(IImmutableContact contact){
-        return formatStringForSearch(contact.getName() + "*!*" + contact.getPhoneNumber());
+        String fieldSeparator = "*!*";
+        String searchString = contact.getName() + fieldSeparator + contact.getPhoneNumber() + fieldSeparator + contact.getEmailAddress();
+        return formatStringForSearch(searchString);
 
     }
 
