@@ -69,9 +69,11 @@ public class AddressBookApp {
 
     private void searchContactsControl(){
         String searchTerm = userInterface.getUserInput("Search by name:");
-        List<IImmutableContact> contacts = addressBook.searchContacts(searchTerm);
-        if(contacts.size() == 1) readContactControl(contacts.get(0));
-        else readContactsControl(contacts);
+        if(!StringValidation.hasContent(searchTerm)){
+            userInterface.printErrorMessage("Search term cannot be empty");
+            return;
+        }
+        readContactsControl(addressBook.searchContacts(searchTerm));
     }
 
 
@@ -81,7 +83,8 @@ public class AddressBookApp {
             userInterface.printErrorMessage("No contacts found!");
             return;
         }
-        contactsMenuControl(contacts);
+        if(contacts.size() == 1) readContactControl(contacts.get(0));
+        else contactsMenuControl(contacts);
     }
 
     private void contactsMenuControl(List<IImmutableContact> contacts){

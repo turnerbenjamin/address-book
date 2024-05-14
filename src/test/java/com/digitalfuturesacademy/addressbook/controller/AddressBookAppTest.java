@@ -276,5 +276,19 @@ public class AddressBookAppTest {
             //Assert
             verify(mockUserInterface).printErrorMessage(any(String.class));
         }
+        @Test
+        @DisplayName("APP12: Should print error message where search term has no content")
+        public void APP12() {
+            // Arrange
+            String searchTerm = "  ";
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+                    .thenReturn(searchTerm);
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockUserInterface).printErrorMessage(any(String.class));
+        }
     }
 }
