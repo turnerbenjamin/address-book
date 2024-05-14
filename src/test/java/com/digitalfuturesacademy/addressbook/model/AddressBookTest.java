@@ -98,7 +98,8 @@ public class AddressBookTest {
 
                     () -> assertEquals(1,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_EMAIL_ADDRESS).size()), //AB37
                     () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_EMAIL_ADDRESS).contains(testContact1)), //AB38
-                    () -> assertEquals(0, testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ZERO_CONTACTS_BY_EMAIL_ADDRESS).size()) //AB39
+                    () -> assertEquals(0, testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ZERO_CONTACTS_BY_EMAIL_ADDRESS).size()), //AB39
+                    () -> assertEquals(2, testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_EMAIL_ADDRESS).size()) //AB40
             );
         }
 

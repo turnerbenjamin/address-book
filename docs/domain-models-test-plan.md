@@ -74,7 +74,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB37:	should return list with a size of 1 where email address is matched to just one contact
 - [X] AB38:	should return list containing matched contact where email address is matched to just one contact
 - [X] AB39:	should return an empty list where no email address matches found
-- [ ] AB40:	should return list with a size of 2 where partial email address is matched to two contacts
+- [X] AB40:	should return list with a size of 2 where partial email address is matched to two contacts
 - [ ] AB41:	should return list containing both matched contacts where partial email address is matched to two contacts
 
 #### Sorting Results
