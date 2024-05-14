@@ -64,18 +64,27 @@ public class AddressBookApp {
 
     private void readAllContactsControl(){
         readContactsControl(addressBook.getContacts());
+
     }
 
     private void searchContactsControl(){
         String searchTerm = userInterface.getUserInput("Search by name:");
-        readContactsControl(addressBook.searchContacts(searchTerm));
+        List<IImmutableContact> contacts = addressBook.searchContacts(searchTerm);
+        if(contacts.size() == 1) readContactControl(contacts.get(0));
+        else readContactsControl(contacts);
     }
 
-        private void readContactsControl(List<IImmutableContact> contacts){
+
+
+    private void readContactsControl(List<IImmutableContact> contacts){
         if(contacts.isEmpty()){
             userInterface.printErrorMessage("No contacts found!");
             return;
         }
+        contactsMenuControl(contacts);
+    }
+
+    private void contactsMenuControl(List<IImmutableContact> contacts){
         SortedMap<String,String> contactsMenu = getContactsMenu(contacts);
         userInterface.printMenu(contactsMenu);
         String userSelection = getUserSelectionFrom(contactsMenu.keySet());
@@ -117,14 +126,14 @@ public class AddressBookApp {
         return nameInput;
     }
 
-        private String getPhoneNumberForNewContact(){
+    private String getPhoneNumberForNewContact(){
         String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:");
         validateHasContent(phoneNumberInput, "Phone number");
         validatePhoneNumber(phoneNumberInput);
         return phoneNumberInput;
     }
 
-        private String getEmailAddressForNewContact(){
+    private String getEmailAddressForNewContact(){
         String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:");
         validateHasContent(emailAddressInput, "Email address");
         validateEmailAddress(emailAddressInput);
@@ -152,7 +161,7 @@ public class AddressBookApp {
     }
 
     private void validateHasContent(String stringToCheck, String paramName){
-         if(!StringValidation.hasContent(stringToCheck))
+        if(!StringValidation.hasContent(stringToCheck))
             throw new IllegalArgumentException(paramName + " must not be empty");
     }
 
@@ -162,7 +171,7 @@ public class AddressBookApp {
     }
 
     private void validateEmailAddress(String phoneNumber){
-         if(!StringValidation.isValidEmailAddress(phoneNumber))
+        if(!StringValidation.isValidEmailAddress(phoneNumber))
             throw new IllegalArgumentException("Email must contain an @ symbol followed by a .domain!!");
     }
 

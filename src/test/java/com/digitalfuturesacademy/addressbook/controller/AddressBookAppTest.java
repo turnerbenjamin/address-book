@@ -147,7 +147,7 @@ public class AddressBookAppTest {
         }
 
         @Test
-        @DisplayName("APP4: Should call printMessage with the contact's name, phone number and email address when contact selected")
+        @DisplayName("APP4: Should print error message where no contact's found")
         public void APP4() {
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
@@ -156,6 +156,7 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //Assert
             verify(mockUserInterface).printErrorMessage(stringArgumentCaptor.capture());
+
         }
 
         @Test
@@ -241,6 +242,22 @@ public class AddressBookAppTest {
                     ()-> assertEquals(mapPassed.get("1"), testContact1.getName()),
                     ()-> assertEquals(mapPassed.get("2"), testContact2.getName())
             );
+        }
+
+        @Test
+        @DisplayName("APP10: Should call print contact with matching contact where one match")
+        public void APP10() {
+            // Arrange
+            String searchTerm = "searchTerm";
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+                    .thenReturn(searchTerm);
+            when(mockAddressBook.searchContacts(searchTerm)).thenReturn(Arrays.asList(testContact1));
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockUserInterface).printContact(testContact1);
         }
     }
 }

@@ -167,7 +167,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Search
 - [X] APP9:	    Should call printMessage with each matching contact's name, prefixed with a 1-based index number and separated by newlines where multiple matches
-- [ ] APP10:	Should call printMessage with the contact's name, phone number and email address when contact selected where one match
+- [X] APP10:	Should call print contact with matching contact where one match
 - [ ] APP11:	Should print warning message that no matching contacts found where no matches
 - [ ] APP12:    Should print error message where search term has no content
 
