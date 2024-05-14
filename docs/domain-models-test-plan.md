@@ -65,7 +65,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Search by Phone Number
 - [X] AB32:	should return list with a size of 1 where phone number is matched to just one contact
-- [ ] AB33:	should return list containing matched contact where phone number is matched to just one contact
+- [X] AB33:	should return list containing matched contact where phone number is matched to just one contact
 - [ ] AB34:	should return an empty list where no phone number matches found
 - [ ] AB35:	should return list with a size of 2 where partial phone number is matched to two contacts
 - [ ] AB36:	should return list containing both matched contacts where partial phone number is matched to two contacts
