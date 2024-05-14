@@ -14,6 +14,10 @@ public class GeneralTestData {
     public final String SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME = "Jane Doe";
     public final String SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME = "Doe";
     public final String SEARCH_TERM_MATCHING_ZERO_CONTACTS_BY_NAME = "X";
+    public final String SEARCH_TERM_MATCHING_ONE_CONTACT_BY_PHONE_NUMBER = "07712";
+    public final String SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_PHONE_NUMBER = "0771";
+    public final String SEARCH_TERM_MATCHING_ZERO_CONTACTS_BY_PHONE_NUMBER = "0000";
+
 
     //VALID NEW/UPDATED USER DATA
     public final String VALID_NAME = "Fox Mulder";

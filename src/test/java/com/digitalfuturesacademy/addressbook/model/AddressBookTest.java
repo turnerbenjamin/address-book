@@ -80,15 +80,16 @@ public class AddressBookTest {
         }
 
         @Test
-        @DisplayName("AB5-9: Search Results Tests")
-        public void AB5_AB6_AB7_AB8_AB9() {
+        @DisplayName("AB5-9 and AB32-41: Search Results Tests")
+        public void AB5_AB6_AB7_AB8_AB9_AB32_AB33_AB34_AB35_AB36_AB37_AB38_AB39_AB40_AB41() {
             //Assert
             assertAll(
                     () -> assertEquals(1,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME).size()), //AB5
                     () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_NAME).contains(testContact1)), //AB6
                     ()->assertEquals(0,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ZERO_CONTACTS_BY_NAME).size()), //AB7
                     () -> assertEquals(2,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME).size()), //AB8
-                    () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME).containsAll(testContacts)) //AB9
+                    () -> assertTrue(testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME).containsAll(testContacts)), //AB9
+                    () -> assertEquals(1,testAddressBook.searchContacts(td.SEARCH_TERM_MATCHING_ONE_CONTACT_BY_PHONE_NUMBER).size()) //AB32
             );
         }
 
@@ -157,8 +158,6 @@ public class AddressBookTest {
             when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
             testAddressBook.addContact(testContact1);
         }
-
-
 
         @Test
         @DisplayName("AB16: Test throws error when adding contact with a duplicate phone number.")

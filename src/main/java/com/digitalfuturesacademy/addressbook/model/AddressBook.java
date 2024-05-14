@@ -49,7 +49,7 @@ public class AddressBook implements  IAddressBook{
     public List<IImmutableContact> searchContacts(String searchTerm){
         String formattedSearchTerm = formatStringForSearch(searchTerm);
         return contacts.stream()
-                .filter(contact->formatStringForSearch(contact.getName()).contains(formattedSearchTerm))
+                .filter(contact->getContactSearchString(contact).contains(formattedSearchTerm))
                 .collect(Collectors.toList());
     }
 
@@ -115,6 +115,11 @@ public class AddressBook implements  IAddressBook{
 
     private String formatStringForSearch(String str){
         return str.trim().toLowerCase();
+    }
+
+    private String getContactSearchString(IImmutableContact contact){
+        return formatStringForSearch(contact.getName() + "*!*" + contact.getPhoneNumber());
+
     }
 
 }

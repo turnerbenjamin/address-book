@@ -64,18 +64,18 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB31:	Adding an element to the returned collection should not add an element to the contacts in Address Book
 
 #### Search by Phone Number
-- [ ] AB32:	should return list with a size of 1 where phone number is matched to just one contact
+- [X] AB32:	should return list with a size of 1 where phone number is matched to just one contact
 - [ ] AB33:	should return list containing matched contact where phone number is matched to just one contact
 - [ ] AB34:	should return an empty list where no phone number matches found
 - [ ] AB35:	should return list with a size of 2 where partial phone number is matched to two contacts
 - [ ] AB36:	should return list containing both matched contacts where partial phone number is matched to two contacts
 
 #### Search by Email Address
-- [ ] ABA37:	should return list with a size of 1 where email address is matched to just one contact
-- [ ] ABA38:	should return list containing matched contact where email address is matched to just one contact
-- [ ] ABA39:	should return an empty list where no email address matches found
-- [ ] ABA40:	should return list with a size of 2 where partial email address is matched to two contacts
-- [ ] ABA41:	should return list containing both matched contacts where partial email address is matched to two contacts
+- [ ] AB37:	should return list with a size of 1 where email address is matched to just one contact
+- [ ] AB38:	should return list containing matched contact where email address is matched to just one contact
+- [ ] AB39:	should return an empty list where no email address matches found
+- [ ] AB40:	should return list with a size of 2 where partial email address is matched to two contacts
+- [ ] AB41:	should return list containing both matched contacts where partial email address is matched to two contacts
 
 #### Sorting Results
 - [ ] AB42:	Results of search should be in alphabetical order
