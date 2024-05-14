@@ -121,6 +121,8 @@ public class AddressBookTest {
     class DeleteContactTests{
         @BeforeEach
         public void setUpForDeleteContactTests(){
+            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
             when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
             when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
             when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
@@ -219,6 +221,8 @@ public class AddressBookTest {
 
         @BeforeEach
         public void setUpForUpdateContactChecks(){
+            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
             when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
             when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
             when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
@@ -232,6 +236,7 @@ public class AddressBookTest {
         public void AB20_AB21() {
             //Act
             IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getName()).thenReturn(td.VALID_NAME);
             when(updatedContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
             when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
 
@@ -271,12 +276,14 @@ public class AddressBookTest {
         public void AB24() {
             //Arrange
             IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getName()).thenReturn(td.USER_1_NAME);
             when(updatedContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
             when(updatedContact.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
 
             IImmutableContact newContact = mock(IImmutableContact.class);
-            when(updatedContact.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
-            when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
+            when(newContact.getName()).thenReturn(td.USER_1_NAME);
+            when(newContact.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(newContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
 
             //Act
             testAddressBook.replaceContact(testContact1, updatedContact);
@@ -289,12 +296,14 @@ public class AddressBookTest {
         public void AB25() {
             //Arrange
             IImmutableContact updatedContact = mock(IImmutableContact.class);
+            when(updatedContact.getName()).thenReturn(td.USER_1_NAME);
             when(updatedContact.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
-            when(updatedContact.getEmailAddress()).thenReturn(td. VALID_EMAIL_ADDRESS);
+            when(updatedContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
 
             IImmutableContact newContact = mock(IImmutableContact.class);
-            when(updatedContact.getPhoneNumber()).thenReturn(td. VALID_PHONE_NUMBER);
-            when(updatedContact.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            when(newContact.getName()).thenReturn(td.VALID_NAME);
+            when(newContact.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
+            when(newContact.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
 
             //Act
             testAddressBook.replaceContact(testContact1, updatedContact);
@@ -350,6 +359,8 @@ public class AddressBookTest {
         @DisplayName("AB29: Should return collection with all contacts where more than one contact")
         public void AB29() {
             //Arrange
+            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
             when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
             when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
             //Act
@@ -377,4 +388,26 @@ public class AddressBookTest {
             assertNotEquals(testAddressBook.size(), results.size());
         }
     }
+
+    @Test
+    @DisplayName("AB42: Results of search should be in alphabetical order")
+    public void AB42() {
+        //Arrange
+        when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+        when(testContact2.getName()).thenReturn(td.USER_2_NAME);
+        when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+        when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
+
+        //Act
+        testAddressBook.addContact(testContact2);
+        testAddressBook.addContact(testContact1);
+        List<IImmutableContact> results = testAddressBook.getContacts();
+        //Assert
+        assertAll(
+                ()-> assertEquals(testContact1, results.get(0)),
+                ()-> assertEquals(testContact2, results.get(1))
+        );
+    }
+
+
 }

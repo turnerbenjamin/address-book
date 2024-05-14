@@ -78,7 +78,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] AB41:	should return list containing both matched contacts where partial email address is matched to two contacts
 
 #### Sorting Results
-- [ ] AB42:	Results of search should be in alphabetical order
+- [X] AB42:	Results of search should be in alphabetical order
 
 #### Delete All Contacts
 - [ ] AB33:	Contacts should be an empty list after deletion

@@ -34,7 +34,9 @@ public class AddressBook implements  IAddressBook{
         if(contactToAdd == null) throw new IllegalArgumentException("Contact to add cannot be null");
         checkHasUniqueContactDetails(contactToAdd);
         addContactDetailsToStoredPhoneNumbersAndEmailAddresses(contactToAdd);
-        return contacts.add(contactToAdd);
+        int indexAtWhichToStoreNewContact = getIndexAtWhichToStoreNewContact(contactToAdd.getName());
+        contacts.add(indexAtWhichToStoreNewContact,contactToAdd);
+        return true;
     }
 
     /**
@@ -114,11 +116,24 @@ public class AddressBook implements  IAddressBook{
         return str.trim().toLowerCase();
     }
 
+    //Joins the searchable fields of a contact in a string used for the search method
     private String getContactSearchString(IImmutableContact contact){
         String fieldSeparator = "*!*";
         String searchString = contact.getName() + fieldSeparator + contact.getPhoneNumber() + fieldSeparator + contact.getEmailAddress();
         return formatStringForSearch(searchString);
+    }
 
+    //Find the index at which to place the next contact to
+    // keep contacts sorted in alphabetical order.
+    private int getIndexAtWhichToStoreNewContact(String name){
+        if(contacts.isEmpty()) return 0;
+        int left = 0, right = contacts.size()-1, i;
+        while(left < right){
+            i = (int)(Math.floor(((double) right - (double) left)/2)) + left;
+            if(contacts.get(i).getName().compareTo(name) >= 0) right = i - 1;
+            else left = i + 1;
+        }
+        return contacts.get(left).getName().compareTo(name) > 1 ? left : left + 1;
     }
 
 }
