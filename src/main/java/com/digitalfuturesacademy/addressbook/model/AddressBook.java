@@ -9,37 +9,43 @@ import java.util.stream.Collectors;
 public class AddressBook implements  IAddressBook{
 
     private final List<IImmutableContact> contacts = new ArrayList<>();
-    private final Set<String> phoneNumbers = new HashSet<>();
-    private final Set<String> emailAddresses = new HashSet<>();
+    private final Set<String> storedPhoneNumbers = new HashSet<>();
+    private final Set<String> storedEmailAddresses = new HashSet<>();
 
-
-    public boolean addContact(IImmutableContact contactToAdd){
-        if(contactToAdd == null) throw new IllegalArgumentException("Contact to add cannot be null");
-        checkHasUniqueContactDetails(contactToAdd);
-        return contacts.add(contactToAdd);
-    }
-
+    /**
+     *
+     * @return a list of all contacts in the address book
+     */
     public List<IImmutableContact> getContacts(){
         return new ArrayList<>(contacts);
     }
 
+    /**
+     * @return the total number of contacts in the address book
+     */
     public int size(){
         return contacts.size();
     }
 
-    private void checkHasUniqueContactDetails(IImmutableContact contactToCheck){
-        if(phoneNumbers.contains(contactToCheck.getPhoneNumber()))
-            throw new IllegalArgumentException("Phone number must be unique");
-        if(emailAddresses.contains(contactToCheck.getEmailAddress()))
-            throw new IllegalArgumentException("Email address must be unique");
-        phoneNumbers.add(contactToCheck.getPhoneNumber());
-        emailAddresses.add(contactToCheck.getEmailAddress());
+    /**
+     * Add a contact to the address book
+     *
+     * @param contactToAdd the contact to be added to address book
+     * @return whether contact has been added
+     */
+    public boolean addContact(IImmutableContact contactToAdd){
+        if(contactToAdd == null) throw new IllegalArgumentException("Contact to add cannot be null");
+        checkHasUniqueContactDetails(contactToAdd);
+        addContactDetailsToStoredPhoneNumbersAndEmailAddresses(contactToAdd);
+        return contacts.add(contactToAdd);
     }
 
-    private String formatStringForSearch(String str){
-        return str.trim().toLowerCase();
-    }
-
+    /**
+     * Searches contacts by a given search term.
+     *
+     * @param searchTerm the term to match contacts against
+     * @return a list of matching contacts
+     */
     public List<IImmutableContact> searchContacts(String searchTerm){
         String formattedSearchTerm = formatStringForSearch(searchTerm);
         return contacts.stream()
@@ -47,23 +53,68 @@ public class AddressBook implements  IAddressBook{
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Replace one contact in the address book with another
+     *
+     * @param originalContact a contact in the address book
+     * @param updatedContact a contact to replace the original contact with
+     * @return updated contact or null if the original contact is not found
+     */
+    public IImmutableContact replaceContact(IImmutableContact originalContact, IImmutableContact updatedContact){
+        if(deleteContact(originalContact) == null) return null;
+        try {
+            addContact(updatedContact);
+        }
+        catch(IllegalArgumentException ex){
+            addContact(originalContact);
+            throw ex;
+        }
+        return updatedContact;
+    }
 
+    /**
+     * Deletes a contact from the address book
+     *
+     * @param contactToDelete the contact to be removed from address book
+     * @return The contact removed or null
+     */
     public IImmutableContact deleteContact(IImmutableContact contactToDelete){
         boolean wasRemoved = contacts.remove(contactToDelete);
         if(!wasRemoved) return null;
-        phoneNumbers.remove(contactToDelete.getPhoneNumber());
-        emailAddresses.remove(contactToDelete.getEmailAddress());
+        removeContactDetailsFromStoredPhoneNumbersAndEmailAddresses(contactToDelete);
         return contactToDelete;
     }
 
-    public IImmutableContact replaceContact(IImmutableContact old, IImmutableContact updated){
-        if(deleteContact(old) == null) return null;
-        try {addContact(updated);}
-        catch(IllegalArgumentException ex){
-            addContact(old);
-            throw ex;
-        }
-        return updated;
+
+    // ************ PRIVATE METHODS ************ \\
+
+    private void checkHasUniqueContactDetails(IImmutableContact contactToCheck){
+        checkHasUniquePhoneNumber(contactToCheck);
+        checkHasUniqueEmailAddress(contactToCheck);
+    }
+
+    private void checkHasUniquePhoneNumber(IImmutableContact contactToCheck){
+        if(storedPhoneNumbers.contains(contactToCheck.getPhoneNumber()))
+            throw new IllegalArgumentException("Phone number must be unique");
+    }
+
+    private void checkHasUniqueEmailAddress(IImmutableContact contactToCheck){
+        if(storedEmailAddresses.contains(contactToCheck.getEmailAddress()))
+            throw new IllegalArgumentException("Email address must be unique");
+    }
+
+    private void addContactDetailsToStoredPhoneNumbersAndEmailAddresses(IImmutableContact contactToAdd){
+        storedPhoneNumbers.add(contactToAdd.getPhoneNumber());
+        storedEmailAddresses.add(contactToAdd.getEmailAddress());
+    }
+
+    private void removeContactDetailsFromStoredPhoneNumbersAndEmailAddresses(IImmutableContact contactToDelete){
+        storedPhoneNumbers.remove(contactToDelete.getPhoneNumber());
+        storedEmailAddresses.remove(contactToDelete.getEmailAddress());
+    }
+
+    private String formatStringForSearch(String str){
+        return str.trim().toLowerCase();
     }
 
 }

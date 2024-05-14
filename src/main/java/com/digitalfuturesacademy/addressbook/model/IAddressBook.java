@@ -10,7 +10,7 @@ public interface IAddressBook {
 
     List<IImmutableContact> getContacts();
 
-    IImmutableContact replaceContact(IImmutableContact old, IImmutableContact updated);
+    IImmutableContact replaceContact(IImmutableContact originalContact, IImmutableContact updatedContact);
 
     List<IImmutableContact> searchContacts(String searchTerm);
 

@@ -6,7 +6,6 @@ import java.util.SortedMap;
 
 public interface IUserInterface
 {
-
      String getUserInput(String prompt);
 
      void printMessage(String message);

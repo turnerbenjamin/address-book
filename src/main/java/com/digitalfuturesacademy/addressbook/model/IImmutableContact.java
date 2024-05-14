@@ -1,6 +1,9 @@
 package com.digitalfuturesacademy.addressbook.model;
 
 public interface IImmutableContact {
+    /*
+    Implementations should ensure that instances are immutable.
+    */
 
     String getName();
     String getPhoneNumber();

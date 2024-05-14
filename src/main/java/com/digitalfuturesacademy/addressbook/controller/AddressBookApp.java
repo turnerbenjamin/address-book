@@ -17,11 +17,14 @@ public class AddressBookApp {
     private final IAddressBook addressBook;
     private final SortedMap<String, String> addressBookMenu = new TreeMap<>();
     private final SortedMap<String, String> contactMenu = new TreeMap<>();
+
+    //Menu initializer
     {
+        //Initialize address book options
         addressBookMenu.put("1", "Add a contact");
         addressBookMenu.put("2", "View all contacts");
         addressBookMenu.put("3", "Search contacts");
-
+        //Initialize contact menu options
         contactMenu.put("1", "Update Contact");
         contactMenu.put("2", "Delete Contact");
     }
@@ -34,39 +37,34 @@ public class AddressBookApp {
     }
 
 
+    /**
+     * Runs address book application
+     */
     public void run(){
         topLevelMenuControl();
     }
 
+    // ************ CONTROLLERS ************ \\
 
+    //*** TOP-LEVEL MENU CONTROLLERS
 
+    //Control application flow for the top-level menu
     private void topLevelMenuControl(){
         String userSelection;
         while(true){
             userInterface.printMenu(addressBookMenu);
             userSelection = getUserSelectionFrom(addressBookMenu.keySet());
             if(userSelection.equals("e")) break;
-            if(userSelection.equals("1")) createUserControl();
-            if(userSelection.equals("2")) readAllContactsControl();
-            if(userSelection.equals("3")) searchContactsControl();
+            mapTopLevelMenuSelectionToController(userSelection);
         }
     }
 
-    private void createUserControl(){
-        try{
-            IImmutableContact newContact = new ImmutableContact(getNameForNewContact(), getPhoneNumberForNewContact(),getEmailAddressForNewContact());
-            addressBook.addContact(newContact);
-            userInterface.printSuccessMessage("Success: Contact added to address book");
-        }catch(IllegalArgumentException ex){
-            userInterface.printErrorMessage(ex.getMessage());
-        }
-    }
-
+    //Controls application flow for read all contacts
     private void readAllContactsControl(){
         readContactsControl(addressBook.getContacts());
-
     }
 
+    //Controls application flow for search contacts
     private void searchContactsControl(){
         String searchTerm = userInterface.getUserInput("Search by name:");
         if(!StringValidation.hasContent(searchTerm)){
@@ -76,8 +74,8 @@ public class AddressBookApp {
         readContactsControl(addressBook.searchContacts(searchTerm));
     }
 
-
-
+    //General controller for reading from a list of candidates.
+    //Used by readAllContactsControl and searchContactsControl
     private void readContactsControl(List<IImmutableContact> contacts){
         if(contacts.isEmpty()){
             userInterface.printErrorMessage("No contacts found!");
@@ -87,6 +85,10 @@ public class AddressBookApp {
         else contactsMenuControl(contacts);
     }
 
+    //***CONTACTS MENU CONTROLLER
+
+    //Controller for contacts menu, i.e. where there is a printed list of contacts
+    //and users select the contact they want to view
     private void contactsMenuControl(List<IImmutableContact> contacts){
         SortedMap<String,String> contactsMenu = getContactsMenu(contacts);
         userInterface.printMenu(contactsMenu);
@@ -95,33 +97,50 @@ public class AddressBookApp {
         readContactControl(contacts.get(Integer.parseInt(userSelection) - 1));
     }
 
+    //***CONTACT MENU CONTROLLERS
 
+    //Controller responsible for the flow of application where contact selected
+    //from a list of contacts
     private void readContactControl(IImmutableContact contactToRead){
         userInterface.printContact(contactToRead);
+        contactMenuControl(contactToRead);
+    }
+
+    //Controller for the flow of the contact menu, i.e. the options that can be performed on
+    //a given contact
+    private void contactMenuControl(IImmutableContact selectedContact){
         userInterface.printMenu(contactMenu);
         String userSelection = getUserSelectionFrom(contactMenu.keySet());
         if(userSelection.equals("e")) return;
-        if(userSelection.equals("1")) updateContactControl(contactToRead);
-        if(userSelection.equals("2")) deleteContactControl(contactToRead);
+        mapContactMenuSelectionToController(userSelection, selectedContact);
     }
 
+    // Controller responsible for the flow of update contact
     private void updateContactControl(IImmutableContact contactToUpdate){
         try{
-            IImmutableContact updatedContact = updateContactName(contactToUpdate);
-            updatedContact = updateContactPhoneNumber(updatedContact);
-            updatedContact = updateContactEmailAddress(updatedContact);
-            addressBook.replaceContact(contactToUpdate, updatedContact);
+            addressBook.replaceContact(contactToUpdate, updateContact(contactToUpdate));
         }
         catch(IllegalArgumentException ex){
             userInterface.printErrorMessage(ex.getMessage());
         }
     }
 
+    // Controller responsible for the flow of delete contact
     private void deleteContactControl(IImmutableContact contactToDelete){
         addressBook.deleteContact(contactToDelete);
         userInterface.printSuccessMessage("Contact deleted!");
     }
 
+    // ************ CREATE CONTACT METHODS ************ \\
+    private void createContact(){
+        try{
+            IImmutableContact newContact = new ImmutableContact(getNameForNewContact(), getPhoneNumberForNewContact(),getEmailAddressForNewContact());
+            addressBook.addContact(newContact);
+            userInterface.printSuccessMessage("Success: Contact added to address book");
+        }catch(IllegalArgumentException ex){
+            userInterface.printErrorMessage(ex.getMessage());
+        }
+    }
 
     private String getNameForNewContact(){
         String nameInput = userInterface.getUserInput("Enter the contact's name:");
@@ -141,6 +160,15 @@ public class AddressBookApp {
         validateHasContent(emailAddressInput, "Email address");
         validateEmailAddress(emailAddressInput);
         return emailAddressInput;
+    }
+
+
+    // ************ UPDATE CONTACT METHODS ************ \\
+    private IImmutableContact updateContact(IImmutableContact contactToUpdate){
+        IImmutableContact updatedContact = updateContactName(contactToUpdate);
+        updatedContact = updateContactPhoneNumber(updatedContact);
+        updatedContact = updateContactEmailAddress(updatedContact);
+        return updatedContact;
     }
 
     private IImmutableContact updateContactName(IImmutableContact contactToUpdate){
@@ -163,6 +191,7 @@ public class AddressBookApp {
         return contactToUpdate.withEmailAddress(updatedEmailAddressInput);
     }
 
+    // ************ VALIDATORS ************ \\
     private void validateHasContent(String stringToCheck, String paramName){
         if(!StringValidation.hasContent(stringToCheck))
             throw new IllegalArgumentException(paramName + " must not be empty");
@@ -179,10 +208,22 @@ public class AddressBookApp {
     }
 
 
+    // ************ MENU TO CONTROLLER MAPPING ************ \\
+    //Mapping for top level menu
+    private void mapTopLevelMenuSelectionToController(String userSelection){
+        if(userSelection.equals("1")) createContact();
+        if(userSelection.equals("2")) readAllContactsControl();
+        if(userSelection.equals("3")) searchContactsControl();
+    }
 
+    //Mapping for contact menu
+    private void mapContactMenuSelectionToController(String userSelection, IImmutableContact selectedContact){
+        if(userSelection.equals("1")) updateContactControl(selectedContact);
+        if(userSelection.equals("2")) deleteContactControl(selectedContact);
+    }
 
-    //Returns a SortedMap representing a menu for a list of contacts. The keys
-    //are a 1-based index for each contact and the values the contact's name.
+    // ************ MENU GENERATORS ************ \\
+    //Generates a contacts menu from a list of contacts
     private SortedMap<String,String> getContactsMenu(List<IImmutableContact> contactsToPrint){
         SortedMap<String,String> contactsMenu = new TreeMap<>();
         for(int i = 0; i < contactsToPrint.size(); i++){
@@ -191,8 +232,9 @@ public class AddressBookApp {
         return contactsMenu;
     }
 
-    //Gets user selection from a menu. The menu should be a set of valid
-    //user inputs. "e" is treated as a valid input for exit
+    // ************ USER SELECTION HANDLER ************ \\
+    //For a given menu, prompts users to provide a valid selection and returns the selection
+    //to the calling method
     private String getUserSelectionFrom(Set<String> menu){
         String userInput;
         while(true){
