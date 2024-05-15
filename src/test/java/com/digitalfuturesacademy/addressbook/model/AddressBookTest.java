@@ -409,5 +409,32 @@ public class AddressBookTest {
         );
     }
 
+    @DisplayName("Delete All Contacts Tests")
+    @Nested
+    class DeleteAllContactsTests{
+
+        @BeforeEach
+        public void setUpForDeleteAllContactsTests(){
+            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
+            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
+            when(testContact1.getPhoneNumber()).thenReturn(td.USER_1_PHONE_NUMBER);
+            when(testContact2.getPhoneNumber()).thenReturn(td.USER_2_PHONE_NUMBER);
+            when(testContact1.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            when(testContact2.getEmailAddress()).thenReturn(td.USER_2_EMAIL_ADDRESS);
+           testAddressBook.addContact(testContact1);
+           testAddressBook.addContact(testContact2);
+        }
+
+        @Test
+        @DisplayName("AB33: Contacts should be an empty list after deletion")
+        public void AB33() {
+            //Act
+            testAddressBook.deleteAllContacts();
+            //Assert
+            assertEquals(0, testAddressBook.getContacts().size());
+        }
+
+    }
+
 
 }
