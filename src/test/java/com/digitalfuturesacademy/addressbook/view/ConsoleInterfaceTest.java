@@ -57,7 +57,8 @@ public class ConsoleInterfaceTest {
     @DisplayName("CI2: Should print passed prompt to console")
     public void CI2() {
         //Arrange
-        String expected = "\u001B[0m" + td.TEST_MESSAGE + "\u001B[0m" + lineSeparator;
+        when(mockScanner.nextLine()).thenReturn("");
+        String expected = td.TEST_MESSAGE;
         //Act
         testConsoleInterface.getUserInput(td.TEST_MESSAGE);
         String output = mockOut.toString();

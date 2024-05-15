@@ -2,10 +2,10 @@
 
 ## Notes
 
-The full workings for the domain models can be found in this [miro board](https://miro.com/welcomeonboard/amJJOXpPNXZ6RFM0bGh2dEd3OE5vbUd4aGwxNVdwVVIxd3Y0ZTg0ZHlablZEamExaDlaeTFTenp2VWtZTW9ZVnwzNDU4NzY0NTg1NjgzNTc1ODgzfDI=?share_link_id=128081926157).
+A kanban board and the full workings for the domain models can be found at this [miro link](https://miro.com/welcomeonboard/amJJOXpPNXZ6RFM0bGh2dEd3OE5vbUd4aGwxNVdwVVIxd3Y0ZTg0ZHlablZEamExaDlaeTFTenp2VWtZTW9ZVnwzNDU4NzY0NTg1NjgzNTc1ODgzfDI=?share_link_id=128081926157).
 
-Domain models and tests here are shown per class. Only public methods have been included. The relationship
-between types and their members can be found in the [class diagram](./class-diagram.md). 
+Below, domain models and tests are shown per class and only public methods have been included. A full description of the
+classes, and the relationship between these, can be found in the [class diagram](./class-diagram.md). 
 
 ## AddressBook
 

@@ -34,7 +34,7 @@ public class AddressBook implements  IAddressBook{
         if(contactToAdd == null) throw new IllegalArgumentException("Contact to add cannot be null");
         checkHasUniqueContactDetails(contactToAdd);
         addContactDetailsToStoredPhoneNumbersAndEmailAddresses(contactToAdd);
-        int indexAtWhichToStoreNewContact = getIndexAtWhichToStoreNewContact(contactToAdd.getName());
+        int indexAtWhichToStoreNewContact = getIndexAtWhichToStoreNewContact(contactToAdd);
         contacts.add(indexAtWhichToStoreNewContact,contactToAdd);
         return true;
     }
@@ -132,17 +132,15 @@ public class AddressBook implements  IAddressBook{
         return formatStringForSearch(searchString);
     }
 
-    //Find the index at which to place the next contact to
-    // keep contacts sorted in alphabetical order.
-    private int getIndexAtWhichToStoreNewContact(String name){
-        if(contacts.isEmpty()) return 0;
-        int left = 0, right = contacts.size()-1, i;
-        while(left < right){
-            i = (int)(Math.floor(((double) right - (double) left)/2)) + left;
-            if(contacts.get(i).getName().compareTo(name) >= 0) right = i - 1;
-            else left = i + 1;
-        }
-        return contacts.get(left).getName().compareTo(name) > 0 ? left : left + 1;
+
+
+    //This method determines the index at which a new contact should be inserted in the contacts list.
+    //It uses Java's built-in binary search method from the Collections class to find the correct index.
+    //The binary search algorithm ensures that the contacts list remains sorted in alphabetical order. (Copilot doc)
+    private int getIndexAtWhichToStoreNewContact(IImmutableContact contactToAdd){
+        int index = Collections.binarySearch(contacts, contactToAdd, Comparator.comparing(IImmutableContact::getName));
+        if (index < 0) index = -index - 1;
+        return index;
     }
 
 }

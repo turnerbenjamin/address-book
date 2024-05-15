@@ -65,8 +65,8 @@ public class ConsoleInterface implements IUserInterface {
      * @return user input
      */
     public String getUserInput(String prompt){
-        printMessage(prompt, ANSI_DEFAULT);
-        return scanner.nextLine();
+        System.out.print(prompt);
+        return scanner.nextLine().trim();
     }
 
     /**

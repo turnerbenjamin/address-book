@@ -447,7 +447,6 @@ public class AddressBookTest {
         public void AB44() {
             //Arrange
             IImmutableContact newContact = mock(IImmutableContact.class);
-            when(newContact.getName()).thenReturn(td.VALID_NAME);
             when(newContact.getPhoneNumber()).thenReturn(td.CONTACT_1_PHONE_NUMBER);
             when(newContact.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
             //Act
@@ -461,7 +460,6 @@ public class AddressBookTest {
         public void AB45() {
             //Arrange
             IImmutableContact newContact = mock(IImmutableContact.class);
-            when(newContact.getName()).thenReturn(td.VALID_NAME);
             when(newContact.getPhoneNumber()).thenReturn(td.VALID_EMAIL_ADDRESS);
             when(newContact.getEmailAddress()).thenReturn(td.CONTACT_1_EMAIL_ADDRESS);
             //Act
