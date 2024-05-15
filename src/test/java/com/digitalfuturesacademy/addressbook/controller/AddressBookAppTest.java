@@ -87,7 +87,7 @@ public class AddressBookAppTest {
 
     @DisplayName("Create Contact Tests")
     @Nested
-    class CreateContactTests{
+    class CreateContactTests {
         @Test
         @DisplayName("APP1: Should call add contact, passing a contact object with the correct state")
         public void APP1() {
@@ -103,9 +103,9 @@ public class AddressBookAppTest {
 
             //Assert
             assertAll(
-                    ()->assertEquals(td.VALID_NAME, contactCreated.getName()),
-                    ()->assertEquals(td.VALID_PHONE_NUMBER, contactCreated.getPhoneNumber()),
-                    ()-> assertEquals(td.VALID_EMAIL_ADDRESS, contactCreated.getEmailAddress())
+                    () -> assertEquals(td.VALID_NAME, contactCreated.getName()),
+                    () -> assertEquals(td.VALID_PHONE_NUMBER, contactCreated.getPhoneNumber()),
+                    () -> assertEquals(td.VALID_EMAIL_ADDRESS, contactCreated.getEmailAddress())
             );
         }
 
@@ -119,8 +119,14 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.EMAIL_ADDRESS_WITHOUT_AT_SYMBOL);
             //Act
             testAddressBookApp.run();
-            assertDoesNotThrow(()->testAddressBookApp.run());
+            assertDoesNotThrow(() -> testAddressBookApp.run());
         }
+
+    }
+
+    @DisplayName("Read Contact Tests")
+    @Nested
+    class ReadContactTests {
 
         @Test
         @DisplayName("APP3: Should call printMenu with a 1-based index for keys mapped to usernames as values")
@@ -135,13 +141,13 @@ public class AddressBookAppTest {
             //Act
             testAddressBookApp.run();
             verify(mockUserInterface, times(3)).printMenu(menuCaptor.capture());
-            SortedMap<String,String> mapPassed = menuCaptor.getAllValues().get(1);
+            SortedMap<String, String> mapPassed = menuCaptor.getAllValues().get(1);
 
             assertAll(
-                    ()-> assertTrue(mapPassed.containsKey("1")),
-                    ()-> assertTrue(mapPassed.containsKey("2")),
-                    ()-> assertEquals(mapPassed.get("1"), testContact1.getName()),
-                    ()-> assertEquals(mapPassed.get("2"), testContact2.getName())
+                    () -> assertTrue(mapPassed.containsKey("1")),
+                    () -> assertTrue(mapPassed.containsKey("2")),
+                    () -> assertEquals(mapPassed.get("1"), testContact1.getName()),
+                    () -> assertEquals(mapPassed.get("2"), testContact2.getName())
             );
 
         }
@@ -159,19 +165,24 @@ public class AddressBookAppTest {
 
         }
 
-        @Test
-        @DisplayName("APP5: Should call printContact with the selected contact")
-        public void APP5() {
-            // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);//Act
-            when(mockAddressBook.getContacts()).thenReturn(testContacts);
-            testAddressBookApp.run();
-            //Assert
-            verify(mockUserInterface).printContact(testContact1);
+    }
 
-        }
+    @Test
+    @DisplayName("APP5: Should call printContact with the selected contact")
+    public void APP5() {
+        // Arrange
+        when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);//Act
+        when(mockAddressBook.getContacts()).thenReturn(testContacts);
+        testAddressBookApp.run();
+        //Assert
+        verify(mockUserInterface).printContact(testContact1);
 
+    }
+
+    @DisplayName("Update Contact Tests")
+    @Nested
+    class UpdateContactTests {
         @Test
         @DisplayName("APP6: Should update contact in contacts with correct values")
         public void APP6() {
@@ -205,21 +216,25 @@ public class AddressBookAppTest {
             when(mockAddressBook.replaceContact(any(IImmutableContact.class), any(IImmutableContact.class))).thenThrow(new IllegalArgumentException());
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Assert
-            assertDoesNotThrow(()->testAddressBookApp.run());
+            assertDoesNotThrow(() -> testAddressBookApp.run());
         }
+    }
 
-        @Test
-        @DisplayName("APP8: Should remove contact from contacts")
-        public void APP8() {
-            // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_DELETE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockAddressBook.getContacts()).thenReturn(testContacts);
-            testAddressBookApp.run();
-            //Assert
-            verify(mockAddressBook).deleteContact(testContact1);
-        }
+    @Test
+    @DisplayName("APP8: Should remove contact from contacts")
+    public void APP8() {
+        // Arrange
+        when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_DELETE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
+        when(mockAddressBook.getContacts()).thenReturn(testContacts);
+        testAddressBookApp.run();
+        //Assert
+        verify(mockAddressBook).deleteContact(testContact1);
+    }
 
+    @DisplayName("Search Contacts Tests")
+    @Nested
+    class SearchContactsTests {
         @Test
         @DisplayName("APP9: Should call printMessage with each matching contact's name, prefixed with a 1-based index number and separated by newlines where multiple matches")
         public void APP9() {
@@ -290,4 +305,24 @@ public class AddressBookAppTest {
             verify(mockUserInterface).printErrorMessage(any(String.class));
         }
     }
+
+    @DisplayName("Search Contacts Tests")
+    @Nested
+    class DeleteContactsTests {
+        @Test
+        @DisplayName("APP13-14: Delete all contacts where user confirms deletion")
+        public void APP13_AP14() {
+            // Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+                    .thenReturn(td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockUserInterface).printWarningMessage(any(String.class)); //APP13
+        }
+    }
+
+
 }

@@ -172,9 +172,10 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP12:    Should print error message where search term has no content
 
 #### Run - Delete All Contacts
-- [ ] APP13:	Should print warning message asking to confirm delete all contacts
+- [X] APP13:	Should print warning message asking to confirm delete all contacts
 - [ ] APP14:	Should call delete all contacts if user enters "YES"
 - [ ] APP15:	Should not call delete all contacts if user enters "NO
+- [ ] APP16:	Should print error where there are no contacts to delete
 
 ## ConsoleInterface
 

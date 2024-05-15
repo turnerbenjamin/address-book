@@ -24,6 +24,7 @@ public class AddressBookApp {
         addressBookMenu.put("1", "Add a contact");
         addressBookMenu.put("2", "View all contacts");
         addressBookMenu.put("3", "Search contacts");
+        addressBookMenu.put("4", "Delete all contacts");
         //Initialize contact menu options
         contactMenu.put("1", "Update Contact");
         contactMenu.put("2", "Delete Contact");
@@ -35,7 +36,6 @@ public class AddressBookApp {
         this.userInterface = userInterface;
         this.addressBook = addressBook;
     }
-
 
     /**
      * Runs address book application
@@ -83,6 +83,13 @@ public class AddressBookApp {
         }
         if(contacts.size() == 1) readContactControl(contacts.get(0));
         else contactsMenuControl(contacts);
+    }
+
+    //Controller responsible for delete all contacts option
+    private void deleteAllContactsControl(){
+        userInterface.printWarningMessage("You have selected \"Delete all contacts\". All contact data will be removed from your address book!!");
+        String userInput = userInterface.getUserInput("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\"");
+        addressBook.deleteAllContacts();
     }
 
     //***CONTACTS MENU CONTROLLER
@@ -214,6 +221,7 @@ public class AddressBookApp {
         if(userSelection.equals("1")) createContact();
         if(userSelection.equals("2")) readAllContactsControl();
         if(userSelection.equals("3")) searchContactsControl();
+        if(userSelection.equals("4")) deleteAllContactsControl();
     }
 
     //Mapping for contact menu

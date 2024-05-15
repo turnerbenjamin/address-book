@@ -28,6 +28,5 @@ public class App {
         }catch(Throwable ex){
             userInterface.printErrorMessage("Unexpected error occurred. Exiting application");
         }
-
     }
 }
