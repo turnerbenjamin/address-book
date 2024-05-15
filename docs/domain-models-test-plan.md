@@ -174,8 +174,9 @@ between types and their members can be found in the [class diagram](./class-diag
 #### Run - Delete All Contacts
 - [X] APP13:	Should print warning message asking to confirm delete all contacts
 - [X] APP14:	Should call delete all contacts if user enters "YES"
-- [ ] APP15:	Should not call delete all contacts if user enters "NO
-- [ ] APP16:	Should print error where there are no contacts to delete
+- [X] APP15:	Should not call delete all contacts if user enters "NO"
+- [ ] APP16:	Should re-prompt user for confirmation where invalid input received "YES" or "NO"
+- [ ] APP17:	Should print error where there are no contacts to delete
 
 ## ConsoleInterface
 

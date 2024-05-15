@@ -323,6 +323,20 @@ public class AddressBookAppTest {
             verify(mockUserInterface).printWarningMessage(any(String.class)); //APP13
             verify(mockAddressBook).deleteAllContacts(); //APP14
         }
+
+        @Test
+        @DisplayName("APP15: Delete all contacts where user cancels deletion")
+        public void APP15() {
+            // Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+                    .thenReturn(td.SELECT_CANCEL_DELETE_ALL_CONTACTS);
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockAddressBook,times(0)).deleteAllContacts();
+        }
     }
 
 

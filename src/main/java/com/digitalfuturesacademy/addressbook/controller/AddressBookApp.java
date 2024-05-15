@@ -89,7 +89,7 @@ public class AddressBookApp {
     private void deleteAllContactsControl(){
         userInterface.printWarningMessage("You have selected \"Delete all contacts\". All contact data will be removed from your address book!!");
         String userInput = userInterface.getUserInput("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\"");
-        addressBook.deleteAllContacts();
+        if(userInput.equalsIgnoreCase("YES")) addressBook.deleteAllContacts();
     }
 
     //***CONTACTS MENU CONTROLLER
