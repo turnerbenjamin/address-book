@@ -79,7 +79,7 @@ public class ImmutableContactTest {
         private IImmutableContact originalContact;
         @BeforeEach
         public void setUpWithFieldTests(){
-            originalContact = new ImmutableContact(td.USER_1_NAME, td.USER_1_PHONE_NUMBER, td.USER_1_EMAIL_ADDRESS);
+            originalContact = new ImmutableContact(td.CONTACT_1_NAME, td.CONTACT_1_PHONE_NUMBER, td.CONTACT_1_EMAIL_ADDRESS);
         }
 
         @AfterEach
@@ -91,15 +91,15 @@ public class ImmutableContactTest {
         @DisplayName("IC15, IC16, IC17: Test with name")
         public void IC15_IC16_IC17() {
             //Act
-            IImmutableContact newTestContact = originalContact.withName(td.USER_2_NAME);
+            IImmutableContact newTestContact = originalContact.withName(td.CONTACT_2_NAME);
             //Assert
             assertAll(
-                    () -> assertEquals(td.USER_2_NAME, newTestContact.getName()), //IC15
+                    () -> assertEquals(td.CONTACT_2_NAME, newTestContact.getName()), //IC15
                     ()-> assertAll( //IC16
-                            () -> assertEquals(td.USER_1_PHONE_NUMBER, newTestContact.getPhoneNumber()),
-                            () -> assertEquals(td.USER_1_EMAIL_ADDRESS, newTestContact.getEmailAddress())
+                            () -> assertEquals(td.CONTACT_1_PHONE_NUMBER, newTestContact.getPhoneNumber()),
+                            () -> assertEquals(td.CONTACT_1_EMAIL_ADDRESS, newTestContact.getEmailAddress())
                     ),
-                    () -> assertEquals(td.USER_1_NAME, originalContact.getName()) //IC17
+                    () -> assertEquals(td.CONTACT_1_NAME, originalContact.getName()) //IC17
             );
         }
 
@@ -107,15 +107,15 @@ public class ImmutableContactTest {
         @DisplayName("IC18, IC19, IC20: Test with phone number")
         public void IC18_IC19_IC20() {
             //Act
-            IImmutableContact newTestContact = originalContact.withPhoneNumber(td.USER_2_PHONE_NUMBER);
+            IImmutableContact newTestContact = originalContact.withPhoneNumber(td.CONTACT_2_PHONE_NUMBER);
             //Assert
             assertAll(
-                    () -> assertEquals(td.USER_2_PHONE_NUMBER, newTestContact.getPhoneNumber()), //IC18
+                    () -> assertEquals(td.CONTACT_2_PHONE_NUMBER, newTestContact.getPhoneNumber()), //IC18
                     ()-> assertAll( //IC19
-                            () -> assertEquals(td.USER_1_NAME, newTestContact.getName()),
-                            () -> assertEquals(td.USER_1_EMAIL_ADDRESS, newTestContact.getEmailAddress())
+                            () -> assertEquals(td.CONTACT_1_NAME, newTestContact.getName()),
+                            () -> assertEquals(td.CONTACT_1_EMAIL_ADDRESS, newTestContact.getEmailAddress())
                     ),
-                    () -> assertEquals(td.USER_1_PHONE_NUMBER, originalContact.getPhoneNumber()) //IC20
+                    () -> assertEquals(td.CONTACT_1_PHONE_NUMBER, originalContact.getPhoneNumber()) //IC20
             );
         }
 
@@ -123,15 +123,15 @@ public class ImmutableContactTest {
         @DisplayName("IC21, IC22, IC23: Test with email address")
         public void IC21_IC22_IC23() {
             //Act
-            IImmutableContact newTestContact = originalContact.withEmailAddress(td.USER_2_EMAIL_ADDRESS);
+            IImmutableContact newTestContact = originalContact.withEmailAddress(td.CONTACT_2_EMAIL_ADDRESS);
             //Assert
             assertAll(
-                    () -> assertEquals(td.USER_2_EMAIL_ADDRESS, newTestContact.getEmailAddress()), //IC21
+                    () -> assertEquals(td.CONTACT_2_EMAIL_ADDRESS, newTestContact.getEmailAddress()), //IC21
                     ()-> assertAll( //IC22
-                            () -> assertEquals(td.USER_1_NAME, newTestContact.getName()),
-                            () -> assertEquals(td.USER_1_PHONE_NUMBER, newTestContact.getPhoneNumber())
+                            () -> assertEquals(td.CONTACT_1_NAME, newTestContact.getName()),
+                            () -> assertEquals(td.CONTACT_1_PHONE_NUMBER, newTestContact.getPhoneNumber())
                     ),
-                    () -> assertEquals(td.USER_1_EMAIL_ADDRESS, originalContact.getEmailAddress()) //IC23
+                    () -> assertEquals(td.CONTACT_1_EMAIL_ADDRESS, originalContact.getEmailAddress()) //IC23
             );
         }
     }

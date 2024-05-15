@@ -136,8 +136,8 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
-            when(testContact1.getName()).thenReturn(td.USER_1_NAME);
-            when(testContact2.getName()).thenReturn(td.USER_2_NAME);
+            when(testContact1.getName()).thenReturn(td.CONTACT_1_NAME);
+            when(testContact2.getName()).thenReturn(td.CONTACT_2_NAME);
             //Act
             testAddressBookApp.run();
             verify(mockUserInterface, times(3)).printMenu(menuCaptor.capture());
