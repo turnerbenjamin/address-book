@@ -60,8 +60,11 @@ classDiagram
     }
     IAddressBook <|-- AddressBook
     IImmutableContact <|-- ImmutableContract
+```
 
-    namespace controller {
+```mermaid
+classDiagram
+     namespace controller {
         class AddressBookApp{
             +AddressBookApp(IUserInterface userInterface, IAddressBook addressBook)
             +run() void
@@ -94,8 +97,11 @@ classDiagram
             -validatePhoneNumber(String phoneNumberToCheck) void
         }
     }
+```
 
-    namespace view {
+```mermaid
+classDiagram
+     namespace view {
         class IUserInterface {
             <<Interface>>
             +getUserInput(String prompt) String
@@ -125,8 +131,11 @@ classDiagram
         }
     }
     IUserInterface <|-- ConsoleInterface
+```
 
-namespace utils {
+```mermaid
+classDiagram
+    namespace utils {
     class StringValidation{
         <<final>>
         -String PHONE_NUMBER_VALIDATION_REGEX
@@ -137,7 +146,4 @@ namespace utils {
         +isValidPhoneNumber(String phoneNumberToCheck) boolean
     }
 }
-
-
-
 ```
