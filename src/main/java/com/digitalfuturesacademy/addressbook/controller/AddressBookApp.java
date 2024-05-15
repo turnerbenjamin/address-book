@@ -87,18 +87,10 @@ public class AddressBookApp {
 
     //Controller responsible for delete all contacts option
     private void deleteAllContactsControl(){
-        if(addressBook.getContacts().isEmpty()){
-            userInterface.printErrorMessage("There are no contacts to delete!");
-            return;
-        }
+        if (!confirmThereAreContactsToDelete()) return;
         userInterface.printWarningMessage("You have selected \"Delete all contacts\". All contact data will be removed from your address book!!");
-        String userInput;
-        while(true){
-            userInput = userInterface.getUserInput("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\"");
-            if(userInput == null) continue;
-            if(userInput.equalsIgnoreCase("YES") || userInput.equalsIgnoreCase("NO")) break;
-        }
-        if(userInput.equalsIgnoreCase("YES")) addressBook.deleteAllContacts();
+        boolean hasUserConfirmedDeleteAllContacts = getUserConfirmationForAction("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\"");
+        if(hasUserConfirmedDeleteAllContacts) addressBook.deleteAllContacts();
     }
 
     //***CONTACTS MENU CONTROLLER
@@ -207,6 +199,15 @@ public class AddressBookApp {
         return contactToUpdate.withEmailAddress(updatedEmailAddressInput);
     }
 
+    // ************ DELETE ALL CONTACTS METHODS ************ \\
+    private boolean confirmThereAreContactsToDelete(){
+        if(addressBook.getContacts().isEmpty()){
+            userInterface.printErrorMessage("There are no contacts to delete!");
+            return false;
+        }
+        return true;
+    }
+
     // ************ VALIDATORS ************ \\
     private void validateHasContent(String stringToCheck, String paramName){
         if(!StringValidation.hasContent(stringToCheck))
@@ -249,7 +250,8 @@ public class AddressBookApp {
         return contactsMenu;
     }
 
-    // ************ USER SELECTION HANDLER ************ \\
+    // ************ USER SELECTION HANDLERS ************ \\
+
     //For a given menu, prompts users to provide a valid selection and returns the selection
     //to the calling method
     private String getUserSelectionFrom(Set<String> menu){
@@ -262,5 +264,15 @@ public class AddressBookApp {
         return userInput;
     }
 
-
+    //Checks for a yes or no response to a given prompt to confirm some action.
+    //returns true for "yes" and false for "no". Case-insensitive.
+    private boolean getUserConfirmationForAction(String prompt){
+        String userInput;
+        while(true){
+            userInput = userInterface.getUserInput(prompt);
+            if(userInput == null) continue;
+            if(userInput.equalsIgnoreCase("YES")) return true;
+            if(userInput.equalsIgnoreCase("NO")) return false;
+        }
+    }
 }
