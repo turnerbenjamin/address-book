@@ -84,9 +84,13 @@ public class AddressBook implements  IAddressBook{
         return contactToDelete;
     }
 
+    /**
+     * Deletes all contacts from the address book
+     */
     public void deleteAllContacts(){
         contacts.clear();
         storedPhoneNumbers.clear();
+        storedEmailAddresses.clear();
     }
 
 

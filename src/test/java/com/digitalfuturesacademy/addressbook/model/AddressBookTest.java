@@ -427,7 +427,7 @@ public class AddressBookTest {
 
         @Test
         @DisplayName("AB43: Contacts should be an empty list after deletion")
-        public void AB33() {
+        public void AB43() {
             //Act
             testAddressBook.deleteAllContacts();
             //Assert
@@ -436,7 +436,7 @@ public class AddressBookTest {
 
         @Test
         @DisplayName("AB44: Should add contact where phone number is the same as a contact removed by delete all")
-        public void AB34() {
+        public void AB44() {
             //Arrange
             IImmutableContact newContact = mock(IImmutableContact.class);
             when(newContact.getName()).thenReturn(td.VALID_NAME);
@@ -448,7 +448,18 @@ public class AddressBookTest {
             assertDoesNotThrow(()->testAddressBook.addContact(newContact));
         }
 
+        @Test
+        @DisplayName("AB45: Should add contact where email address is the same as a contact removed by delete all")
+        public void AB45() {
+            //Arrange
+            IImmutableContact newContact = mock(IImmutableContact.class);
+            when(newContact.getName()).thenReturn(td.VALID_NAME);
+            when(newContact.getPhoneNumber()).thenReturn(td.VALID_EMAIL_ADDRESS);
+            when(newContact.getEmailAddress()).thenReturn(td.USER_1_EMAIL_ADDRESS);
+            //Act
+            testAddressBook.deleteAllContacts();
+            //Assert
+            assertDoesNotThrow(()->testAddressBook.addContact(newContact));
+        }
     }
-
-
 }

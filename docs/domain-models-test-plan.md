@@ -83,7 +83,7 @@ between types and their members can be found in the [class diagram](./class-diag
 #### Delete All Contacts
 - [X] AB43:	Contacts should be an empty list after deletion
 - [X] AB44:	Should add contact where phone number is the same as a contact removed by delete all
-- [ ] AB45:	Should add contact where email address is the same as a contact removed by delete all
+- [X] AB45:	Should add contact where email address is the same as a contact removed by delete all
 
 ## ImmutableContract
 
