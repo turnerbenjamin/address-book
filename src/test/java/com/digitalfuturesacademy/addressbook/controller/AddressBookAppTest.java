@@ -337,6 +337,21 @@ public class AddressBookAppTest {
             //Assert
             verify(mockAddressBook,times(0)).deleteAllContacts();
         }
+
+        @Test
+        @DisplayName("Should re-prompt user for confirmation where invalid input received.")
+        public void APP16() {
+            // Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+                    .thenReturn(td.SELECT_INVALID_RESPONSE_FOR_CONFIRMATION_TO_DELETE_ALL_CONTACTS, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockUserInterface,times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
+            verify(mockAddressBook,times(1)).deleteAllContacts();
+        }
     }
 
 

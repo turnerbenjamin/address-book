@@ -40,6 +40,7 @@ public class AddressBookAppTestData extends GeneralTestData{
     //TEST USER INPUT - DELETE ALL CONTACTS
     public final String SELECT_CONFIRM_DELETE_ALL_CONTACTS = "Yes";
     public final String SELECT_CANCEL_DELETE_ALL_CONTACTS = "No";
+    public final String SELECT_INVALID_RESPONSE_FOR_CONFIRMATION_TO_DELETE_ALL_CONTACTS = "x";
 
 
 
