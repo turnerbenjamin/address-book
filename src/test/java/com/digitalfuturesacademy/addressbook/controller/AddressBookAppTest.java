@@ -84,7 +84,6 @@ public class AddressBookAppTest {
         testContacts = null;
     }
 
-
     @DisplayName("Create Contact Tests")
     @Nested
     class CreateContactTests {
@@ -367,6 +366,20 @@ public class AddressBookAppTest {
             //Assert
             verify(mockUserInterface,times(1)).printErrorMessage(any(String.class));
         }
+
+        @Test
+        @DisplayName("APP18: Should re-prompt user for input where invalid top-level menu selection")
+        public void APP18(){
+            //Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_INVALID_INPUT_FOR_TOP_LEVEL_MENU, td.SELECT_EXIT);
+            //Act
+            testAddressBookApp.run();
+            //assert
+            verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
+        }
+
+
     }
 
 

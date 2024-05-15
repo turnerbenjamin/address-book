@@ -29,6 +29,7 @@ public class AddressBookAppTestData extends GeneralTestData{
     public final String SELECT_READ_ALL_CONTACTS = "2";
     public final String SELECT_SEARCH_CONTACTS = "3";
     public final String SELECT_DELETE_ALL_CONTACTS = "4";
+    public final String SELECT_INVALID_INPUT_FOR_TOP_LEVEL_MENU = null;
 
     //TEST USER INPUT - CONTACTS MENU
     public final String SELECT_CONTACT_1 = "1";
@@ -40,7 +41,7 @@ public class AddressBookAppTestData extends GeneralTestData{
     //TEST USER INPUT - DELETE ALL CONTACTS
     public final String SELECT_CONFIRM_DELETE_ALL_CONTACTS = "Yes";
     public final String SELECT_CANCEL_DELETE_ALL_CONTACTS = "No";
-    public final String SELECT_INVALID_RESPONSE_FOR_CONFIRMATION_TO_DELETE_ALL_CONTACTS = "x";
+    public final String SELECT_INVALID_RESPONSE_FOR_CONFIRMATION_TO_DELETE_ALL_CONTACTS = null;
 
 
 

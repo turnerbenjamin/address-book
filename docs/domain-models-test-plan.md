@@ -178,6 +178,9 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP16:	Should re-prompt user for confirmation where invalid input received
 - [X] APP17:	Should print error where there are no contacts to delete
 
+#### Run - Invalid top-level menu selection
+- [X] APP18:	Should re-prompt user for input where invalid top-level menu selection
+
 ## ConsoleInterface
 
 | property | message                                | output  |
