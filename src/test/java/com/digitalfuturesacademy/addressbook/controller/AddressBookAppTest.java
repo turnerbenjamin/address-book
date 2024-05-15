@@ -379,6 +379,12 @@ public class AddressBookAppTest {
             verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
         }
 
+        @Test
+        @DisplayName("APP19-20: Null arguments for dependencies")
+        public void APP19_APP20(){
+            assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(mockUserInterface, null )); //AP19
+        }
+
 
     }
 

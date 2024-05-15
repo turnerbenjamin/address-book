@@ -181,6 +181,10 @@ between types and their members can be found in the [class diagram](./class-diag
 #### Run - Invalid top-level menu selection
 - [X] APP18:	Should re-prompt user for input where invalid top-level menu selection
 
+### Run - Null arguments for dependencies
+- [X] APP19:	Should throw error where address book is null
+- [ ] APP20:	Should throw error where user interface is null
+
 ## ConsoleInterface
 
 | property | message                                | output  |
