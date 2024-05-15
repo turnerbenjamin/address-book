@@ -13,9 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class AddressBookAppTest {
@@ -356,7 +354,7 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
-                    .thenReturn(null, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+                    .thenReturn(td.SELECT_INVALID_INPUT, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
@@ -382,7 +380,7 @@ public class AddressBookAppTest {
         public void APP18(){
             //Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(null, td.SELECT_EXIT);
+                    .thenReturn(td.SELECT_INVALID_INPUT, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
             //assert
@@ -394,6 +392,18 @@ public class AddressBookAppTest {
         public void APP19_APP20(){
             assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(mockUserInterface, null )); //AP19
             assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(null, mockAddressBook )); //AP20
+        }
+
+        @Test
+        @DisplayName("APP23: Should re-prompt user for input where null top-level menu selection")
+        public void APP23(){
+            //Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(null, td.SELECT_EXIT);
+            //Act
+            testAddressBookApp.run();
+            //assert
+            verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
         }
     }
 }

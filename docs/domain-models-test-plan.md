@@ -189,6 +189,9 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP21:	Should handle error when invalid name for new contact
 - [X] APP22:	Should handle error when invalid phone number for new contact
 
+##### Run - Invalid input (COVERAGE ADDITIONS)
+- [X] APP23:	Should re-prompt user for input where null top-level menu selection
+
 ## ConsoleInterface
 
 | property | message                                | output  |
