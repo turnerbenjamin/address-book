@@ -149,7 +149,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Create Contact
 - [X] APP1:   	Should call add contact, passing a contact object with the correct state
-- [X] APP2:	    Should handle error when invalid input for new contact
+- [X] APP2:	    Should handle error when invalid email for new contact
 
 #### Run - Read Contacts
 - [X] APP3:	    Should call printMenu with a 1-based index for keys mapped to usernames as values
@@ -184,6 +184,10 @@ between types and their members can be found in the [class diagram](./class-diag
 ### Run - Null arguments for dependencies
 - [X] APP19:	Should throw error where address book is null
 - [X] APP20:	Should throw error where user interface is null
+
+#### Run - Create Contact (COVERAGE ADDITIONS)
+- [X] APP21:	Should handle error when invalid name for new contact
+- [ ] APP22:	Should handle error when invalid phone number for new contact
 
 ## ConsoleInterface
 

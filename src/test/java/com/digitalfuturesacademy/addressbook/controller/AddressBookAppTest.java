@@ -109,13 +109,23 @@ public class AddressBookAppTest {
         }
 
         @Test
-        @DisplayName("APP2: Should handle error when invalid input for new contact")
+        @DisplayName("APP2: Should handle error when invalid email input for new contact")
         public void APP2() {
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.EMAIL_ADDRESS_WITHOUT_AT_SYMBOL);
+            //Act
+            testAddressBookApp.run();
+            assertDoesNotThrow(() -> testAddressBookApp.run());
+        }
+
+        @Test
+        @DisplayName("APP21: Should handle error when invalid name for new contact")
+        public void APP21() {
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.STRING_WITHOUT_CONTENT);
             //Act
             testAddressBookApp.run();
             assertDoesNotThrow(() -> testAddressBookApp.run());
