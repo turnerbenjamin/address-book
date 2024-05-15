@@ -86,6 +86,7 @@ public class AddressBook implements  IAddressBook{
 
     public void deleteAllContacts(){
         contacts.clear();
+        storedPhoneNumbers.clear();
     }
 
 
