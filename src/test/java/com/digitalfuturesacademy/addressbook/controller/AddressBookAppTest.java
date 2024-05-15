@@ -32,18 +32,14 @@ public class AddressBookAppTest {
     private IImmutableContact testContact2;
     private IImmutableContact updatedContact;
 
-
-
     @Captor
     private ArgumentCaptor<SortedMap<String,String>> menuCaptor;
-
 
     @BeforeEach
     public void setUpTestAddressBookAndMockDependencies(){
         mockUserInterface = mock(IUserInterface.class);
         mockAddressBook = mock(IAddressBook.class);
         testAddressBookApp = new AddressBookApp(mockUserInterface, mockAddressBook);
-
     }
 
     @BeforeEach
@@ -60,8 +56,6 @@ public class AddressBookAppTest {
         testContact2 = mock(IImmutableContact.class);
         testContacts = Arrays.asList(testContact1, testContact2);
     }
-
-
 
     @AfterEach
     public void cleanUpTestAddressBookAndMockDependencies() {
@@ -131,12 +125,21 @@ public class AddressBookAppTest {
             assertDoesNotThrow(() -> testAddressBookApp.run());
         }
 
+        @Test
+        @DisplayName("APP22: Should handle error when invalid phone number for new contact")
+        public void APP22() {
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.PHONE_NUMBER_WITH_INVALID_FIRST_CHAR);
+            //Act
+            testAddressBookApp.run();
+            assertDoesNotThrow(() -> testAddressBookApp.run());
+        }
     }
 
     @DisplayName("Read Contact Tests")
     @Nested
     class ReadContactTests {
-
         @Test
         @DisplayName("APP3: Should call printMenu with a 1-based index for keys mapped to usernames as values")
         public void APP3() {
@@ -151,14 +154,13 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             verify(mockUserInterface, times(3)).printMenu(menuCaptor.capture());
             SortedMap<String, String> mapPassed = menuCaptor.getAllValues().get(1);
-
+            //Assert
             assertAll(
                     () -> assertTrue(mapPassed.containsKey("1")),
                     () -> assertTrue(mapPassed.containsKey("2")),
                     () -> assertEquals(mapPassed.get("1"), testContact1.getName()),
                     () -> assertEquals(mapPassed.get("2"), testContact2.getName())
             );
-
         }
 
         @Test
@@ -171,9 +173,7 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //Assert
             verify(mockUserInterface).printErrorMessage(stringArgumentCaptor.capture());
-
         }
-
     }
 
     @Test
@@ -186,7 +186,6 @@ public class AddressBookAppTest {
         testAddressBookApp.run();
         //Assert
         verify(mockUserInterface).printContact(testContact1);
-
     }
 
     @DisplayName("Update Contact Tests")
@@ -299,6 +298,7 @@ public class AddressBookAppTest {
             //Assert
             verify(mockUserInterface).printErrorMessage(any(String.class));
         }
+
         @Test
         @DisplayName("APP12: Should print error message where search term has no content")
         public void APP12() {
@@ -356,7 +356,7 @@ public class AddressBookAppTest {
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
-                    .thenReturn(td.SELECT_INVALID_RESPONSE_FOR_CONFIRMATION_TO_DELETE_ALL_CONTACTS, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+                    .thenReturn(null, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
@@ -382,7 +382,7 @@ public class AddressBookAppTest {
         public void APP18(){
             //Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
-                    .thenReturn(td.SELECT_INVALID_INPUT_FOR_TOP_LEVEL_MENU, td.SELECT_EXIT);
+                    .thenReturn(null, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
             //assert
@@ -395,9 +395,5 @@ public class AddressBookAppTest {
             assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(mockUserInterface, null )); //AP19
             assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(null, mockAddressBook )); //AP20
         }
-
-
     }
-
-
 }

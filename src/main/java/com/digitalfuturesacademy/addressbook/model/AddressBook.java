@@ -121,8 +121,8 @@ public class AddressBook implements  IAddressBook{
         storedEmailAddresses.remove(contactToDelete.getEmailAddress());
     }
 
-    private String formatStringForSearch(String str){
-        return str.trim().toLowerCase();
+    private String formatStringForSearch(String stringToFormat){
+        return stringToFormat.trim().toLowerCase();
     }
 
     //Joins the searchable fields of a contact in a string used for the search method
@@ -142,7 +142,7 @@ public class AddressBook implements  IAddressBook{
             if(contacts.get(i).getName().compareTo(name) >= 0) right = i - 1;
             else left = i + 1;
         }
-        return contacts.get(left).getName().compareTo(name) > 1 ? left : left + 1;
+        return contacts.get(left).getName().compareTo(name) > 0 ? left : left + 1;
     }
 
 }

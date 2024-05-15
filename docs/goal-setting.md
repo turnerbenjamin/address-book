@@ -62,7 +62,7 @@ as I could step into invoked methods to see where null was coming from.
 No debugging, the tests were very basic and did not require any change in implementation. Note: I did
 run each test with false expected values to ensure that the tests would fail.
 
-## After User Story 8
+## After User Story 9
 Debugging used quite a bit here - For the ConsoleInterface, debugging was used to look at String values
 where ANSI codes used. 
 
@@ -70,7 +70,7 @@ For the AddressBookApp tests debugging was used to fix tests after a loop was ad
 
 I have not had the impulse to log any values to the console for the purposes of debugging. 
 
-## After User Story 9
+## After User Story 10
 Debugging used to understand how ArgumentCaptor from mockito was working. I had expected
 arguments captured to be ordered by method invocation - But they seem to be ordered first by method,
 i.e. arguments passed to the first method verify is used on come first, and then invocation order. 
@@ -78,6 +78,8 @@ i.e. arguments passed to the first method verify is used on come first, and then
 I am more used to using step into and step over correctly. I have not been using step-out but will make
 an effort to use that in the next story.
 
-## After User Stories 10-12
-I became distracted from the goal as I decided to simplify the UI tests. I have continued debugging throughout
-particularly to look at the collection of messages captured. 
+## Later stories
+I stopped taking notes after each user story as it felt unnecessary. I continued using debugging and
+using watch values for all remaining user stories. I feel very confident using the IntelliJ debugger.
+
+The next step will be to use the debugger when writing JS in VSCode.

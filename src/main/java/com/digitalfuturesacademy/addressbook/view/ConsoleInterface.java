@@ -8,10 +8,10 @@ import java.util.SortedMap;
 public class ConsoleInterface implements IUserInterface {
 
     private final Scanner scanner;
-    public static final String ANSI_DEFAULT = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_DEFAULT = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
 
     public ConsoleInterface(Scanner scanner)
     {
@@ -62,7 +62,7 @@ public class ConsoleInterface implements IUserInterface {
      * Get user input from the console
      *
      * @param prompt message to prompt users to input data
-     * @return
+     * @return user input
      */
     public String getUserInput(String prompt){
         printMessage(prompt, ANSI_DEFAULT);

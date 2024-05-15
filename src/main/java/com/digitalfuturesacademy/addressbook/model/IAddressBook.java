@@ -6,6 +6,8 @@ public interface IAddressBook {
 
     boolean addContact(IImmutableContact contactToAdd);
 
+    void deleteAllContacts();
+
     IImmutableContact deleteContact(IImmutableContact contactToDelete);
 
     List<IImmutableContact> getContacts();
@@ -14,6 +16,6 @@ public interface IAddressBook {
 
     List<IImmutableContact> searchContacts(String searchTerm);
 
-    void deleteAllContacts();
+
 
 }

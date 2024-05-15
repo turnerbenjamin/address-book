@@ -89,7 +89,7 @@ public class AddressBookApp {
     private void deleteAllContactsControl(){
         if (!confirmThereAreContactsToDelete()) return;
         userInterface.printWarningMessage("You have selected \"Delete all contacts\". All contact data will be removed from your address book!!");
-        boolean hasUserConfirmedDeleteAllContacts = getUserConfirmationForAction("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\"");
+        boolean hasUserConfirmedDeleteAllContacts = getUserConfirmationForAction();
         if(hasUserConfirmedDeleteAllContacts) addressBook.deleteAllContacts();
     }
 
@@ -214,13 +214,13 @@ public class AddressBookApp {
             throw new IllegalArgumentException(paramName + " must not be empty");
     }
 
-    private void validatePhoneNumber(String phoneNumber){
-        if(!StringValidation.isValidPhoneNumber(phoneNumber))
+    private void validatePhoneNumber(String phoneNumberToCheck){
+        if(!StringValidation.isValidPhoneNumber(phoneNumberToCheck))
             throw new IllegalArgumentException("Phone number must include only digits, other than the first character which may be a `+`!!");
     }
 
-    private void validateEmailAddress(String phoneNumber){
-        if(!StringValidation.isValidEmailAddress(phoneNumber))
+    private void validateEmailAddress(String emailAddressToCheck){
+        if(!StringValidation.isValidEmailAddress(emailAddressToCheck))
             throw new IllegalArgumentException("Email must contain an @ symbol followed by a .domain!!");
     }
 
@@ -266,10 +266,10 @@ public class AddressBookApp {
 
     //Checks for a yes or no response to a given prompt to confirm some action.
     //returns true for "yes" and false for "no". Case-insensitive.
-    private boolean getUserConfirmationForAction(String prompt){
+    private boolean getUserConfirmationForAction(){
         String userInput;
         while(true){
-            userInput = userInterface.getUserInput(prompt);
+            userInput = userInterface.getUserInput("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\"");
             if(userInput == null) continue;
             if(userInput.equalsIgnoreCase("YES")) return true;
             if(userInput.equalsIgnoreCase("NO")) return false;

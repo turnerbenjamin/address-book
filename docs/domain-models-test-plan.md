@@ -187,7 +187,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 #### Run - Create Contact (COVERAGE ADDITIONS)
 - [X] APP21:	Should handle error when invalid name for new contact
-- [ ] APP22:	Should handle error when invalid phone number for new contact
+- [X] APP22:	Should handle error when invalid phone number for new contact
 
 ## ConsoleInterface
 

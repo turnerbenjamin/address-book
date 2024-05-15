@@ -58,23 +58,23 @@ public final class ImmutableContact implements IImmutableContact {
     // ************ PRIVATE METHODS ************ \\
 
     //Checks that the string has content and returns a trimmed copy of the string
-    private String validateString(String string) {
-        if (!StringValidation.hasContent(string))
+    private String validateString(String stringToValidate) {
+        if (!StringValidation.hasContent(stringToValidate))
             throw new IllegalArgumentException("Arguments cannot be null");
-        return string.trim();
+        return stringToValidate.trim();
     }
 
     //Checks that the phone number matches a validation pattern and returns a trimmed copy of the phone number
-    private String validatePhoneNumber(String phoneNumber) {
-        if (!StringValidation.isValidPhoneNumber(validateString(phoneNumber)))
+    private String validatePhoneNumber(String phoneNumberToValidate) {
+        if (!StringValidation.isValidPhoneNumber(validateString(phoneNumberToValidate)))
             throw new IllegalArgumentException("Phone number must include only digits, other than the first character which may be a `+`");
-        return phoneNumber.trim();
+        return phoneNumberToValidate.trim();
     }
 
     //Checks that the email address matches a validation pattern and returns a trimmed copy of the email address
-    private String validateEmailAddress(String emailAddress) {
-        if (!StringValidation.isValidEmailAddress(validateString(emailAddress)))
+    private String validateEmailAddress(String emailAddressToValidate) {
+        if (!StringValidation.isValidEmailAddress(validateString(emailAddressToValidate)))
             throw new IllegalArgumentException("Invalid email, must contain @ symbol and a domain");
-        return emailAddress.trim();
+        return emailAddressToValidate.trim();
     }
 }
