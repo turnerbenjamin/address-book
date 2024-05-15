@@ -1,9 +1,14 @@
 package com.digitalfuturesacademy.addressbook.model;
 
+/**
+ * A data structure to hold state for a contact.
+ *
+ * Implementations of this interface should ensure that
+ * instances are immutable.
+ *
+ * @see ImmutableContact
+ */
 public interface IImmutableContact {
-    /*
-    Implementations should ensure that instances are immutable.
-    */
 
     String getName();
     String getPhoneNumber();

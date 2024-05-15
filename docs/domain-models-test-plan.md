@@ -12,11 +12,12 @@ between types and their members can be found in the [class diagram](./class-diag
 | property                           | message                                                | output                    |
 |------------------------------------|--------------------------------------------------------|---------------------------|
 | contacts @list<@IImmutableContact> | addContact(@IImmutableContact)                         | @boolean                  |
-| emailAddresses @Set<@String>       | deleteAllContacts()                                    | @void                     |
-| phoneNumbers @Set<@String>         | deleteContact(@IImmutableContact)                      | @IImmutableContact        |
+| storedEmailAddresses @Set<@String> | deleteAllContacts()                                    | @void                     |
+| storedPhoneNumbers @Set<@String>   | deleteContact(@IImmutableContact)                      | @IImmutableContact        |
 |                                    | getContacts()                                          | @List<@IImmutableContact> |
 |                                    | replaceContact(@IImmutableContact, @IImmutableContact) | @IImmutableContact        |
 |                                    | searchContacts(@String)                                | List<@IImmutableContact>  |
+|                                    | size()                                                 | int                       |
 
 ### AddressBook Tests
 
@@ -87,15 +88,27 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ## ImmutableContract
 
-| property             | message                                    | output             |
-|----------------------|--------------------------------------------|--------------------|
-| emailAddress @String | ImmutableContact(@String, @String,@String) | @IImmutableContact |
-| name @String         | getName()                                  | @String            |
-| phoneNumber @ String | getPhoneNumber()                           | @String            |
-|                      | getEmailAddress()                          | @String            |
-|                      | withName(@String)                          | @String            |
-|                      | withPhoneNumber(@String)                   | @IImmutableContact |
-|                      | withEmailAddress(@String)                  | @IImmutableContact |
+| property             | message                                   | output             |
+|----------------------|-------------------------------------------|--------------------|
+| emailAddress @String | ImmutableContact(@String,@String,@String) | @IImmutableContact |
+| name @String         | getName()                                 | @String            |
+| phoneNumber @ String | getPhoneNumber()                          | @String            |
+|                      | getEmailAddress()                         | @String            |
+|                      | withName(@String)                         | @IImmutableContact |
+|                      | withPhoneNumber(@String)                  | @IImmutableContact |
+|                      | withEmailAddress(@String)                 | @IImmutableContact |
+
+### ImmutableContract Notes
+
+The AddressBook class performs checks based on the contact's phone number and email address.
+This raised a similar issue to the bank challenge where any checks made when adding the contact
+may be inadvertently subverted if the contact object is mutated. 
+
+I saw two ways to address this issue. The first was a nested class which was problematic in the
+bank challenge. The second, implemented here, was to make the contact object immutable.
+
+I am using interfaces to achieve loose coupling. Immutability is enforced at the interface level
+through documentation only, this appears to be in line with good [practice](https://softwareengineering.stackexchange.com/questions/356429/is-it-reasonable-for-an-interface-to-specify-that-its-implementations-should-be).
 
 ### ImmutableContract Tests
 
@@ -194,15 +207,16 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ## ConsoleInterface
 
-| property | message                                | output  |
-|----------|----------------------------------------|---------|
-|          | getUserInput(@String)                  | @String |
-|          | printErrorMessage(@String)             | @void   |
-|          | printMessage(@String)                  | @void   |
-|          | printSuccessMessage(@String)           | @void   |
-|          | printWarningMessage(@String)           | @void   |
-|          | printContact(@IImmutableContact)       | @void   |
-|          | printMenu(@SortedMap<@String,@String>) | @void   |
+| property             | message                                | output            |
+|----------------------|----------------------------------------|-------------------|
+| scanner @Scanner     | ConsoleInterface(@Scanner)             | @ConsoleInterface |
+| ANSI_DEFAULT @String | getUserInput(@String)                  | @String           |
+| ANSI_GREEN @String   | printErrorMessage(@String)             | @void             |
+| ANSI_RED @String     | printMessage(@String)                  | @void             |
+| ANSI_YELLOW @String  | printSuccessMessage(@String)           | @void             |
+|                      | printWarningMessage(@String)           | @void             |
+|                      | printContact(@IImmutableContact)       | @void             |
+|                      | printMenu(@SortedMap<@String,@String>) | @void             |
 
 ## ConsoleInterface Tests
 
@@ -220,11 +234,11 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ## StringValidation
 
-| property | message                      | output  |
-|----------|------------------------------|---------|
-|          | hasContent(@String)          | @bool   |
-|          | isValidPhoneNumber(@String)  | @bool   |
-|          | isValidEmailAddress(@String) | @bool   |
+| property                               | message                      | output  |
+|----------------------------------------|------------------------------|---------|
+| PHONE_NUMBER_VALIDATION_REGEX @String  | hasContent(@String)          | @bool   |
+| EMAIL_ADDRESS_VALIDATION_REGEX @String | isValidPhoneNumber(@String)  | @bool   |
+|                                        | isValidEmailAddress(@String) | @bool   |
 
 
 ## StringValidation Tests

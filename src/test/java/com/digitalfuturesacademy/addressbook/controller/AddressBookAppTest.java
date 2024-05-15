@@ -344,7 +344,7 @@ public class AddressBookAppTest {
             //Act
             testAddressBookApp.run();
             //Assert
-            verify(mockAddressBook,times(0)).deleteAllContacts();
+            verify(mockAddressBook, times(0)).deleteAllContacts();
         }
 
         @Test
@@ -359,8 +359,8 @@ public class AddressBookAppTest {
             //Act
             testAddressBookApp.run();
             //Assert
-            verify(mockUserInterface,times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
-            verify(mockAddressBook,times(1)).deleteAllContacts();
+            verify(mockUserInterface, times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
+            verify(mockAddressBook, times(1)).deleteAllContacts();
         }
 
         @Test
@@ -372,8 +372,10 @@ public class AddressBookAppTest {
             //Act
             testAddressBookApp.run();
             //Assert
-            verify(mockUserInterface,times(1)).printErrorMessage(any(String.class));
+            verify(mockUserInterface, times(1)).printErrorMessage(any(String.class));
         }
+
+    }
 
         @Test
         @DisplayName("APP18: Should re-prompt user for input where invalid top-level menu selection")
@@ -404,6 +406,6 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //assert
             verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
-        }
+
     }
 }

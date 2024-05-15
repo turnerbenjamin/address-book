@@ -66,6 +66,10 @@ classDiagram
 classDiagram
      namespace controller {
         class AddressBookApp{
+            -IAddressBook addressBook
+            -SortedMap~String, String~ addressBookMenu
+            -SortedMap~String, String~ contactMenu
+            -IUserInterface userInterface
             +AddressBookApp(IUserInterface userInterface, IAddressBook addressBook)
             +run() void
             -confirmThereAreContactsToDelete() boolean
