@@ -306,9 +306,9 @@ public class AddressBookAppTest {
         }
     }
 
-    @DisplayName("Search Contacts Tests")
+    @DisplayName("Delete All Contacts Tests")
     @Nested
-    class DeleteContactsTests {
+    class DeleteAllContactsTests {
         @Test
         @DisplayName("APP13-14: Delete all contacts where user confirms deletion")
         public void APP13_AP14() {
@@ -317,6 +317,7 @@ public class AddressBookAppTest {
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
                     .thenReturn(td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
             //Assert
@@ -332,6 +333,7 @@ public class AddressBookAppTest {
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
                     .thenReturn(td.SELECT_CANCEL_DELETE_ALL_CONTACTS);
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
             //Assert
@@ -339,18 +341,31 @@ public class AddressBookAppTest {
         }
 
         @Test
-        @DisplayName("Should re-prompt user for confirmation where invalid input received.")
+        @DisplayName("APP16: Should re-prompt user for confirmation where invalid input received.")
         public void APP16() {
             // Arrange
             when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
                     .thenReturn(td.SELECT_INVALID_RESPONSE_FOR_CONFIRMATION_TO_DELETE_ALL_CONTACTS, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
             //Assert
             verify(mockUserInterface,times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
             verify(mockAddressBook,times(1)).deleteAllContacts();
+        }
+
+        @Test
+        @DisplayName("APP17: Should print error where there are no contacts to delete.")
+        public void APP17() {
+            // Arrange
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
+            //Act
+            testAddressBookApp.run();
+            //Assert
+            verify(mockUserInterface,times(1)).printErrorMessage(any(String.class));
         }
     }
 

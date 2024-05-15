@@ -176,7 +176,7 @@ between types and their members can be found in the [class diagram](./class-diag
 - [X] APP14:	Should call delete all contacts if user enters "YES"
 - [X] APP15:	Should not call delete all contacts if user enters "NO"
 - [X] APP16:	Should re-prompt user for confirmation where invalid input received
-- [ ] APP17:	Should print error where there are no contacts to delete
+- [X] APP17:	Should print error where there are no contacts to delete
 
 ## ConsoleInterface
 

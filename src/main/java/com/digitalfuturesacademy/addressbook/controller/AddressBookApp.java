@@ -87,6 +87,10 @@ public class AddressBookApp {
 
     //Controller responsible for delete all contacts option
     private void deleteAllContactsControl(){
+        if(addressBook.getContacts().isEmpty()){
+            userInterface.printErrorMessage("There are no contacts to delete!");
+            return;
+        }
         userInterface.printWarningMessage("You have selected \"Delete all contacts\". All contact data will be removed from your address book!!");
         String userInput;
         while(true){
