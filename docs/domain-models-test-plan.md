@@ -183,7 +183,7 @@ between types and their members can be found in the [class diagram](./class-diag
 
 ### Run - Null arguments for dependencies
 - [X] APP19:	Should throw error where address book is null
-- [ ] APP20:	Should throw error where user interface is null
+- [X] APP20:	Should throw error where user interface is null
 
 ## ConsoleInterface
 

@@ -383,6 +383,7 @@ public class AddressBookAppTest {
         @DisplayName("APP19-20: Null arguments for dependencies")
         public void APP19_APP20(){
             assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(mockUserInterface, null )); //AP19
+            assertThrows(IllegalArgumentException.class, ()->new AddressBookApp(null, mockAddressBook )); //AP20
         }
 
 
