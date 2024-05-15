@@ -321,6 +321,7 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //Assert
             verify(mockUserInterface).printWarningMessage(any(String.class)); //APP13
+            verify(mockAddressBook).deleteAllContacts(); //APP14
         }
     }
 
