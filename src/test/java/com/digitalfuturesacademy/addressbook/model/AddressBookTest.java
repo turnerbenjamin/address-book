@@ -468,10 +468,23 @@ public class AddressBookTest {
                     () -> assertEquals(testContactAlphabeticallyBetweenContacts1and2, results.get(0)),
                     () -> assertEquals(testContact2, results.get(1))
             );
-
         }
 
-
+        @Test
+        @DisplayName("AB48: Search term should be trimmed before searching")
+        public void AB48(){
+            //Arrange
+            testAddressBook.addContact(testContact2);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContactAlphabeticallyBetweenContacts1and2);
+            //Act
+             List<IImmutableContact> results = testAddressBook.searchContacts("  " + td.SEARCH_TERM_MATCHING_BOTH_CONTACTS_BY_NAME + "  ");
+            //Assert
+            assertAll(
+                    () -> assertEquals(testContact1, results.get(0)),
+                    () -> assertEquals(testContact2, results.get(1))
+            );
+        }
     }
 
     @DisplayName("Delete All Contacts Tests")

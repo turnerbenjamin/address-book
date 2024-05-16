@@ -89,7 +89,8 @@ classes, and the relationship between these, can be found in the [class diagram]
 #### Additional Sorting Tests (After copilot suggestions)
 - [X] AB46:	Results of search remain in alphabetical order after a contact is updated
 - [X] AB47:	Results of search remain in alphabetical order after a contact is deleted
-- [ ] AB48: Search term should be trimmed before searching
+- [X] AB48: Search term should be trimmed before searching
+- [ ] AB49:	Search should be case-insensitive
 
 
 ## ImmutableContract

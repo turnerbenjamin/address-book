@@ -28,7 +28,7 @@ public class GeneralTestData {
     public final String VALID_EMAIL_ADDRESS = "mulder.fox@fbi.gov";
 
     //ALPHABETICAL SORTING TEST CONTACT
-    public final String CONTACT_ALPHABETICALLY_BETWEEN_CONTACT_1_AND_2_NAME = "Jill Doe";
+    public final String CONTACT_ALPHABETICALLY_BETWEEN_CONTACT_1_AND_2_NAME = "Jill";
 
     //INVALID DATA
     public final String PHONE_NUMBER_WITH_INVALID_FIRST_CHAR = "X441780410545";
