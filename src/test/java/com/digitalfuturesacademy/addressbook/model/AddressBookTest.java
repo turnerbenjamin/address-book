@@ -389,32 +389,71 @@ public class AddressBookTest {
         }
     }
 
-    @Test
-    @DisplayName("AB42: Results of search should be in alphabetical order")
-    public void AB42() {
-        //Arrange
-        IImmutableContact testContactAlphabeticallyBetweenContacts1and2 = mock(IImmutableContact.class);
-        when(testContactAlphabeticallyBetweenContacts1and2.getName()).thenReturn(td.CONTACT_ALPHABETICALLY_BETWEEN_CONTACT_1_AND_2_NAME);
-        when(testContactAlphabeticallyBetweenContacts1and2.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
-        when(testContactAlphabeticallyBetweenContacts1and2.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
-        when(testContact1.getName()).thenReturn(td.CONTACT_1_NAME);
-        when(testContact1.getPhoneNumber()).thenReturn(td.CONTACT_1_PHONE_NUMBER);
-        when(testContact1.getEmailAddress()).thenReturn(td.CONTACT_1_EMAIL_ADDRESS);
-        when(testContact2.getName()).thenReturn(td.CONTACT_2_NAME);
-        when(testContact2.getPhoneNumber()).thenReturn(td.CONTACT_2_PHONE_NUMBER);
-        when(testContact2.getEmailAddress()).thenReturn(td.CONTACT_2_EMAIL_ADDRESS);
+    @DisplayName("View AllContactsTests")
+    @Nested
+    class SortingResults {
+        private IImmutableContact testContactAlphabeticallyBetweenContacts1and2;
 
-        //Act
-        testAddressBook.addContact(testContact2);
-        testAddressBook.addContact(testContact1);
-        testAddressBook.addContact(testContactAlphabeticallyBetweenContacts1and2);
-        List<IImmutableContact> results = testAddressBook.getContacts();
-        //Assert
-        assertAll(
-                ()-> assertEquals(testContact1, results.get(0)),
-                ()-> assertEquals(testContactAlphabeticallyBetweenContacts1and2, results.get(1)),
-                ()-> assertEquals(testContact2, results.get(2))
-        );
+        @BeforeEach
+        public void setUp(){
+            testContactAlphabeticallyBetweenContacts1and2 = mock(IImmutableContact.class);
+            when(testContactAlphabeticallyBetweenContacts1and2.getName()).thenReturn(td.CONTACT_ALPHABETICALLY_BETWEEN_CONTACT_1_AND_2_NAME);
+            when(testContactAlphabeticallyBetweenContacts1and2.getPhoneNumber()).thenReturn(td.VALID_PHONE_NUMBER);
+            when(testContactAlphabeticallyBetweenContacts1and2.getEmailAddress()).thenReturn(td.VALID_EMAIL_ADDRESS);
+            when(testContact1.getName()).thenReturn(td.CONTACT_1_NAME);
+            when(testContact1.getPhoneNumber()).thenReturn(td.CONTACT_1_PHONE_NUMBER);
+            when(testContact1.getEmailAddress()).thenReturn(td.CONTACT_1_EMAIL_ADDRESS);
+            when(testContact2.getName()).thenReturn(td.CONTACT_2_NAME);
+            when(testContact2.getPhoneNumber()).thenReturn(td.CONTACT_2_PHONE_NUMBER);
+            when(testContact2.getEmailAddress()).thenReturn(td.CONTACT_2_EMAIL_ADDRESS);
+        }
+
+        @AfterEach
+        public void cleanUp(){
+            testContactAlphabeticallyBetweenContacts1and2 = null;
+        }
+
+        @Test
+        @DisplayName("AB42: Results of search should be in alphabetical order")
+        public void AB42() {
+            //Act
+            testAddressBook.addContact(testContact2);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContactAlphabeticallyBetweenContacts1and2);
+            List<IImmutableContact> results = testAddressBook.searchContacts("");
+            //Assert
+            assertAll(
+                    () -> assertEquals(testContact1, results.get(0)),
+                    () -> assertEquals(testContactAlphabeticallyBetweenContacts1and2, results.get(1)),
+                    () -> assertEquals(testContact2, results.get(2))
+            );
+        }
+
+        @Test
+        @DisplayName("AB46: Results of search remain in alphabetical order after a contact is updated")
+        public void AB46(){
+            //Arrange
+            testAddressBook.addContact(testContact2);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContactAlphabeticallyBetweenContacts1and2);
+            when(testContact2.getName()).thenReturn("a");
+            when(testContact1.getName()).thenReturn("b");
+            when(testContactAlphabeticallyBetweenContacts1and2.getName()).thenReturn("c");
+            //Act
+            testAddressBook.replaceContact(testContact2,testContact2);
+            testAddressBook.replaceContact(testContact1,testContact1);
+                        testAddressBook.replaceContact(testContactAlphabeticallyBetweenContacts1and2,testContactAlphabeticallyBetweenContacts1and2);
+             List<IImmutableContact> results = testAddressBook.searchContacts("");
+            //Assert
+            assertAll(
+                    () -> assertEquals(testContact2, results.get(0)),
+                    () -> assertEquals(testContact1, results.get(1)),
+                    () -> assertEquals(testContactAlphabeticallyBetweenContacts1and2, results.get(2))
+            );
+
+        }
+
+
     }
 
     @DisplayName("Delete All Contacts Tests")
