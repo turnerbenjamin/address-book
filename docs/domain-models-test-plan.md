@@ -211,6 +211,7 @@ through documentation only, this appears to be in line with good [practice](http
 
 ##### Run - Invalid input (COVERAGE ADDITIONS)
 - [X] APP23:	Should re-prompt user for input where null top-level menu selection
+- [X] APP24:	Should re-prompt user for input where null confirm delete all selection
 
 ## ConsoleInterface
 

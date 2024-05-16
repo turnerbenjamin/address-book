@@ -406,6 +406,20 @@ public class AddressBookAppTest {
             testAddressBookApp.run();
             //assert
             verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
+    }
 
+        @Test
+        @DisplayName("APP24: Should re-prompt user for input where null confirm delete all selection")
+        public void APP24(){
+            //Arrange
+            when(mockAddressBook.getContacts()).thenReturn(testContacts);
+            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+                    .thenReturn(td.SELECT_DELETE_ALL_CONTACTS,td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+                    .thenReturn(null, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
+            //Act
+            testAddressBookApp.run();
+            //assert
+            verify(mockUserInterface,times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
     }
 }
