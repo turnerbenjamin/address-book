@@ -29,7 +29,7 @@ classDiagram
             -checkHasUniquePhoneNumber(IImmutableContact contactToCheck) void
             -formatStringForSearch(String stringToFormat) String
             -getContactSearchString(IImmutableContact contact) String
-            -getIndexAtWhichToStoreNewContact(String name) int
+            -getIndexAtWhichToStoreNewContact(IImmutableContact contactToAdd) int
             -removeContactDetailsFromStoredPhoneNumbersAndEmailAddresses(IImmutableContact contactToDelete) void
         }
         class IImmutableContact {
@@ -72,6 +72,8 @@ classDiagram
             -IUserInterface userInterface
             +AddressBookApp(IUserInterface userInterface, IAddressBook addressBook)
             +run() void
+            -checkIfReadContactsEmpty(List~IImmutableContact~ contacts) boolean
+            -checkIfReadContactsSingle(List~IImmutableContact~ contacts) boolean
             -confirmThereAreContactsToDelete() boolean
             -contactMenuControl(IImmutableContact selectedContact) void
             -contactsMenuControl(List~IImmutableContact~ contacts) void

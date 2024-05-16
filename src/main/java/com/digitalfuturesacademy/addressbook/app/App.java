@@ -20,9 +20,9 @@ public class App {
         //Initialise demo data
         addressBook.addContact(new ImmutableContact("Broderick Nielsen", "+441270138662", "broderick@gmail.com"));
         addressBook.addContact(new ImmutableContact("Annie Carr", "+441700142026", "Annie@aol.co.uk"));
-        addressBook.addContact(new ImmutableContact("Jesse Maxwell", "+445548597325", "Jesse@gmail.com"));
+        addressBook.addContact(new ImmutableContact("Jesse Maxwell", "05548597325", "Jesse@gmail.com"));
         addressBook.addContact(new ImmutableContact("Brandy Santiago", "+441330111865", "Brandy@me.com"));
-        addressBook.addContact(new ImmutableContact("Lizzie Mckee", "+441832381003", "Lizzie@me.com"));
+        addressBook.addContact(new ImmutableContact("Lizzie Carr", "01832381003", "Lizzie@me.com"));
 
         //Run program
         try{
