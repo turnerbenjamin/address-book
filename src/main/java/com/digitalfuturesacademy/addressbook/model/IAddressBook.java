@@ -16,6 +16,4 @@ public interface IAddressBook {
 
     List<IImmutableContact> searchContacts(String searchTerm);
 
-
-
 }

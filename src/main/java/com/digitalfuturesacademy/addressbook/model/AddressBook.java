@@ -34,8 +34,7 @@ public class AddressBook implements  IAddressBook{
         if(contactToAdd == null) throw new IllegalArgumentException("Contact to add cannot be null");
         checkHasUniqueContactDetails(contactToAdd);
         addContactDetailsToStoredPhoneNumbersAndEmailAddresses(contactToAdd);
-        int indexAtWhichToStoreNewContact = getIndexAtWhichToStoreNewContact(contactToAdd);
-        contacts.add(indexAtWhichToStoreNewContact,contactToAdd);
+        contacts.add(getIndexAtWhichToStoreNewContact(contactToAdd),contactToAdd);
         return true;
     }
 
@@ -93,7 +92,6 @@ public class AddressBook implements  IAddressBook{
         storedEmailAddresses.clear();
     }
 
-
     // ************ PRIVATE METHODS ************ \\
 
     private void checkHasUniqueContactDetails(IImmutableContact contactToCheck){
@@ -131,8 +129,6 @@ public class AddressBook implements  IAddressBook{
         String searchString = contact.getName() + fieldSeparator + contact.getPhoneNumber() + fieldSeparator + contact.getEmailAddress();
         return formatStringForSearch(searchString);
     }
-
-
 
     //This method determines the index at which a new contact should be inserted in the contacts list.
     //It uses Java's built-in binary search method from the Collections class to find the correct index.

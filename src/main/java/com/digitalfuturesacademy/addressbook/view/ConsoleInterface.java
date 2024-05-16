@@ -110,8 +110,4 @@ public class ConsoleInterface implements IUserInterface {
         String formattedMessage = AnsiColor + message + ANSI_DEFAULT;
         System.out.println(formattedMessage);
     }
-
-
-
-
 }
