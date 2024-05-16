@@ -90,7 +90,7 @@ classes, and the relationship between these, can be found in the [class diagram]
 - [X] AB46:	Results of search remain in alphabetical order after a contact is updated
 - [X] AB47:	Results of search remain in alphabetical order after a contact is deleted
 - [X] AB48: Search term should be trimmed before searching
-- [ ] AB49:	Search should be case-insensitive
+- [X] AB49:	Search should be case-insensitive
 
 
 ## ImmutableContract
