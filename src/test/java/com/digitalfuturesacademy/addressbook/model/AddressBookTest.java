@@ -453,6 +453,24 @@ public class AddressBookTest {
 
         }
 
+        @Test
+        @DisplayName("AB47: Results of search remain in alphabetical order after a contact is deleted")
+        public void AB47(){
+            //Arrange
+            testAddressBook.addContact(testContact2);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContactAlphabeticallyBetweenContacts1and2);
+            //Act
+            testAddressBook.deleteContact(testContact1);
+             List<IImmutableContact> results = testAddressBook.searchContacts("");
+            //Assert
+            assertAll(
+                    () -> assertEquals(testContactAlphabeticallyBetweenContacts1and2, results.get(0)),
+                    () -> assertEquals(testContact2, results.get(1))
+            );
+
+        }
+
 
     }
 
