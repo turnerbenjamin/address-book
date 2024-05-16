@@ -154,14 +154,7 @@ In the corner case test, we are testing the scenario where the contacts have nam
 
 ## AI to debug, refactor and analyse the efficiency of code
 
-I did not plan to use generative AI until I had completed both the core and additional requirements. This was because
-this is my first attempt at a Java application and I enjoyed the experience. 
-
-The one exception was when debugging a method written for the requirement that results be sorted. I was excited to write
-this method as I had taken a course on sorting algorithms last year and saw this as an opportunity to apply that
-knowledge. However, the code was not working properly and debugging was slow, so I asked chatGPT.
-
-### Step 1: Debugging
+Debugging a method relating to the sorted results requirement
 
 [Screenshot](./images/gen-ai-debugging.PNG)
 
@@ -170,11 +163,7 @@ knowledge. However, the code was not working properly and debugging was slow, so
 Here, I am hoping to use a single chat for both efficiency analysis and refactoring requirements. The question
 I asked related to efficiency, but the response was mostly useful for refactoring.
 
-The AI response was great - I think the code it provided has the same computational efficiency
-as my original method - However, it is far cleaner; it is for this reason, rather than efficiency
-that I decided to implement it.
-
-The original method, as debugged, for reference:
+The original method, as debugged in the last section, for reference:
 
 ```java
     private int getIndexAtWhichToStoreNewContact(String name){
