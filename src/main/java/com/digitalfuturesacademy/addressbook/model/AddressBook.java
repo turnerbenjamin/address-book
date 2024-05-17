@@ -134,7 +134,7 @@ public class AddressBook implements  IAddressBook{
     //It uses Java's built-in binary search method from the Collections class to find the correct index.
     //The binary search algorithm ensures that the contacts list remains sorted in alphabetical order. (Copilot doc)
     private int getIndexAtWhichToStoreNewContact(IImmutableContact contactToAdd){
-        int index = Collections.binarySearch(contacts, contactToAdd, Comparator.comparing(IImmutableContact::getName));
+        int index = Collections.binarySearch(contacts, contactToAdd, Comparator.comparing(IImmutableContact::getName, String.CASE_INSENSITIVE_ORDER));
         if (index < 0) index = -index - 1;
         return index;
     }

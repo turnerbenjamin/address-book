@@ -501,6 +501,24 @@ public class AddressBookTest {
                     () -> assertEquals(testContact2, results.get(1))
             );
         }
+
+        @Test
+        @DisplayName("AB50: Sorting should be case-insensitive")
+        public void AB50(){
+            //Arrange
+            when(testContactAlphabeticallyBetweenContacts1and2.getName()).thenReturn(td.CONTACT_ALPHABETICALLY_BETWEEN_CONTACT_1_AND_2_NAME.toLowerCase());
+            testAddressBook.addContact(testContact2);
+            testAddressBook.addContact(testContact1);
+            testAddressBook.addContact(testContactAlphabeticallyBetweenContacts1and2);
+            //Act
+             List<IImmutableContact> results = testAddressBook.searchContacts("");
+            //Assert
+            assertAll(
+                    () -> assertEquals(testContact1, results.get(0)),
+                    () -> assertEquals(testContactAlphabeticallyBetweenContacts1and2, results.get(1)),
+                    () -> assertEquals(testContact2, results.get(2))
+            );
+        }
     }
 
     @DisplayName("Delete All Contacts Tests")
