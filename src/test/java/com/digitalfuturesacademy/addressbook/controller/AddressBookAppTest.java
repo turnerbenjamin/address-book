@@ -5,6 +5,7 @@ import com.digitalfuturesacademy.addressbook.model.IAddressBook;
 import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.testdata.AddressBookAppTestData;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
+import com.digitalfuturesacademy.addressbook.utils.UserPrompt;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -82,10 +83,10 @@ public class AddressBookAppTest {
         @Test
         @DisplayName("APP1: Should call add contact, passing a contact object with the correct state")
         public void APP1() {
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.VALID_EMAIL_ADDRESS);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_NAME.label)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_PHONE_NUMBER.label)).thenReturn(td.VALID_PHONE_NUMBER);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_EMAIL_ADDRESS.label)).thenReturn(td.VALID_EMAIL_ADDRESS);
 
             //Act
             testAddressBookApp.run();
@@ -104,10 +105,10 @@ public class AddressBookAppTest {
         @DisplayName("APP2: Should handle error when invalid email input for new contact")
         public void APP2() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_ADD_CONTACT)).thenReturn(td.EMAIL_ADDRESS_WITHOUT_AT_SYMBOL);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_NAME.label)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_PHONE_NUMBER.label)).thenReturn(td.VALID_PHONE_NUMBER);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_EMAIL_ADDRESS.label)).thenReturn(td.EMAIL_ADDRESS_WITHOUT_AT_SYMBOL);
             //Act
             testAddressBookApp.run();
             assertDoesNotThrow(() -> testAddressBookApp.run());
@@ -116,8 +117,8 @@ public class AddressBookAppTest {
         @Test
         @DisplayName("APP21: Should handle error when invalid name for new contact")
         public void APP21() {
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.STRING_WITHOUT_CONTENT);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_NAME.label)).thenReturn(td.STRING_WITHOUT_CONTENT);
             //Act
             testAddressBookApp.run();
             assertDoesNotThrow(() -> testAddressBookApp.run());
@@ -126,9 +127,9 @@ public class AddressBookAppTest {
         @Test
         @DisplayName("APP22: Should handle error when invalid phone number for new contact")
         public void APP22() {
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_ADD_CONTACT)).thenReturn(td.VALID_NAME);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_ADD_CONTACT)).thenReturn(td.PHONE_NUMBER_WITH_INVALID_FIRST_CHAR);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label)).thenReturn(td.SELECT_ADD_CONTACT, td.SELECT_EXIT);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_NAME.label)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_PHONE_NUMBER.label)).thenReturn(td.PHONE_NUMBER_WITH_INVALID_FIRST_CHAR);
             //Act
             testAddressBookApp.run();
             assertDoesNotThrow(() -> testAddressBookApp.run());
@@ -143,7 +144,7 @@ public class AddressBookAppTest {
         public void APP3() {
 
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             when(testContact1.getName()).thenReturn(td.CONTACT_1_NAME);
@@ -165,7 +166,7 @@ public class AddressBookAppTest {
         @DisplayName("APP4: Should print error message where no contact's found")
         public void APP4() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
@@ -178,7 +179,7 @@ public class AddressBookAppTest {
     @DisplayName("APP5: Should call printContact with the selected contact")
     public void APP5() {
         // Arrange
-        when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+        when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                 .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_EXIT, td.SELECT_EXIT);//Act
         when(mockAddressBook.getContacts()).thenReturn(testContacts);
         testAddressBookApp.run();
@@ -194,11 +195,11 @@ public class AddressBookAppTest {
         public void APP6() {
             // Arrange
             IImmutableContact contactToUpdate = testContacts.get(0);
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_UPDATE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_NAME_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_NAME);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_PHONE_NUMBER_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_PHONE_NUMBER);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_PROVIDE_EMAIL_ADDRESS_FOR_UPDATE_CONTACT)).thenReturn(td.VALID_EMAIL_ADDRESS);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_UPDATE_CONTACT_NAME.label)).thenReturn(td.VALID_NAME);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_UPDATE_CONTACT_PHONE_NUMBER.label)).thenReturn(td.VALID_PHONE_NUMBER);
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_UPDATE_CONTACT_EMAIL_ADDRESS.label)).thenReturn(td.VALID_EMAIL_ADDRESS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             when(contactToUpdate.withName(any(String.class))).thenReturn(updatedContact);
             when(updatedContact.withPhoneNumber(any(String.class))).thenReturn(updatedContact);
@@ -217,7 +218,7 @@ public class AddressBookAppTest {
         @DisplayName("APP7: Should handle error when invalid input for contact updates")
         public void APP7() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_UPDATE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
             when(mockAddressBook.replaceContact(any(IImmutableContact.class), any(IImmutableContact.class))).thenThrow(new IllegalArgumentException());
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
@@ -230,7 +231,7 @@ public class AddressBookAppTest {
     @DisplayName("APP8: Should remove contact from contacts")
     public void APP8() {
         // Arrange
-        when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+        when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                 .thenReturn(td.SELECT_READ_ALL_CONTACTS, td.SELECT_CONTACT_1, td.SELECT_DELETE_CONTACT, td.SELECT_EXIT, td.SELECT_EXIT);
         when(mockAddressBook.getContacts()).thenReturn(testContacts);
         testAddressBookApp.run();
@@ -246,9 +247,9 @@ public class AddressBookAppTest {
         public void APP9() {
             // Arrange
             String searchTerm = "searchTerm";
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SEARCH_TERM.label))
                     .thenReturn(searchTerm);
             when(mockAddressBook.searchContacts(searchTerm)).thenReturn(testContacts);
             //Act
@@ -270,9 +271,9 @@ public class AddressBookAppTest {
         public void APP10() {
             // Arrange
             String searchTerm = "searchTerm";
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SEARCH_TERM.label))
                     .thenReturn(searchTerm);
             when(mockAddressBook.searchContacts(searchTerm)).thenReturn(Collections.singletonList(testContact1));
             //Act
@@ -286,9 +287,9 @@ public class AddressBookAppTest {
         public void APP11() {
             // Arrange
             String searchTerm = "searchTerm";
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SEARCH_TERM.label))
                     .thenReturn(searchTerm);
             when(mockAddressBook.searchContacts(searchTerm)).thenReturn(new ArrayList<>());
             //Act
@@ -302,9 +303,9 @@ public class AddressBookAppTest {
         public void APP12() {
             // Arrange
             String searchTerm = "  ";
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_SEARCH_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_TYPE_SEARCH_TERM))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SEARCH_TERM.label))
                     .thenReturn(searchTerm);
             //Act
             testAddressBookApp.run();
@@ -320,9 +321,9 @@ public class AddressBookAppTest {
         @DisplayName("APP13-14: Delete all contacts where user confirms deletion")
         public void APP13_AP14() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label))
                     .thenReturn(td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
@@ -336,9 +337,9 @@ public class AddressBookAppTest {
         @DisplayName("APP15: Delete all contacts where user cancels deletion")
         public void APP15() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label))
                     .thenReturn(td.SELECT_CANCEL_DELETE_ALL_CONTACTS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
@@ -351,15 +352,15 @@ public class AddressBookAppTest {
         @DisplayName("APP16: Should re-prompt user for confirmation where invalid input received.")
         public void APP16() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label))
                     .thenReturn(td.SELECT_INVALID_INPUT, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
             //Act
             testAddressBookApp.run();
             //Assert
-            verify(mockUserInterface, times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
+            verify(mockUserInterface, times(2)).getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label);
             verify(mockAddressBook, times(1)).deleteAllContacts();
         }
 
@@ -367,7 +368,7 @@ public class AddressBookAppTest {
         @DisplayName("APP17: Should print error where there are no contacts to delete.")
         public void APP17() {
             // Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS, td.SELECT_EXIT, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
@@ -381,12 +382,12 @@ public class AddressBookAppTest {
         @DisplayName("APP18: Should re-prompt user for input where invalid top-level menu selection")
         public void APP18(){
             //Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_INVALID_INPUT, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
             //assert
-            verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
+            verify(mockUserInterface,times(2)).getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label);
         }
 
         @Test
@@ -400,12 +401,12 @@ public class AddressBookAppTest {
         @DisplayName("APP23: Should re-prompt user for input where null top-level menu selection")
         public void APP23(){
             //Arrange
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(null, td.SELECT_EXIT);
             //Act
             testAddressBookApp.run();
             //assert
-            verify(mockUserInterface,times(2)).getUserInput(td.FOR_SELECT_FROM_MENU);
+            verify(mockUserInterface,times(2)).getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label);
     }
 
         @Test
@@ -413,13 +414,13 @@ public class AddressBookAppTest {
         public void APP24(){
             //Arrange
             when(mockAddressBook.getContacts()).thenReturn(testContacts);
-            when(mockUserInterface.getUserInput(td.FOR_SELECT_FROM_MENU))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label))
                     .thenReturn(td.SELECT_DELETE_ALL_CONTACTS,td.SELECT_EXIT);
-            when(mockUserInterface.getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS))
+            when(mockUserInterface.getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label))
                     .thenReturn(null, td.SELECT_CONFIRM_DELETE_ALL_CONTACTS);
             //Act
             testAddressBookApp.run();
             //assert
-            verify(mockUserInterface,times(2)).getUserInput(td.FOR_PROMPT_TO_CONFIRM_DELETE_ALL_CONTACTS);
+            verify(mockUserInterface,times(2)).getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label);
     }
 }

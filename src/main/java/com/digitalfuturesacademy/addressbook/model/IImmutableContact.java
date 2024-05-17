@@ -2,7 +2,6 @@ package com.digitalfuturesacademy.addressbook.model;
 
 /**
  * A data structure to hold state for a contact.
- *
  * Implementations of this interface should ensure that
  * instances are immutable.
  *

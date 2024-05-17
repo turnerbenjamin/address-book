@@ -5,6 +5,7 @@ import com.digitalfuturesacademy.addressbook.model.IImmutableContact;
 import com.digitalfuturesacademy.addressbook.model.ImmutableContact;
 import com.digitalfuturesacademy.addressbook.utils.StringValidation;
 import com.digitalfuturesacademy.addressbook.view.IUserInterface;
+import com.digitalfuturesacademy.addressbook.utils.UserPrompt;
 
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,7 @@ public class AddressBookApp {
     private final IAddressBook addressBook;
     private final SortedMap<String, String> addressBookMenu = new TreeMap<>();
     private final SortedMap<String, String> contactMenu = new TreeMap<>();
+
 
     //Menu initializer
     {
@@ -44,6 +46,7 @@ public class AddressBookApp {
         topLevelMenuControl();
     }
 
+
     // ************ CONTROLLERS ************ \\
 
     //*** TOP-LEVEL MENU CONTROLLERS
@@ -66,7 +69,7 @@ public class AddressBookApp {
 
     //Controls application flow for search contacts
     private void searchContactsControl(){
-        String searchTerm = userInterface.getUserInput("Search by name, phone number or email address:\t");
+        String searchTerm = userInterface.getUserInput(UserPrompt.FOR_SEARCH_TERM.label);
         if(!StringValidation.hasContent(searchTerm)){
             userInterface.printErrorMessage("Search term cannot be empty");
             return;
@@ -151,20 +154,20 @@ public class AddressBookApp {
     }
 
     private String getNameForNewContact(){
-        String nameInput = userInterface.getUserInput("Enter the contact's name:\t");
+        String nameInput = userInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_NAME.label);
         validateHasContent(nameInput, "Name");
         return nameInput;
     }
 
     private String getPhoneNumberForNewContact(){
-        String phoneNumberInput = userInterface.getUserInput("Enter the contact's phone number:\t");
+        String phoneNumberInput = userInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_PHONE_NUMBER.label);
         validateHasContent(phoneNumberInput, "Phone number");
         validatePhoneNumber(phoneNumberInput);
         return phoneNumberInput;
     }
 
     private String getEmailAddressForNewContact(){
-        String emailAddressInput = userInterface.getUserInput("Enter the contact's email address:\t");
+        String emailAddressInput = userInterface.getUserInput(UserPrompt.FOR_NEW_CONTACT_EMAIL_ADDRESS.label);
         validateHasContent(emailAddressInput, "Email address");
         validateEmailAddress(emailAddressInput);
         return emailAddressInput;
@@ -180,20 +183,20 @@ public class AddressBookApp {
     }
 
     private IImmutableContact updateContactName(IImmutableContact contactToUpdate){
-        String updatedNameInput = userInterface.getUserInput("Enter new name, or press enter to keep current name:\t");
+        String updatedNameInput = userInterface.getUserInput(UserPrompt.FOR_UPDATE_CONTACT_NAME.label);
         if(!StringValidation.hasContent(updatedNameInput)) return contactToUpdate;
         return contactToUpdate.withName(updatedNameInput);
     }
 
     private IImmutableContact updateContactPhoneNumber(IImmutableContact contactToUpdate){
-        String updatedPhoneNumberInput = userInterface.getUserInput("Enter new phone number, or press enter to keep current phone number:\t");
+        String updatedPhoneNumberInput = userInterface.getUserInput(UserPrompt.FOR_UPDATE_CONTACT_PHONE_NUMBER.label);
         if(!StringValidation.hasContent(updatedPhoneNumberInput)) return contactToUpdate;
         validatePhoneNumber(updatedPhoneNumberInput);
         return contactToUpdate.withPhoneNumber(updatedPhoneNumberInput);
     }
 
     private IImmutableContact updateContactEmailAddress(IImmutableContact contactToUpdate){
-        String updatedEmailAddressInput = userInterface.getUserInput("Enter new email address, or press enter to keep current email address:\t");
+        String updatedEmailAddressInput = userInterface.getUserInput(UserPrompt.FOR_UPDATE_CONTACT_EMAIL_ADDRESS.label);
         if(!StringValidation.hasContent(updatedEmailAddressInput)) return contactToUpdate;
         validateEmailAddress(updatedEmailAddressInput);
         return contactToUpdate.withEmailAddress(updatedEmailAddressInput);
@@ -284,7 +287,7 @@ public class AddressBookApp {
     private String getUserSelectionFrom(Set<String> menu){
         String userInput;
         while(true){
-            userInput = userInterface.getUserInput("Select an option by number or 'e' to exit:\t");
+            userInput = userInterface.getUserInput(UserPrompt.FOR_SELECT_FROM_MENU.label);
             if(userInput != null && (menu.contains(userInput) || userInput.equalsIgnoreCase("e"))) break;
             userInterface.printErrorMessage("Invalid selection!");
         }
@@ -296,7 +299,7 @@ public class AddressBookApp {
     private boolean getUserConfirmationForAction(){
         String userInput;
         while(true){
-            userInput = userInterface.getUserInput("Are you sure you want to delete all contacts? Type either \"YES\" or \"NO\":\t");
+            userInput = userInterface.getUserInput(UserPrompt.FOR_CONFIRM_DELETE_ALL_CONTACTS.label);
             if(userInput == null) continue;
             if(userInput.equalsIgnoreCase("YES")) return true;
             if(userInput.equalsIgnoreCase("NO")) return false;
